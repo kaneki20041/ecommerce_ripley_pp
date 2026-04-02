@@ -1,0 +1,211 @@
+<div class="about-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">Nuestra Historia</h1>
+      <p class="hero-subtitle">
+        Más de 15 años vistiendo a las familias peruanas con calidad, estilo y compromiso
+      </p>
+    </div>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section class="mission-vision-section">
+    <div class="container">
+      <div class="mission-vision-grid">
+        <div class="card mission-card">
+          <div class="card-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path
+                d="M12 2L2 7L12 12L22 7L12 2Z"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M2 17L12 22L22 17"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M2 12L12 17L22 12"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <h2 class="card-title">Nuestra Misión</h2>
+          <p class="card-text">
+            Proporcionar prendas textiles de alta calidad que acompañen a estudiantes y familias en
+            cada etapa de su desarrollo, ofreciendo productos duraderos, cómodos y accesibles que
+            reflejen nuestro compromiso con la excelencia y el servicio al cliente.
+          </p>
+        </div>
+
+        <div class="card vision-card">
+          <div class="card-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="10" stroke-width="2" />
+              <path d="M12 6V12L16 14" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </div>
+          <h2 class="card-title">Nuestra Visión</h2>
+          <p class="card-text">
+            Ser la empresa líder en el sector textil escolar y deportivo del Perú, reconocida por
+            nuestra innovación, calidad excepcional y compromiso con la comunidad, expandiendo
+            nuestra presencia a nivel nacional y contribuyendo al desarrollo educativo del país.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section class="timeline-section">
+    <div class="container">
+      <h2 class="section-title">Nuestro Camino</h2>
+      <p class="section-subtitle">Un viaje de crecimiento y compromiso constante</p>
+
+      <div class="timeline">
+        @for (item of timeline; track item; let i = $index) {
+          <div class="timeline-item" [class.timeline-item-right]="i % 2 !== 0">
+            <div class="timeline-content">
+              <div class="timeline-year">{{ item.year }}</div>
+              <h3 class="timeline-title">{{ item.title }}</h3>
+              <p class="timeline-description">{{ item.description }}</p>
+            </div>
+            <div class="timeline-dot"></div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="values-section">
+    <div class="container">
+      <h2 class="section-title">Nuestros Valores</h2>
+      <p class="section-subtitle">Los principios que nos guían cada día</p>
+
+      <div class="values-grid">
+        @for (value of values; track value) {
+          <div class="value-card">
+            <div class="value-icon">
+              @if (value.icon === 'quality') {
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path
+                    d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                    stroke-width="2"
+                  />
+                </svg>
+              }
+              @if (value.icon === 'price') {
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="12" cy="12" r="10" stroke-width="2" />
+                  <path
+                    d="M12 6V12M12 12V18M12 12H16M12 12H8"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              }
+              @if (value.icon === 'service') {
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path
+                    d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21"
+                    stroke-width="2"
+                  />
+                  <circle cx="9" cy="7" r="4" stroke-width="2" />
+                  <path
+                    d="M23 21V19C23 18.1645 22.7111 17.3879 22.2239 16.7699M16 3.12988C17.7699 3.85586 19 5.60932 19 7.5C19 9.39068 17.7699 11.1441 16 11.8701"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              }
+              @if (value.icon === 'sustainable') {
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path
+                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                    stroke-width="2"
+                  />
+                  <path d="M12 6V12L16 14" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              }
+            </div>
+            <h3 class="value-title">{{ value.title }}</h3>
+            <p class="value-description">{{ value.description }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        @for (stat of stats; track stat) {
+          <div class="stat-item">
+            <div class="stat-number">{{ stat.number }}</div>
+            <div class="stat-label">{{ stat.label }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section class="team-section">
+    <div class="container">
+      <h2 class="section-title">Nuestro Equipo</h2>
+      <p class="section-subtitle">Conoce a las personas que hacen posible nuestra misión</p>
+
+      <div class="team-grid">
+        @for (member of team; track member) {
+          <div class="team-card">
+            <div class="team-image">
+              <img [src]="member.image" [alt]="member.name" />
+              <div class="team-overlay">
+                <p class="team-bio">{{ member.bio }}</p>
+              </div>
+            </div>
+            <div class="team-info">
+              <h3 class="team-name">{{ member.name }}</h3>
+              <p class="team-position">{{ member.position }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2 class="cta-title">¿Listo para formar parte de nuestra historia?</h2>
+        <p class="cta-text">
+          Descubre nuestra colección completa y encuentra las prendas perfectas para ti y tu familia
+        </p>
+        <div class="cta-buttons">
+          <a href="/productos" class="btn btn-primary">
+            Ver Productos
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M7 3L14 10L7 17"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </a>
+          <a href="/contacto" class="btn btn-secondary"> Contáctanos </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

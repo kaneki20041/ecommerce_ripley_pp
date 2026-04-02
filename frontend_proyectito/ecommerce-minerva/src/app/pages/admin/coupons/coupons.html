@@ -1,0 +1,316 @@
+<div class="dashboard-layout">
+  <app-dashboard-sidebar></app-dashboard-sidebar>
+  
+  <main class="dashboard-content">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Gestión de Cupones</h1>
+        <p class="page-subtitle">Crea y administra cupones de descuento</p>
+      </div>
+      <button class="btn btn-primary" (click)="openCreateModal()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <line x1="12" y1="5" x2="12" y2="19" stroke-width="2"/>
+          <line x1="5" y1="12" x2="19" y2="12" stroke-width="2"/>
+        </svg>
+        Crear Cupón
+      </button>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-section">
+      <div class="filter-group">
+        <label>Estado:</label>
+        <select [(ngModel)]="statusFilter" class="filter-select">
+          <option value="all">Todos</option>
+          <option value="activo">Activos</option>
+          <option value="inactivo">Inactivos</option>
+          <option value="expirado">Expirados</option>
+        </select>
+      </div>
+
+      <div class="filter-stats">
+        <span class="stat-badge">Total: {{ couponsData().length }}</span>
+        <span class="stat-badge activo">Activos: {{ couponsData().filter(c => c.status === 'activo').length }}</span>
+        <span class="stat-badge expirado">Expirados: {{ couponsData().filter(c => c.status === 'expirado').length }}</span>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="coupons-stats">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <p class="stat-label">Total Cupones</p>
+          <h3 class="stat-value">{{ couponsData().length }}</h3>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon success">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polyline points="20 6 9 17 4 12" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <p class="stat-label">Usos Totales</p>
+          <h3 class="stat-value">{{ couponsData().reduce((sum, c) => sum + c.usageCount, 0) }}</h3>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon warning">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+            <polyline points="12 6 12 12 16 14" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <p class="stat-label">Por Expirar</p>
+          <h3 class="stat-value">{{ couponsData().filter(c => c.status === 'activo').length }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="table-container">
+      <app-data-table
+        [columns]="columns"
+        [data]="getFilteredCoupons()"
+        [actions]="actions"
+        [loading]="loading()"
+        [pagination]="true"
+        [itemsPerPage]="10"
+        emptyMessage="No se encontraron cupones">
+      </app-data-table>
+    </div>
+  </main>
+</div>
+
+<!-- Create Modal -->
+@if (showCreateModal()) {
+  <app-modal
+    title="Crear Nuevo Cupón"
+    size="md"
+    (onClose)="closeCreateModal()">
+    
+    <form class="coupon-form" (submit)="createCoupon(); $event.preventDefault()">
+      <div class="form-group">
+        <label>Código del Cupón *</label>
+        <div class="code-input-group">
+          <input 
+            type="text" 
+            [(ngModel)]="couponForm.code"
+            name="code"
+            required
+            maxlength="20"
+            placeholder="DESCUENTO10"
+            style="text-transform: uppercase;">
+          <button type="button" class="btn-generate" (click)="generateRandomCode()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <polyline points="23 4 23 10 17 10" stroke-width="2"/>
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" stroke-width="2"/>
+            </svg>
+            Generar
+          </button>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tipo de Descuento *</label>
+          <select [(ngModel)]="couponForm.type" name="type" required>
+            <option value="percentage">Porcentaje (%)</option>
+            <option value="fixed">Monto Fijo (S/)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Descuento *</label>
+          <div class="input-with-suffix">
+            <input 
+              type="number" 
+              [(ngModel)]="couponForm.discount"
+              name="discount"
+              required
+              min="0"
+              [max]="couponForm.type === 'percentage' ? 100 : 9999"
+              step="0.01">
+            @if (couponForm.type === 'percentage') {
+              <span class="suffix">%</span>
+            } @else {
+              <span class="suffix">S/</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Fecha Inicio *</label>
+          <input 
+            type="date" 
+            [(ngModel)]="couponForm.startDate"
+            name="startDate"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>Fecha Fin *</label>
+          <input 
+            type="date" 
+            [(ngModel)]="couponForm.endDate"
+            name="endDate"
+            required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Límite de Usos *</label>
+          <input 
+            type="number" 
+            [(ngModel)]="couponForm.usageLimit"
+            name="usageLimit"
+            required
+            min="1"
+            placeholder="100">
+        </div>
+
+        <div class="form-group">
+          <label>Compra Mínima (S/)</label>
+          <input 
+            type="number" 
+            [(ngModel)]="couponForm.minPurchase"
+            name="minPurchase"
+            min="0"
+            step="0.01"
+            placeholder="0.00">
+        </div>
+      </div>
+
+      <div class="form-info">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="12" r="10" stroke-width="2"/>
+          <line x1="12" y1="16" x2="12" y2="12" stroke-width="2"/>
+          <line x1="12" y1="8" x2="12.01" y2="8" stroke-width="2"/>
+        </svg>
+        <span>El cupón se activará automáticamente en la fecha de inicio y expirará en la fecha fin.</span>
+      </div>
+    </form>
+
+    <div modal-footer>
+      <button type="button" class="btn btn-secondary" (click)="closeCreateModal()">
+        Cancelar
+      </button>
+      <button type="button" class="btn btn-primary" (click)="createCoupon()">
+        Crear Cupón
+      </button>
+    </div>
+  </app-modal>
+}
+
+<!-- Edit Modal -->
+@if (showEditModal()) {
+  <app-modal
+    title="Editar Cupón"
+    size="md"
+    (onClose)="closeEditModal()">
+    
+    <form class="coupon-form" (submit)="updateCoupon(); $event.preventDefault()">
+      <div class="form-group">
+        <label>Código del Cupón *</label>
+        <input 
+          type="text" 
+          [(ngModel)]="couponForm.code"
+          name="code"
+          required
+          disabled
+          style="text-transform: uppercase; background: #F5F5F5;">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tipo de Descuento *</label>
+          <select [(ngModel)]="couponForm.type" name="type" required>
+            <option value="percentage">Porcentaje (%)</option>
+            <option value="fixed">Monto Fijo (S/)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Descuento *</label>
+          <div class="input-with-suffix">
+            <input 
+              type="number" 
+              [(ngModel)]="couponForm.discount"
+              name="discount"
+              required
+              min="0"
+              step="0.01">
+            @if (couponForm.type === 'percentage') {
+              <span class="suffix">%</span>
+            } @else {
+              <span class="suffix">S/</span>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Fecha Inicio *</label>
+          <input 
+            type="date" 
+            [(ngModel)]="couponForm.startDate"
+            name="startDate"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label>Fecha Fin *</label>
+          <input 
+            type="date" 
+            [(ngModel)]="couponForm.endDate"
+            name="endDate"
+            required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Límite de Usos *</label>
+          <input 
+            type="number" 
+            [(ngModel)]="couponForm.usageLimit"
+            name="usageLimit"
+            required
+            min="1">
+        </div>
+
+        <div class="form-group">
+          <label>Compra Mínima (S/)</label>
+          <input 
+            type="number" 
+            [(ngModel)]="couponForm.minPurchase"
+            name="minPurchase"
+            min="0"
+            step="0.01">
+        </div>
+      </div>
+    </form>
+
+    <div modal-footer>
+      <button type="button" class="btn btn-secondary" (click)="closeEditModal()">
+        Cancelar
+      </button>
+      <button type="button" class="btn btn-primary" (click)="updateCoupon()">
+        Guardar Cambios
+      </button>
+    </div>
+  </app-modal>
+}

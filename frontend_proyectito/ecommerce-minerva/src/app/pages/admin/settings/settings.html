@@ -1,0 +1,184 @@
+<div class="dashboard-layout">
+    <app-dashboard-sidebar></app-dashboard-sidebar>
+
+    <main class="dashboard-content">
+        <h1 class="page-title">Configuración de la Tienda</h1>
+
+        <div class="settings-tabs">
+            <button [class.active]="activeTab() === 'general'" (click)="activeTab.set('general')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                General
+            </button>
+            <button [class.active]="activeTab() === 'shipping'" (click)="activeTab.set('shipping')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                Envío
+            </button>
+            <button [class.active]="activeTab() === 'payments'" (click)="activeTab.set('payments')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                Pagos
+            </button>
+            <button [class.active]="activeTab() === 'notifications'" (click)="activeTab.set('notifications')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                Notificaciones
+            </button>
+        </div>
+
+        <div class="settings-content">
+            @if (activeTab() === 'general') {
+            <form class="settings-form fade-in">
+                <div class="section-header">
+                    <h2>Información de la Tienda</h2>
+                    <p>Detalles básicos e información de contacto del negocio.</p>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre del Sitio</label>
+                        <input type="text" [(ngModel)]="generalSettings.siteName" name="siteName">
+                    </div>
+                    <div class="form-group">
+                        <label>Correo de Contacto</label>
+                        <input type="email" [(ngModel)]="generalSettings.email" name="email">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="text" [(ngModel)]="generalSettings.phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label>Moneda Principal</label>
+                        <select name="currency">
+                            <option value="PEN">Soles (PEN)</option>
+                            <option value="USD">Dólares (USD)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Dirección Física</label>
+                    <textarea [(ngModel)]="generalSettings.address" name="address" rows="3"></textarea>
+                </div>
+            </form>
+            }
+
+            @if (activeTab() === 'shipping') {
+            <form class="settings-form fade-in">
+                <div class="section-header">
+                    <h2>Costos de Envío</h2>
+                    <p>Configura las reglas predeterminadas para envíos locales y nacionales.</p>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Costo de Envío Estándar (S/)</label>
+                        <input type="number" [(ngModel)]="shippingSettings.standardShippingCost" name="standardCost">
+                    </div>
+                    <div class="form-group">
+                        <label>Costo de Envío Express (S/)</label>
+                        <input type="number" [(ngModel)]="shippingSettings.expressShippingCost" name="expressCost">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Monto Mínimo para Envío Gratis (S/)</label>
+                    <input type="number" [(ngModel)]="shippingSettings.freeShippingThreshold" name="freeShipping">
+                    <small>Los pedidos por encima de este monto no cobrarán costo de envío estándar.</small>
+                </div>
+            </form>
+            }
+
+            @if (activeTab() === 'payments') {
+            <form class="settings-form fade-in">
+                <div class="section-header">
+                    <h2>Métodos de Pago</h2>
+                    <p>Habilita y configura las opciones de pago en el checkout.</p>
+                </div>
+
+                <div class="toggle-group list-group">
+                    <div class="toggle-item">
+                        <div class="toggle-info">
+                            <strong>Tarjetas de Crédito/Débito</strong>
+                            <p>Procesado a través de Stripe/MercadoPago</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-item">
+                        <div class="toggle-info">
+                            <strong>Yape / Plin</strong>
+                            <p>Transferencias directas y QR</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-item">
+                        <div class="toggle-info">
+                            <strong>Pago en Efectivo</strong>
+                            <p>Contra entrega o recojo en tienda</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </form>
+            }
+
+            @if (activeTab() === 'notifications') {
+            <form class="settings-form fade-in">
+                <div class="section-header">
+                    <h2>Notificaciones del Sistema</h2>
+                    <p>Selecciona qué alertas deseas recibir como administrador.</p>
+                </div>
+
+                <div class="toggle-group list-group">
+                    <div class="toggle-item">
+                        <div class="toggle-info">
+                            <strong>Nuevos Pedidos</strong>
+                            <p>Notificar cuando un cliente complete una compra.</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-item">
+                        <div class="toggle-info">
+                            <strong>Solicitud de Devoluciones</strong>
+                            <p>Notificar cuando alguien inicie un reclamo.</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-item">
+                        <div class="toggle-info">
+                            <strong>Bajo Stock</strong>
+                            <p>Recibir aviso si un producto cae por debajo de 5 unidades.</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </form>
+            }
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-primary" (click)="saveSettings()">
+                    Guardar Configuración
+                </button>
+            </div>
+        </div>
+    </main>
+</div>

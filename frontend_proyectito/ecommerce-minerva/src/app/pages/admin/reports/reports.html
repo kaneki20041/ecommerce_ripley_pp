@@ -1,0 +1,34 @@
+<div class="dashboard-layout">
+    <app-dashboard-sidebar></app-dashboard-sidebar>
+
+    <main class="dashboard-content">
+        <h1 class="page-title">Reportes</h1>
+
+        <div class="report-config">
+            <div class="form-group">
+                <label>Tipo de Reporte</label>
+                <select [(ngModel)]="reportType">
+                    <option value="sales">Ventas</option>
+                    <option value="products">Productos</option>
+                    <option value="users">Usuarios</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Desde</label>
+                <input type="date" [(ngModel)]="dateFrom">
+            </div>
+            <div class="form-group">
+                <label>Hasta</label>
+                <input type="date" [(ngModel)]="dateTo">
+            </div>
+            <button class="btn btn-primary" (click)="generateReport()">Generar</button>
+        </div>
+
+        <div class="stats-grid">
+            @for (stat of stats; track stat.title) {
+            <app-stats-card [title]="stat.title" [value]="stat.value" [icon]="stat.icon" [color]="stat.color">
+            </app-stats-card>
+            }
+        </div>
+    </main>
+</div>

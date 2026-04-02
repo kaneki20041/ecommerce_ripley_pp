@@ -1,0 +1,217 @@
+<div class="data-table-container">
+    <!-- Header con búsqueda -->
+    <div class="table-header">
+        <div class="search-box">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="11" cy="11" r="8" stroke-width="2" />
+                <path d="m21 21-4.35-4.35" stroke-width="2" />
+            </svg>
+            <input type="text" placeholder="Buscar..." [value]="searchTerm()"
+                (input)="searchTerm.set($any($event.target).value)">
+        </div>
+
+        <div class="table-info" *ngIf="!loading">
+            <span>{{ sortedData().length }} resultado{{ sortedData().length !== 1 ? 's' : '' }}</span>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="table-loading" *ngIf="loading">
+        <div class="loading-spinner"></div>
+        <p>Cargando datos...</p>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrapper" *ngIf="!loading">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th class="checkbox-col" *ngIf="selectable">
+                        <input type="checkbox" [checked]="allSelected()" (change)="toggleSelectAll()">
+                    </th>
+
+                    <th *ngFor="let column of columns" [class.sortable]="column.sortable" [style.width]="column.width"
+                        (click)="sort(column)">
+                        <div class="th-content">
+                            <span>{{ column.label }}</span>
+                            <span class="sort-icon" *ngIf="column.sortable && sortColumn() === column.key">
+                                <svg *ngIf="sortDirection() === 'asc'" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor">
+                                    <polyline points="18 15 12 9 6 15" stroke-width="2" />
+                                </svg>
+                                <svg *ngIf="sortDirection() === 'desc'" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor">
+                                    <polyline points="6 9 12 15 18 9" stroke-width="2" />
+                                </svg>
+                            </span>
+                        </div>
+                    </th>
+
+                    <th class="actions-col" *ngIf="actions.length > 0">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- Empty State -->
+                <tr *ngIf="paginatedData().length === 0" class="empty-row">
+                    <td [attr.colspan]="columns.length + (selectable ? 1 : 0) + (actions.length > 0 ? 1 : 0)">
+                        <div class="empty-state">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <circle cx="12" cy="12" r="10" stroke-width="2" />
+                                <line x1="12" y1="8" x2="12" y2="12" stroke-width="2" />
+                                <line x1="12" y1="16" x2="12.01" y2="16" stroke-width="2" />
+                            </svg>
+                            <p>{{ emptyMessage }}</p>
+                        </div>
+                    </td>
+                </tr>
+
+                <!-- Data Rows -->
+                <tr *ngFor="let row of paginatedData()" [class.selected]="isSelected(row)">
+
+                    <td class="checkbox-col" *ngIf="selectable">
+                        <input type="checkbox" [checked]="isSelected(row)" (change)="toggleSelect(row)">
+                    </td>
+
+                    <td *ngFor="let column of columns">
+                        <!-- Text -->
+                        <span *ngIf="!column.type || column.type === 'text'">
+                            {{ formatValue(row, column) }}
+                        </span>
+
+                        <!-- Number -->
+                        <span *ngIf="column.type === 'number'" class="number-cell">
+                            {{ formatValue(row, column) }}
+                        </span>
+
+                        <!-- Stock Alert -->
+                        <span *ngIf="column.type === 'stockAlert'" class="number-cell">
+                            <span
+                                [ngStyle]="{'color': getNestedValue(row, column.key) < 10 ? '#FF5252' : 'inherit', 'font-weight': getNestedValue(row, column.key) < 10 ? 'bold' : 'normal'}">
+                                {{ formatValue(row, column) }}
+                                <svg *ngIf="getNestedValue(row, column.key) < 10" width="14" height="14"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    style="display:inline; margin-left:4px; margin-bottom: 2px;">
+                                    <path
+                                        d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                                    </path>
+                                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                </svg>
+                            </span>
+                        </span>
+
+                        <!-- Date -->
+                        <span *ngIf="column.type === 'date'" class="date-cell">
+                            {{ formatValue(row, column) }}
+                        </span>
+
+                        <!-- Badge -->
+                        <span *ngIf="column.type === 'badge'" class="badge"
+                            [attr.data-status]="getNestedValue(row, column.key) | lowercase"> {{ getNestedValue(row,
+                            column.key) }}
+                        </span>
+
+                        <!-- Image -->
+                        <img *ngIf="column.type === 'image'" [src]="getNestedValue(row, column.key)"
+                            [alt]="column.label" class="table-image">
+                    </td>
+
+                    <td class="actions-col" *ngIf="actions.length > 0">
+                        <div class="action-buttons">
+                            <button *ngFor="let action of actions" [hidden]="!shouldShowAction(action, row)"
+                                class="action-btn" [style.color]="action.color" [title]="action.label"
+                                (click)="action.onClick(row)">
+
+                                <!-- Edit -->
+                                <svg *ngIf="action.icon === 'edit'" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                                        stroke-width="2" />
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                                        stroke-width="2" />
+                                </svg>
+
+                                <!-- Delete -->
+                                <svg *ngIf="action.icon === 'delete'" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor">
+                                    <path
+                                        d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                        stroke-width="2" />
+                                </svg>
+
+                                <!-- View -->
+                                <svg *ngIf="action.icon === 'view'" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke-width="2" />
+                                    <circle cx="12" cy="12" r="3" stroke-width="2" />
+                                </svg>
+
+                                <!-- Check -->
+                                <svg *ngIf="action.icon === 'check'" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor">
+                                    <polyline points="20 6 9 17 4 12" stroke-width="2" />
+                                </svg>
+
+                                <!-- Block / Deactivate -->
+                                <svg *ngIf="action.icon === 'block'" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor">
+                                    <circle cx="12" cy="12" r="10" stroke-width="2"></circle>
+                                    <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" stroke-width="2"></line>
+                                </svg>
+
+                                <!-- X -->
+                                <svg *ngIf="action.icon === 'x'" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor">
+                                    <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" />
+                                    <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" />
+                                </svg>
+
+                                <!-- Download -->
+                                <svg *ngIf="action.icon === 'download'" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke-width="2" />
+                                    <polyline points="7 10 12 15 17 10" stroke-width="2" />
+                                    <line x1="12" y1="15" x2="12" y2="3" stroke-width="2" />
+                                </svg>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="table-pagination" *ngIf="pagination && !loading && totalPages() > 0">
+        <div class="pagination-size">
+            <span>Mostrar:</span>
+            <select [ngModel]="itemsPerPage" (ngModelChange)="onPageSizeChange($event)" class="size-select">
+                <option *ngFor="let size of pageSizeOptions" [ngValue]="size">{{ size }} por página</option>
+            </select>
+        </div>
+
+        <div class="pagination-info">
+            Página {{ currentPage() }} de {{ totalPages() }}
+        </div>
+
+        <div class="pagination-controls">
+            <button class="page-btn" [disabled]="currentPage() === 1" (click)="goToPage(currentPage() - 1)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="15 18 9 12 15 6" stroke-width="2" />
+                </svg>
+            </button>
+
+            <button *ngFor="let page of getPaginationRange()" class="page-btn" [class.active]="page === currentPage()"
+                [disabled]="page === -1" (click)="page !== -1 && goToPage(page)">
+                {{ page === -1 ? '...' : page }}
+            </button>
+
+            <button class="page-btn" [disabled]="currentPage() === totalPages()" (click)="goToPage(currentPage() + 1)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="9 18 15 12 9 6" stroke-width="2" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>

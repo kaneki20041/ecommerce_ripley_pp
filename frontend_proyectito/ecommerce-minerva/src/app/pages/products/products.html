@@ -1,0 +1,220 @@
+<div class="products-page">
+    <!-- Hero/Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Catálogo de Productos</h1>
+            <p class="page-subtitle">Encuentra todo lo que necesitas para el regreso a clases</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="products-layout">
+
+            <!-- Sidebar de filtros -->
+            <aside class="filters-sidebar" [class.show]="showFilters()">
+                <div class="filters-header">
+                    <h2>Filtros</h2>
+                    <button class="close-filters" (click)="toggleFilters()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" />
+                            <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Búsqueda -->
+                <div class="filter-group">
+                    <label class="filter-label">Buscar</label>
+                    <div class="search-box">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="11" cy="11" r="8" stroke-width="2" />
+                            <path d="M21 21l-4.35-4.35" stroke-width="2" />
+                        </svg>
+                        <input type="text" placeholder="Buscar productos..." [value]="searchQuery()"
+                            (input)="onSearchChange($any($event.target).value)">
+                    </div>
+                </div>
+
+                <!-- Categorías -->
+                <div class="filter-group">
+                    <label class="filter-label">Categorías</label>
+                    <div class="filter-options">
+                        <label *ngFor="let categoria of categorias" class="filter-option">
+                            <input type="checkbox" [checked]="selectedCategoria() === categoria"
+                                (change)="onCategoriaChange(categoria)">
+                            <span>{{ categoria }}</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Género -->
+                <div class="filter-group">
+                    <label class="filter-label">Género</label>
+                    <div class="filter-options">
+                        <label *ngFor="let genero of generos" class="filter-option">
+                            <input type="checkbox" [checked]="selectedGenero() === genero"
+                                (change)="onGeneroChange(genero)">
+                            <span>{{ genero }}</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Precio -->
+                <div class="filter-group">
+                    <label class="filter-label">Rango de Precio</label>
+                    <div class="price-inputs">
+                        <input type="number" placeholder="Min" [value]="precioMin()"
+                            (change)="precioMin.set(+$any($event.target).value); onPrecioChange()">
+                        <span>-</span>
+                        <input type="number" placeholder="Max" [value]="precioMax()"
+                            (change)="precioMax.set(+$any($event.target).value); onPrecioChange()">
+                    </div>
+                </div>
+
+                <!-- Tallas -->
+                <div class="filter-group">
+                    <label class="filter-label">Tallas</label>
+                    <div class="tallas-grid">
+                        <button *ngFor="let talla of tallasDisponibles" class="talla-btn"
+                            [class.active]="selectedTallas().includes(talla)" (click)="onTallaToggle(talla)">
+                            {{ talla }}
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filtros rápidos -->
+                <div class="filter-group">
+                    <label class="filter-label">Filtros Rápidos</label>
+                    <div class="quick-filters">
+                        <button class="quick-filter-btn" [class.active]="soloNuevos()" (click)="toggleNuevos()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path
+                                    d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                                    stroke-width="2" />
+                            </svg>
+                            Solo Nuevos
+                        </button>
+                        <button class="quick-filter-btn" [class.active]="soloOfertas()" (click)="toggleOfertas()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"
+                                    stroke-width="2" />
+                                <line x1="7" y1="7" x2="7.01" y2="7" stroke-width="2" />
+                            </svg>
+                            Solo Ofertas
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Limpiar filtros -->
+                <button class="clear-filters-btn" (click)="clearFilters()">
+                    Limpiar Filtros
+                </button>
+            </aside>
+
+            <!-- Contenido principal -->
+            <main class="products-main">
+                <!-- Toolbar -->
+                <div class="products-toolbar">
+                    <div class="toolbar-left">
+                        <button class="filters-toggle-btn" (click)="toggleFilters()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <line x1="4" y1="6" x2="20" y2="6" stroke-width="2" />
+                                <line x1="4" y1="12" x2="20" y2="12" stroke-width="2" />
+                                <line x1="4" y1="18" x2="20" y2="18" stroke-width="2" />
+                            </svg>
+                            Filtros
+                        </button>
+                        <p class="results-count">
+                            {{ sortedProducts().length }} producto{{ sortedProducts().length !== 1 ? 's' : '' }}
+                            encontrado{{ sortedProducts().length !== 1 ? 's' : '' }}
+                        </p>
+                    </div>
+
+                    <div class="toolbar-right">
+                        <!-- Ordenar -->
+                        <select class="sort-select" [value]="sortBy()"
+                            (change)="onSortChange($any($event.target).value)">
+                            <option value="relevancia">Más Relevantes</option>
+                            <option value="precio-asc">Precio: Menor a Mayor</option>
+                            <option value="precio-desc">Precio: Mayor a Menor</option>
+                            <option value="nuevos">Más Nuevos</option>
+                        </select>
+
+                        <!-- Vista grid/list -->
+                        <div class="view-toggle">
+                            <button class="view-btn" [class.active]="viewMode() === 'grid'"
+                                (click)="toggleView('grid')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <rect x="3" y="3" width="7" height="7" stroke-width="2" />
+                                    <rect x="14" y="3" width="7" height="7" stroke-width="2" />
+                                    <rect x="3" y="14" width="7" height="7" stroke-width="2" />
+                                    <rect x="14" y="14" width="7" height="7" stroke-width="2" />
+                                </svg>
+                            </button>
+                            <button class="view-btn" [class.active]="viewMode() === 'list'"
+                                (click)="toggleView('list')">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <line x1="8" y1="6" x2="21" y2="6" stroke-width="2" />
+                                    <line x1="8" y1="12" x2="21" y2="12" stroke-width="2" />
+                                    <line x1="8" y1="18" x2="21" y2="18" stroke-width="2" />
+                                    <line x1="3" y1="6" x2="3.01" y2="6" stroke-width="2" />
+                                    <line x1="3" y1="12" x2="3.01" y2="12" stroke-width="2" />
+                                    <line x1="3" y1="18" x2="3.01" y2="18" stroke-width="2" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loading -->
+                <div class="loading-container" *ngIf="loading()">
+                    <div class="spinner"></div>
+                    <p>Cargando productos...</p>
+                </div>
+
+                <!-- Grid de productos -->
+                <div class="products-grid" [class.view-list]="viewMode() === 'list'"
+                    *ngIf="!loading() && paginatedProducts().length > 0">
+                    <app-product-card *ngFor="let product of paginatedProducts()" [product]="product">
+                    </app-product-card>
+                </div>
+
+                <!-- Empty state -->
+                <div class="empty-state" *ngIf="!loading() && paginatedProducts().length === 0">
+                    <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="11" cy="11" r="8" stroke-width="2" />
+                        <path d="M21 21l-4.35-4.35" stroke-width="2" />
+                    </svg>
+                    <h3>No se encontraron productos</h3>
+                    <p>Intenta ajustar tus filtros o búsqueda</p>
+                    <button class="clear-btn" (click)="clearFilters()">Limpiar Filtros</button>
+                </div>
+
+                <!-- Paginación -->
+                <div class="pagination" *ngIf="!loading() && totalPages() > 1">
+                    <button class="page-btn" [disabled]="currentPage() === 1" (click)="goToPage(currentPage() - 1)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M15 18l-6-6 6-6" stroke-width="2" />
+                        </svg>
+                    </button>
+
+                    <button *ngFor="let page of [].constructor(totalPages()); let i = index" class="page-btn"
+                        [class.active]="currentPage() === i + 1" (click)="goToPage(i + 1)">
+                        {{ i + 1 }}
+                    </button>
+
+                    <button class="page-btn" [disabled]="currentPage() === totalPages()"
+                        (click)="goToPage(currentPage() + 1)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M9 18l6-6-6-6" stroke-width="2" />
+                        </svg>
+                    </button>
+                </div>
+            </main>
+
+        </div>
+    </div>
+</div>
+
+<!-- Overlay para filtros móviles -->
+<div class="filters-overlay" *ngIf="showFilters()" (click)="toggleFilters()"></div>

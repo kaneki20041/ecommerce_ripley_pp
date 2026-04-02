@@ -1,0 +1,13 @@
+.app-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+
+      &.has-navbar {
+        padding-top: 80px;
+      }
+    }
+
+    .main-content {
+      flex: 1;
+    }

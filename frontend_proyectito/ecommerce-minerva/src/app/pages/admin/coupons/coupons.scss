@@ -1,0 +1,348 @@
+@use '../../../styles/variables' as *;
+
+$sidebar-width: 280px;
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background: $color-gray-light;
+}
+
+.dashboard-content {
+  flex: 1;
+  margin-left: $sidebar-width;
+  padding: 2rem;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 0.3rem 0;
+  color: $color-black;
+}
+
+.page-subtitle {
+  color: $color-gray-medium;
+  margin: 0;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &.btn-primary {
+    background: linear-gradient(135deg, $color-blue-baby-dark, $color-blue-baby);
+    color: $color-white;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(124, 184, 209, 0.4);
+    }
+  }
+
+  &.btn-secondary {
+    background: $color-white;
+    color: $color-blue-baby-dark;
+    border: 2px solid $color-blue-baby-dark;
+
+    &:hover {
+      background: $color-blue-baby-dark;
+      color: $color-white;
+    }
+  }
+}
+
+// Filters
+.filters-section {
+  background: $color-white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  border: 1px solid #E0E0E0;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  label {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+}
+
+.filter-select {
+  padding: 0.6rem 1rem;
+  border: 2px solid #E0E0E0;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+    border-color: $color-blue-baby-dark;
+  }
+}
+
+.filter-stats {
+  margin-left: auto;
+  display: flex;
+  gap: 0.8rem;
+}
+
+.stat-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: #E0E0E0;
+
+  &.activo {
+    background: rgba($color-success, 0.15);
+    color: darken($color-success, 10%);
+  }
+
+  &.expirado {
+    background: rgba(#FF5252, 0.15);
+    color: darken(#FF5252, 10%);
+  }
+}
+
+// Coupons Stats
+.coupons-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: $color-white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #E0E0E0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.2s;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.stat-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: rgba($color-blue-baby-dark, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    stroke: $color-blue-baby-dark;
+  }
+
+  &.success {
+    background: rgba($color-success, 0.1);
+    svg { stroke: $color-success; }
+  }
+
+  &.warning {
+    background: rgba($color-warning, 0.1);
+    svg { stroke: darken($color-warning, 20%); }
+  }
+}
+
+.stat-info {
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: $color-gray-medium;
+  margin: 0 0 0.3rem 0;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0;
+  color: $color-black;
+}
+
+// Table
+.table-container {
+  background: $color-white;
+  border-radius: 12px;
+  border: 1px solid #E0E0E0;
+}
+
+// Coupon Form
+.coupon-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: $color-black;
+  }
+
+  input,
+  select {
+    padding: 0.8rem;
+    border: 2px solid #E0E0E0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+
+    &:focus {
+      outline: none;
+      border-color: $color-blue-baby-dark;
+    }
+
+    &:disabled {
+      background: $color-gray-light;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.code-input-group {
+  display: flex;
+  gap: 0.5rem;
+
+  input {
+    flex: 1;
+  }
+}
+
+.btn-generate {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1rem;
+  background: $color-blue-baby;
+  color: $color-white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+
+  svg {
+    stroke: currentColor;
+  }
+
+  &:hover {
+    background: $color-blue-baby-dark;
+  }
+}
+
+.input-with-suffix {
+  position: relative;
+
+  input {
+    padding-right: 3rem;
+  }
+
+  .suffix {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 700;
+    color: $color-gray-medium;
+  }
+}
+
+.form-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba($color-blue-baby, 0.1);
+  border-radius: 8px;
+  border-left: 4px solid $color-blue-baby-dark;
+
+  svg {
+    stroke: $color-blue-baby-dark;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+  }
+
+  span {
+    font-size: 0.85rem;
+    color: darken($color-blue-baby-dark, 10%);
+    line-height: 1.5;
+  }
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  .dashboard-content {
+    margin-left: 80px;
+  }
+
+  .coupons-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    margin-left: 0;
+    padding: 1rem;
+  }
+
+  .page-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .filters-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-stats {
+    margin-left: 0;
+    flex-wrap: wrap;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

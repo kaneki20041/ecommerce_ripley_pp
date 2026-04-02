@@ -1,0 +1,68 @@
+<div class="dashboard-layout">
+    <app-dashboard-sidebar></app-dashboard-sidebar>
+
+    <main class="dashboard-content">
+        <div class="profile-header">
+            <div class="profile-avatar-large">{{ userInitials() }}</div>
+            <div>
+                <h1>{{ currentUser()?.firstName }} {{ currentUser()?.lastName }}</h1>
+                <p class="role-badge">Empleado</p>
+            </div>
+        </div>
+
+        <div class="profile-tabs">
+            <button [class.active]="activeTab === 'info'" (click)="activeTab = 'info'">
+                Información Personal
+            </button>
+            <button [class.active]="activeTab === 'security'" (click)="activeTab = 'security'">
+                Seguridad
+            </button>
+        </div>
+
+        @if (activeTab === 'info') {
+        <div class="profile-content">
+            <form class="profile-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" [(ngModel)]="profileForm.firstName" name="firstName">
+                    </div>
+                    <div class="form-group">
+                        <label>Apellido</label>
+                        <input type="text" [(ngModel)]="profileForm.lastName" name="lastName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" [(ngModel)]="profileForm.email" name="email">
+                </div>
+                <button type="button" class="btn btn-primary" (click)="saveProfile()">
+                    Guardar Cambios
+                </button>
+            </form>
+        </div>
+        }
+
+        @if (activeTab === 'security') {
+        <div class="profile-content">
+            <form class="profile-form">
+                <div class="form-group">
+                    <label>Contraseña Actual</label>
+                    <input type="password" [(ngModel)]="passwordForm.currentPassword" name="currentPassword">
+                </div>
+                <div class="form-group">
+                    <label>Nueva Contraseña</label>
+                    <input type="password" [(ngModel)]="passwordForm.newPassword" name="newPassword">
+                </div>
+                <div class="form-group">
+                    <label>Confirmar Contraseña</label>
+                    <input type="password" [(ngModel)]="passwordForm.confirmPassword" name="confirmPassword">
+                </div>
+                <button type="button" class="btn btn-primary" (click)="changePassword()">
+                    Cambiar Contraseña
+                </button>
+            </form>
+        </div>
+        }
+    </main>
+</div>

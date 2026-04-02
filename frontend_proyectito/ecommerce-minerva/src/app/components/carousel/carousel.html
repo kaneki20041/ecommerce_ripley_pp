@@ -1,0 +1,60 @@
+<div class="carousel-container" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+  <div class="carousel-wrapper">
+    <!-- Slides -->
+    <div class="carousel-slides">
+      @for (slide of slides; track slide; let i = $index) {
+        <div
+          class="carousel-slide"
+          [class.active]="i === currentSlide"
+          [style.background-image]="'url(' + slide.image + ')'"
+        >
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <h2 class="slide-title" [class.show]="i === currentSlide">
+              {{ slide.title }}
+            </h2>
+            <p class="slide-subtitle" [class.show]="i === currentSlide">
+              {{ slide.subtitle }}
+            </p>
+            <a [href]="slide.ctaLink" class="slide-cta" [class.show]="i === currentSlide">
+              {{ slide.ctaText }}
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path
+                  d="M7 3L14 10L7 17"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Navigation Arrows -->
+    <button class="carousel-nav prev" (click)="prevSlide()" aria-label="Anterior">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </button>
+
+    <button class="carousel-nav next" (click)="nextSlide()" aria-label="Siguiente">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </button>
+
+    <!-- Indicators -->
+    <div class="carousel-indicators">
+      @for (slide of slides; track slide; let i = $index) {
+        <button
+          class="indicator"
+          [class.active]="i === currentSlide"
+          (click)="goToSlide(i)"
+          [attr.aria-label]="'Ir a diapositiva ' + (i + 1)"
+        ></button>
+      }
+    </div>
+  </div>
+</div>

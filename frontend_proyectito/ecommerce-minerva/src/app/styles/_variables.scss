@@ -1,0 +1,35 @@
+// 1. CARGAR MÓDULOS DEL NÚCLEO (Si vas a procesar colores aquí mismo)
+@use "sass:color";
+
+// 2. PALETA DE COLORES
+$color-blue-baby:        #A8D8EA;
+$color-blue-baby-dark:   #7CB8D1;
+$color-yellow-elegant:   #FFD93D;
+$color-yellow-dark:      #F5C518;
+$color-white:            #FFFFFF;
+$color-black:            #1A1A1A;
+$color-gray-light:       #F5F5F5;
+$color-gray-medium:      #666666;
+$color-gray-dark:        #333333;
+
+// 3. COLORES DE ESTADO (Semántica)
+$color-success:          #4CAF50;
+$color-warning:          #FFD93D;
+$color-error:            #FF5252;
+$color-info:             #17a2b8;
+
+// 4. TIPOGRAFÍA (Solo los nombres y pesos)
+$font-main:             'Inter', sans-serif;
+$font-weight-light:      300;
+$font-weight-normal:     400;
+$font-weight-medium:     500;
+$font-weight-bold:       700;
+
+// 5. BREAKPOINTS (Para hacer tu diseño responsivo más fácil)
+$breakpoint-mobile:      576px;
+$breakpoint-tablet:      768px;
+$breakpoint-desktop:     1024px;
+
+$transition-fast: 0.2s ease;
+$transition-medium: 0.3s ease;
+$transition-slow: 0.6s ease;

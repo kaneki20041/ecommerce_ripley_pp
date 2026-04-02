@@ -1,0 +1,351 @@
+<div class="dashboard-layout">
+    <app-dashboard-sidebar></app-dashboard-sidebar>
+
+    <main class="dashboard-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Gestión de Productos</h1>
+                <p class="page-subtitle">Administra el catálogo de productos</p>
+            </div>
+            <button class="btn btn-primary" (click)="openCreateModal()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <line x1="12" y1="5" x2="12" y2="19" stroke-width="2" />
+                    <line x1="5" y1="12" x2="19" y2="12" stroke-width="2" />
+                </svg>
+                Nuevo Producto
+            </button>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <div class="filter-group">
+                <label>Categoría:</label>
+                <select [(ngModel)]="categoryFilter" (change)="applyFilters()" class="filter-select">
+                    <option value="all">Todas</option>
+                    <option value="Uniformes Escolares">Uniformes Escolares</option>
+                    <option value="Buzos Escolares">Buzos Escolares</option>
+                    <option value="Calzado">Calzado</option>
+                    <option value="Casual">Casual</option>
+                    <option value="Accesorios">Accesorios</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Estado Stock:</label>
+                <select [(ngModel)]="stockFilter" (change)="applyFilters()" class="filter-select">
+                    <option value="all">Todos</option>
+                    <option value="disponible">Disponible</option>
+                    <option value="bajo">Stock Bajo</option>
+                    <option value="agotado">Agotado</option>
+                </select>
+            </div>
+
+
+
+            <div class="filter-stats">
+                <span class="stat-badge">Total: {{ productsData.length }}</span>
+                <span class="stat-badge disponible">Disponibles: {{ getStockCount('disponible') }}</span>
+                <span class="stat-badge bajo">Stock Bajo: {{ getStockCount('bajo') }}</span>
+                <span class="stat-badge agotado">Agotados: {{ getStockCount('agotado') }}</span>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="table-container">
+            <app-data-table [columns]="columns" [data]="filteredProductsData" [actions]="actions" [loading]="loading()"
+                [pagination]="true" [serverSidePagination]="true" [totalItems]="totalElements" [itemsPerPage]="pageSize"
+                (pageSizeChange)="pageSize = $event; onPageSizeChange()" [page]="currentPage + 1"
+                (pageChange)="onPageChange($event)" emptyMessage="No se encontraron productos">
+            </app-data-table>
+        </div>
+    </main>
+</div>
+
+<!-- Create/Edit Product Modal -->
+<app-modal *ngIf="showCreateModal() || showEditModal()"
+    [title]="showEditModal() ? 'Editar Producto' : 'Crear Nuevo Producto'" size="lg" (onClose)="closeModal()">
+
+    <form class="product-form" (submit)="showEditModal() ? updateProduct() : createProduct(); $event.preventDefault()">
+
+
+        <!-- Información Básica -->
+        <div class="form-section">
+            <h3 class="section-title">Información Básica</h3>
+
+            <div class="form-group">
+                <label>Nombre del Producto *</label>
+                <input type="text" [(ngModel)]="productForm.nombre" name="nombre" required
+                    placeholder="Ej: Camisa Escolar Blanca">
+            </div>
+
+            <div class="form-group">
+                <label>Descripción *</label>
+                <textarea [(ngModel)]="productForm.descripcion" name="descripcion" required rows="4"
+                    placeholder="Describe las características del producto..."></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Categoría *</label>
+                    <select [(ngModel)]="productForm.categoria" name="categoria" required>
+                        <option value="">Seleccionar categoría</option>
+                        <option value="Uniformes Escolares">Uniformes Escolares</option>
+                        <option value="Buzos Escolares">Buzos Escolares</option>
+                        <option value="Calzado">Calzado</option>
+                        <option value="Casual">Casual</option>
+                        <option value="Accesorios">Accesorios</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Género *</label>
+                    <select [(ngModel)]="productForm.genero" name="genero" required>
+                        <option value="">Seleccionar género</option>
+                        <option value="Mujer">Mujer</option>
+                        <option value="Hombre">Hombre</option>
+                        <option value="Unisex">Unisex</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Marca</label>
+                    <input type="text" [(ngModel)]="productForm.marca" name="marca" placeholder="Ej: Nike, Adidas">
+                </div>
+
+                <div class="form-group">
+                    <label>Material</label>
+                    <input type="text" [(ngModel)]="productForm.material" name="material"
+                        placeholder="Ej: Algodón 100%">
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Variantes de Color -->
+        <div class="form-section">
+            <h3 class="section-title">Variantes de Color *</h3>
+
+            <div class="add-color-group" *ngIf="!showEditModal()">
+                <input type="text" [(ngModel)]="newColorInput" name="newColorInput"
+                    placeholder="Ej: Blanco, Azul Marino, Negro..." (keyup.enter)="addColor()" class="color-input"
+                    autocomplete="off">
+                <button type="button" class="btn btn-secondary add-color-btn" (click)="addColor()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="12" y1="5" x2="12" y2="19" stroke-width="2" />
+                        <line x1="5" y1="12" x2="19" y2="12" stroke-width="2" />
+                    </svg>
+                    Añadir Color
+                </button>
+            </div>
+
+            <div class="colors-accordion" style="margin-top: 1.5rem;" *ngIf="productForm.colores.length > 0">
+                <div *ngFor="let color of productForm.colores" class="color-block expanded">
+                    <!-- Header -->
+                    <div class="color-header">
+                        <span class="color-name-title">{{ color }}</span>
+                        <button type="button" class="remove-variant-btn" (click)="removeColorBlock(color)"
+                            *ngIf="!showEditModal()" title="Eliminar Variante">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" />
+                                <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Expanded Content -->
+                    <div class="color-details">
+                        <div class="details-grid">
+                            <div class="form-group mix-field">
+                                <label>Precio Final ($)</label>
+                                <input type="number" [(ngModel)]="productForm.colorDetails[color].precio"
+                                    [name]="'precio_' + color" required min="0">
+                            </div>
+                            <div class="form-group mix-field">
+                                <label>Precio Anterior ($)</label>
+                                <input type="number" [(ngModel)]="productForm.colorDetails[color].precioAnterior"
+                                    [name]="'precioAnt_' + color" min="0">
+                            </div>
+                            <div class="form-row date-promo-box"
+                                *ngIf="productForm.colorDetails[color].precioAnterior > productForm.colorDetails[color].precio">
+                                <div class="promo-header">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                    <span>Oferta por Tiempo Limitado</span>
+                                </div>
+                                <div class="date-inputs">
+                                    <div class="form-group mix-field">
+                                        <label>Inicio de Oferta</label>
+                                        <input type="datetime-local"
+                                            [(ngModel)]="productForm.colorDetails[color].fechaInicio"
+                                            [name]="'fechaIni_' + color" class="date-input">
+                                    </div>
+                                    <div class="form-group mix-field">
+                                        <label>Fin de Oferta</label>
+                                        <input type="datetime-local"
+                                            [(ngModel)]="productForm.colorDetails[color].fechaFin"
+                                            [name]="'fechaFin_' + color" class="date-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mix-field" style="grid-column: span 2;">
+                                <label>Stock {{ !showEditModal() ? 'Total' : '' }}</label>
+                                <input type="number" [(ngModel)]="productForm.colorDetails[color].stock"
+                                    [name]="'stock_' + color" required min="0">
+
+                                <div *ngIf="!showEditModal()"
+                                    style="margin-top: 6px; font-size: 0.75rem; color: #64748b; display: flex; align-items: flex-start; gap: 4px;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        style="margin-top: 2px;">
+                                        <circle cx="12" cy="12" r="10" stroke-width="2"></circle>
+                                        <line x1="12" y1="16" x2="12" y2="12" stroke-width="2"></line>
+                                        <line x1="12" y1="8" x2="12.01" y2="8" stroke-width="2"></line>
+                                    </svg>
+                                    <span>El stock se dividirá en partes iguales por cada talla seleccionada.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tallas específico para este color -->
+                        <div class="form-group mix-field" style="margin-top: 1rem;">
+                            <label class="sub-label" style="font-size: 0.9rem;">Tallas para {{color}}</label>
+
+                            <div class="tallas-selector mini" *ngIf="!showEditModal()">
+                                <label *ngFor="let talla of availableTallas" class="talla-checkbox mini">
+                                    <input type="checkbox" [value]="talla"
+                                        [checked]="isTallaSelectedForColor(color, talla)"
+                                        (change)="toggleTallaForColor(color, talla)">
+                                    <span>{{ talla }}</span>
+                                </label>
+                            </div>
+
+                            <div *ngIf="showEditModal()" class="talla-fija-badge"
+                                style="padding: 8px; background: #f5f5f5; border-radius: 6px; font-weight: bold; color: #333;">
+                                {{ productForm.colorDetails[color].tallas[0] || 'N/A' }}
+                                <div style="font-size: 0.75rem; font-weight: normal; color: #666; margin-top: 4px;">
+                                    (La talla no se puede modificar al editar el stock)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="image-upload-area mini">
+                            <label class="sub-label">Imágenes de la Variante ({{color}})</label>
+                            <div class="upload-container-mini">
+                                <div class="upload-box mini"
+                                    *ngIf="productForm.colorDetails[color].imagenes.length < 4">
+                                    <input type="file" [id]="'imageUpload_' + color" accept="image/*" multiple
+                                        (change)="handleColorImageUpload($event, color)" hidden>
+                                    <label [for]="'imageUpload_' + color" class="upload-label mini">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor">
+                                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke-width="2" />
+                                            <circle cx="8.5" cy="8.5" r="1.5" stroke-width="2" />
+                                            <polyline points="21 15 16 10 5 21" stroke-width="2" />
+                                        </svg>
+                                        <span>Subir fotos</span>
+                                    </label>
+                                </div>
+                                <div class="image-previews mini">
+                                    <div *ngFor="let img of productForm.colorDetails[color].imagenes; let i = index"
+                                        class="image-preview mini">
+                                        <img [src]="img" alt="Preview">
+                                        <button type="button" class="remove-image" (click)="removeColorImage(color, i)">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor">
+                                                <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" />
+                                                <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estado -->
+        <div class="form-section">
+            <h3 class="section-title">Estado del Producto</h3>
+            <div class="form-row">
+                <label class="checkbox-label">
+                    <input type="checkbox" [(ngModel)]="productForm.nuevo" name="nuevo">
+                    <span>Marcar como Nuevo</span>
+                </label>
+
+                <label class="checkbox-label">
+                    <input type="checkbox" [(ngModel)]="productForm.destacado" name="destacado">
+                    <span>Producto Destacado</span>
+                </label>
+            </div>
+        </div>
+
+    </form>
+
+    <div modal-footer>
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+            Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="showEditModal() ? updateProduct() : createProduct()">
+            {{ showEditModal() ? 'Guardar Cambios' : 'Crear Producto' }}
+        </button>
+    </div>
+</app-modal>
+
+<!-- Delete Confirmation Modal -->
+<app-modal *ngIf="showDeactivateModal()" title="Confirmar Desactivación" size="sm"
+    (onClose)="showDeactivateModal.set(false)">
+
+    <div class="deactivate-confirmation">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path
+                d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <line x1="1" y1="1" x2="23" y2="23" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <p>¿Estás seguro de desactivar este producto?</p>
+        <p class="warning-text">El producto se ocultará de la tienda pública, pero conservarás su historial. Podrás
+            reactivarlo cuando desees.</p>
+    </div>
+
+    <div modal-footer>
+        <button type="button" class="btn btn-secondary" (click)="showDeactivateModal.set(false)">
+            Cancelar
+        </button>
+        <button type="button" class="btn btn-warning" (click)="confirmDeactivate()">
+            Desactivar Producto
+        </button>
+    </div>
+</app-modal>
+
+<!-- Activate Confirmation Modal -->
+<app-modal *ngIf="showActivateModal()" title="Confirmar Activación" size="sm" (onClose)="showActivateModal.set(false)">
+
+    <div class="deactivate-confirmation">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#4CAF50">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            <polyline points="22 4 12 14.01 9 11.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            </polyline>
+        </svg>
+        <p>¿Estás seguro de reactivar este producto?</p>
+        <p class="warning-text" style="color: #4CAF50;">El producto volverá a estar visible para el público de
+            inmediato.</p>
+    </div>
+
+    <div modal-footer>
+        <button type="button" class="btn btn-secondary" (click)="showActivateModal.set(false)">
+            Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" style="background-color: #4CAF50; border-color: #4CAF50;"
+            (click)="confirmActivate()">
+            Activar Producto
+        </button>
+    </div>
+</app-modal>

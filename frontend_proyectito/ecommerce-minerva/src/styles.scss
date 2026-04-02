@@ -1,0 +1,86 @@
+// 1. CARGAR MÓDULOS DEL NÚCLEO Y VARIABLES
+@use "sass:color";
+@use 'app/styles/variables' as v;
+// 2. FUENTES (Se mantiene como importación global)
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+// 3. RESET Y ESTILOS BASE
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: v.$color-black;      // Usamos el prefijo v.
+  background: v.$color-white; // Usamos el prefijo v.
+  line-height: 1.6;
+}
+
+// 4. TIPOGRAFÍA
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+// 5. UTILIDADES
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+// 7. SELECCIÓN
+::selection {
+  background: v.$color-blue-baby-dark;
+  color: v.$color-white;
+}
+
+// 8. ANIMACIONES
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// 9. CLASES DE UTILIDAD
+.text-center { text-align: center; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+// 10. ESTILOS DE DASHBOARD (GLOBALES)
+.dashboard-layout {
+  display: flex;
+  background: #F5F5F5;
+  min-height: calc(100vh - 80px);
+  width: 100%;
+}
+
+.dashboard-content {
+  flex: 1;
+  margin-left: 280px;
+  padding: 2rem;
+  padding-bottom: 4rem; // Evitar que el footer tape contenido al final
+  
+  @media (max-width: 1024px) {
+    margin-left: 0;
+  }
+}

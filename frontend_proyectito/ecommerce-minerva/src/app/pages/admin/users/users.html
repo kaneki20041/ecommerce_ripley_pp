@@ -1,0 +1,172 @@
+<div class="dashboard-layout">
+    <app-dashboard-sidebar></app-dashboard-sidebar>
+
+    <main class="dashboard-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Gestión de Usuarios</h1>
+                <p class="page-subtitle">Administra usuarios, empleados y administradores</p>
+            </div>
+            <button class="btn btn-primary" (click)="openCreateModal()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <line x1="12" y1="5" x2="12" y2="19" stroke-width="2" />
+                    <line x1="5" y1="12" x2="19" y2="12" stroke-width="2" />
+                </svg>
+                Crear Usuario
+            </button>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters-section">
+            <div class="filter-group">
+                <label>Filtrar por Rol:</label>
+                <select [ngModel]="roleFilter()" (ngModelChange)="roleFilter.set($event)" class="filter-select">
+                    <option value="all">Todos</option>
+                    <option value="ADMIN">Administrador</option>
+                    <option value="EMPLOYEE">Empleado</option>
+                    <option value="USER">Usuario</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>Filtrar por Estado:</label>
+                <select [ngModel]="statusFilter()" (ngModelChange)="statusFilter.set($event)" class="filter-select">
+                    <option value="all">Todos</option>
+                    <option value="activo">Activos</option>
+                    <option value="inactivo">Inactivos</option>
+                </select>
+            </div>
+
+
+
+            <div class="filter-stats">
+                <span class="stat-badge">Total: {{ totalUsers() }}</span>
+                <span class="stat-badge admin">ADMIN: {{ totalAdmin() }}</span>
+                <span class="stat-badge employee">EMPLOYEE: {{ totalEmployee() }}</span>
+                <span class="stat-badge user">USER: {{ totalUser() }}</span>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <app-data-table [columns]="columns" [data]="filteredUsers()" [actions]="actions" [loading]="loading()"
+                [pagination]="true" [itemsPerPage]="pageSize()" (pageSizeChange)="pageSize.set($event)" emptyMessage="No se encontraron usuarios">
+            </app-data-table>
+        </div>
+    </main>
+</div>
+
+<!-- Create Modal -->
+<app-modal *ngIf="showCreateModal()" title="Crear Nuevo Usuario" size="md" (onClose)="closeCreateModal()">
+
+    <form class="user-form" (submit)="createUser(); $event.preventDefault()">
+        <div class="form-row">
+            <div class="form-group">
+                <label>Nombre *</label>
+                <input type="text" [(ngModel)]="userForm.firstName" name="firstName" required
+                    placeholder="Ingrese el nombre">
+            </div>
+
+            <div class="form-group">
+                <label>Apellido *</label>
+                <input type="text" [(ngModel)]="userForm.lastName" name="lastName" required
+                    placeholder="Ingrese el apellido">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Email *</label>
+            <input type="email" [(ngModel)]="userForm.email" name="email" required placeholder="correo@ejemplo.com">
+        </div>
+
+        <div class="form-group">
+            <label>Contraseña *</label>
+            <input type="password" [(ngModel)]="userForm.password" name="password" required minlength="6"
+                placeholder="Mínimo 6 caracteres">
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Rol *</label>
+                <select [(ngModel)]="userForm.role" name="role" required>
+                    <option value="USER">Usuario</option>
+                    <option value="EMPLOYEE">Empleado</option>
+                    <option value="ADMIN">Administrador</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Celular (opcional)</label>
+                <input type="tel" [(ngModel)]="userForm.celular" name="celular" placeholder="999 999 999">
+            </div>
+        </div>
+
+        <div class="role-info">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="10" stroke-width="2" />
+                <line x1="12" y1="16" x2="12" y2="12" stroke-width="2" />
+                <line x1="12" y1="8" x2="12.01" y2="8" stroke-width="2" />
+            </svg>
+            <span>
+                <strong>ADMIN:</strong> Acceso completo al sistema.
+                <strong>EMPLOYEE:</strong> Gestión de productos y pedidos.
+                <strong>USER:</strong> Compras y perfil personal.
+            </span>
+        </div>
+    </form>
+
+    <div modal-footer>
+        <button type="button" class="btn btn-secondary" (click)="closeCreateModal()">
+            Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="createUser()">
+            Crear Usuario
+        </button>
+    </div>
+</app-modal>
+
+<!-- Edit Modal -->
+<app-modal *ngIf="showEditModal()" title="Editar Usuario" size="md" (onClose)="closeEditModal()">
+
+    <form class="user-form" (submit)="updateUser(); $event.preventDefault()">
+        <div class="form-row">
+            <div class="form-group">
+                <label>Nombre *</label>
+                <input type="text" [(ngModel)]="userForm.firstName" name="firstName" required>
+            </div>
+
+            <div class="form-group">
+                <label>Apellido *</label>
+                <input type="text" [(ngModel)]="userForm.lastName" name="lastName" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Email *</label>
+            <input type="email" [(ngModel)]="userForm.email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label>Rol *</label>
+            <select [(ngModel)]="userForm.role" name="role" required>
+                <option value="USER">Usuario</option>
+                <option value="EMPLOYEE">Empleado</option>
+                <option value="ADMIN">Administrador</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Nueva Contraseña (dejar en blanco para no cambiar)</label>
+            <input type="password" [(ngModel)]="userForm.password" name="password" placeholder="Nueva contraseña">
+        </div>
+    </form>
+
+    <div modal-footer>
+        <button type="button" class="btn btn-secondary" (click)="closeEditModal()">
+            Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="updateUser()">
+            Guardar Cambios
+        </button>
+    </div>
+</app-modal>
