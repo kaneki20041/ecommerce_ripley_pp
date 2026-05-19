@@ -16,29 +16,27 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 	@Query("SELECT DISTINCT p FROM Product p LEFT JOIN FETCH p.variantes LEFT JOIN FETCH p.categoria")
     List<Product> findAllProductsOptimized();
-    // Usamos JOIN v para buscar dentro de las variantes
-    @Query("SELECT DISTINCT p FROM Product p LEFT JOIN p.variantes v WHERE " +
+	
+	@Query("SELECT DISTINCT p FROM Product p LEFT JOIN p.variantes v WHERE " +
             "(:categoria IS NULL OR p.categoria.name = :categoria) " +
+            "AND (:genero IS NULL OR p.genero = :genero OR p.genero = 'Unisex') " +
+            "AND (:isNuevo IS NULL OR p.isNuevo = :isNuevo) " +
             "AND (:minPrice IS NULL OR p.price >= :minPrice) " +
             "AND (:maxPrice IS NULL OR p.price <= :maxPrice) " +
             "AND (:minDiscount IS NULL OR p.descuentot >= :minDiscount) " +
             "AND (COALESCE(:colors, NULL) IS NULL OR LOWER(v.color) IN :colors) " +
             "AND (COALESCE(:sizes, NULL) IS NULL OR v.size IN :sizes) " +
-            "AND (:stock = 'en_stock' AND v.stock > 0 OR " +
-            ":stock = 'sin_stock' AND v.stock < 1 OR " +
-            ":stock IS NULL) " +
-            "ORDER BY " +
-            "CASE WHEN :sort = 'precio_menor' THEN p.price END ASC, " +
-            "CASE WHEN :sort = 'precio_mayor' THEN p.price END DESC")
+            "AND (:stock IS NULL OR (:stock = 'en_stock' AND v.stock > 0) OR (:stock = 'sin_stock' AND v.stock < 1))")
     Page<Product> filterProducts(
             @Param("categoria") String categoria,
+            @Param("genero") String genero,
+            @Param("isNuevo") Boolean isNuevo,
             @Param("colors") List<String> colors,
             @Param("sizes") List<String> sizes,
             @Param("minPrice") Integer minPrice,
             @Param("maxPrice") Integer maxPrice,
             @Param("minDiscount") Integer minDiscount,
-            @Param("sort") String sort,
             @Param("stock") String stock,
-            Pageable pageable
+            Pageable pageable // Ya no pasamos el "sort" como String al Query
     );
 }

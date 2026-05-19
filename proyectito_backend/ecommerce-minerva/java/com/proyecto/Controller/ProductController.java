@@ -14,32 +14,44 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.Exception.ProductException;
 import com.proyecto.model.Product;
+import com.proyecto.response.ApiResponse;
+import com.proyecto.response.PaginatedResponse;
+import com.proyecto.response.ProductCardResponse;
 import com.proyecto.service.ProductService;
 
 @RestController
-@RequestMapping("/productito")
+@RequestMapping("api/products/public")
 public class ProductController {
 
 	@Autowired
 	private ProductService productService;
 
-    @GetMapping("/filter")
-    public ResponseEntity<Page<Product>> filterProducts(
+	@GetMapping("/filter")
+    public ResponseEntity<ApiResponse<PaginatedResponse<ProductCardResponse>>> getFilteredProducts(
             @RequestParam(required = false) String categoria,
-            @RequestParam(required = false) List<String> color,
+            @RequestParam(required = false) String genero,
+            @RequestParam(required = false) Boolean isNuevo,
+            @RequestParam(required = false) List<String> colors,
             @RequestParam(required = false) List<String> sizes,
             @RequestParam(required = false) Integer minPrice,
             @RequestParam(required = false) Integer maxPrice,
             @RequestParam(required = false) Integer minDiscount,
-            @RequestParam(required = false, defaultValue = "desc") String sort,
+            @RequestParam(required = false) String sort,
             @RequestParam(required = false) String stock,
             @RequestParam(defaultValue = "0") Integer pageNumber,
-            @RequestParam(defaultValue = "10") Integer pageSize
-    ) {
-        Page<Product> result = productService.getAllProduct(
-                categoria, color, sizes, minPrice, maxPrice,
+            @RequestParam(defaultValue = "12") Integer pageSize) { // 12 productos recomendados
+
+		// 1. Obtenemos la data paginada y filtrada
+        PaginatedResponse<ProductCardResponse> paginatedData = productService.getAllProductPublic(
+                categoria, genero, isNuevo, colors, sizes, minPrice, maxPrice, 
                 minDiscount, sort, stock, pageNumber, pageSize);
-        return ResponseEntity.ok(result);
+
+        // 2. Lo envolvemos en tu ApiResponse
+        ApiResponse<PaginatedResponse<ProductCardResponse>> apiResponse = 
+            new ApiResponse<>("Productos obtenidos exitosamente", true, paginatedData);
+
+        // 3. Lo retornamos
+        return ResponseEntity.ok(apiResponse);
     }
 
 

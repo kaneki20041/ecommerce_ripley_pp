@@ -94,14 +94,6 @@ public class Usuario {
 	@CollectionTable(name="info_pago",joinColumns=@JoinColumn(name="Usuarios_id"))
 	private List<InfoPago> infoPago=new ArrayList<>();
 
-	@OneToMany(mappedBy="usuario",cascade=CascadeType.ALL)
-	@JsonIgnore
-	private List<Rating> ratings=new ArrayList<>();
-
-	@JsonIgnore
-	@OneToMany(mappedBy="usuario",cascade=CascadeType.ALL)
-	private List<Review> reviews = new ArrayList<>();
-
 	@CreatedDate
 	private LocalDateTime createdAt;
 
@@ -196,22 +188,6 @@ public class Usuario {
 
 	public void setInfoPago(List<InfoPago> infoPago) {
 		this.infoPago = infoPago;
-	}
-
-	public List<Rating> getRatings() {
-		return ratings;
-	}
-
-	public void setRatings(List<Rating> ratings) {
-		this.ratings = ratings;
-	}
-
-	public List<Review> getReviews() {
-		return reviews;
-	}
-
-	public void setReviews(List<Review> reviews) {
-		this.reviews = reviews;
 	}
 
 	public LocalDateTime getCreatedAt() {

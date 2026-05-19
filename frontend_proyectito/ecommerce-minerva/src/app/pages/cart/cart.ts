@@ -1,4 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
+import { Product } from '../../models/product.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,6 +13,7 @@ import { AuthService } from '../../services/auth';
   templateUrl: './cart.html',
   styleUrls: ['./cart.scss']
 })
+
 export class CartComponent {
   cartService = inject(CartService);
   private authService = inject(AuthService);
@@ -28,7 +30,63 @@ export class CartComponent {
   couponApplied = false;
   couponDiscount = 0;
   couponError = '';
-
+  // Productos recomendados (UI placeholder)
+  recommendedProducts: Product[] = [];
+  ngOnInit() {
+    this.recommendedProducts = [
+      {
+        id: 999,
+        nombre: 'Zapatillas Urban Runner',
+        precio: 85.50,
+        imagenes: ['https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80'],
+        stock: 10,
+        colores: [{ nombre: 'Negro', hex: '#000000' }],
+        tallas: ['S', 'M', 'L'],
+        marca: 'Nike',
+        descripcion: 'Zapatillas urbanas con diseño moderno y confort superior.',
+        categoria: 'Calzado',
+        genero: 'Unisex',
+        nuevo: true,
+        destacado: false,
+        rating: 4.5,
+        reviews: 0
+      },
+      {
+        id: 888,
+        nombre: 'Polo Classic Fit',
+        precio: 120.00,
+        imagenes: ['https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&q=80'],
+        stock: 5,
+        colores: [{ nombre: 'Blanco', hex: '#ffffff' }],
+        tallas: ['M'],
+        marca: 'Zara',
+        descripcion: 'Polo de algodón premium con corte clásico.',
+        categoria: 'Ropa',
+        genero: 'Unisex',
+        nuevo: false,
+        destacado: true,
+        rating: 5.0,
+        reviews: 0
+      },
+      {
+        id: 777,
+        nombre: 'Mochila Trail Pro',
+        precio: 65.00,
+        imagenes: ['https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&q=80'],
+        stock: 8,
+        colores: [{ nombre: 'Gris', hex: '#6b7280' }],
+        tallas: ['Único'],
+        marca: 'Adidas',
+        descripcion: 'Mochila resistente al agua ideal para aventuras urbanas.',
+        categoria: 'Accesorios',
+        genero: 'Unisex',
+        nuevo: false,
+        destacado: false,
+        rating: 4.0,
+        reviews: 0
+      }
+    ];
+  }
   // Descuento total de productos
   productsDiscount = computed(() => this.cartService.getTotalDiscount());
 
@@ -135,6 +193,13 @@ export class CartComponent {
     this.router.navigate(['/productos']);
   }
 
+  addRecommendedToCart(product: Product): void {
+    // Simple add with default size/color (first available)
+    const size = product.tallas?.[0] || '';
+    const color = product.colores?.[0]?.nombre || '';
+    this.cartService.addToCart(product, 1, size, color);
+  }
+
   proceedToCheckout(): void {
     if (this.authService.isAuthenticated()) {
       this.router.navigate(['/checkout']);
@@ -149,6 +214,14 @@ export class CartComponent {
     this.router.navigate(['/producto', productId]);
   }
 
+  scrollCarousel(direction: number): void {
+    const track = document.getElementById('carousel-track');
+    if (track) {
+      const cardWidth = 280; // ancho de card + gap
+      track.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
+    }
+  }
+
   // Helpers
   getItemSubtotal(item: CartItem): number {
     return item.product.precio * item.quantity;
@@ -158,4 +231,5 @@ export class CartComponent {
     const color = item.product.colores.find(c => c.nombre === item.selectedColor);
     return color?.hex || '#000000';
   }
+
 }

@@ -2,14 +2,14 @@
     <!-- Badges -->
     <div class="badges">
         <span class="badge badge-new" *ngIf="product.nuevo">Nuevo</span>
-        <span class="badge badge-discount" *ngIf="product.descuento">
-            -{{ getDiscountPercentage() }}%
+        <span class="badge badge-discount" *ngIf="product.descuentot > 0">
+            -{{ product.descuentot }}%
         </span>
     </div>
 
     <!-- Imagen del producto -->
     <div class="product-image">
-        <img [src]="getMainImage()" [alt]="product.nombre" loading="lazy">
+        <img [src]="getMainImage()" [alt]="product.title" loading="lazy">
 
         <!-- Botón de agregar rápido -->
         <button *ngIf="showQuickAdd" class="quick-add-btn" (click)="quickAddToCart($event)"
@@ -34,45 +34,27 @@
         <p class="product-brand" *ngIf="product.marca">{{ product.marca }}</p>
 
         <!-- Nombre -->
-        <h3 class="product-name">{{ product.nombre }}</h3>
-
-        <!-- Rating -->
-        <div class="product-rating">
-            <div class="stars">
-                <span *ngFor="let star of getRatingStars(); let i = index" class="star"
-                    [class.filled]="i < product.rating">
-                    ★
-                </span>
-            </div>
-            <span class="reviews-count">({{ product.reviews }})</span>
-        </div>
+        <h3 class="product-name">{{ product.title }}</h3>
 
         <!-- Precio -->
         <div class="product-price">
             <div class="price-container">
-                <span class="current-price">S/ {{ product.precio.toFixed(2) }}</span>
-                <span class="old-price" *ngIf="product.precioAnterior">
-                    S/ {{ product.precioAnterior.toFixed(2) }}
+                <span class="current-price">S/ {{ product.price.toFixed(2) }}</span>
+                <span class="old-price" *ngIf="product.descuentoprice">
+                    S/ {{ product.descuentoprice.toFixed(2) }}
                 </span>
             </div>
         </div>
 
         <!-- Colores disponibles -->
-        <div class="product-colors" *ngIf="product.colores.length > 1">
-            <span *ngFor="let color of product.colores.slice(0, 4)" class="color-dot"
-                [style.background-color]="color.hex" [title]="color.nombre">
+        <div class="product-colors" *ngIf="product.availableColors && product.availableColors.length > 1">
+            <span *ngFor="let color of product.availableColors.slice(0, 4)" class="color-dot"
+                [style.background-color]="getColorHex(color)"
+                [title]="color">
             </span>
-            <span *ngIf="product.colores.length > 4" class="more-colors">
-                +{{ product.colores.length - 4 }}
+            <span *ngIf="product.availableColors && product.availableColors.length > 4" class="more-colors">
+                +{{ product.availableColors.length - 4 }}
             </span>
         </div>
-
-        <!-- Stock bajo -->
-        <p class="low-stock" *ngIf="product.stock < 10 && product.stock > 0">
-            ¡Solo {{ product.stock }} disponibles!
-        </p>
-        <p class="out-of-stock" *ngIf="product.stock === 0">
-            Agotado
-        </p>
     </div>
 </div>

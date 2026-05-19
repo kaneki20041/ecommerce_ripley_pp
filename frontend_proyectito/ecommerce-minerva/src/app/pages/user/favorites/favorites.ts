@@ -2,7 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { DashboardSidebarComponent } from '../../../components/dashboard-sidebar/dashboard-sidebar';
 import { ProductCardComponent } from '../../../components/product-card/product-card';
-import { Product } from '../../../models/product.model';
+import { Product, ProductCardResponse, mapProductToCardResponse } from '../../../models/product.model';
 import { ProductService } from '../../../services/product.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { ProductService } from '../../../services/product.service';
 })
 export class FavoritesComponent implements OnInit {
   loading = signal(false);
-  favorites = signal<Product[]>([]);
+  favorites = signal<ProductCardResponse[]>([]);
 
   constructor(
     private productService: ProductService,
@@ -34,7 +34,7 @@ export class FavoritesComponent implements OnInit {
     this.productService.getAllProducts().subscribe({
       next: (products) => {
         const favProducts = products.filter(p => favoriteIds.includes(p.id));
-        this.favorites.set(favProducts);
+        this.favorites.set(favProducts.map(p => mapProductToCardResponse(p)));
         this.loading.set(false);
       }
     });

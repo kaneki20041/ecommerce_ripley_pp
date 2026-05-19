@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { ApiResponse, PaginatedResponse } from '../models/api-response';
-import { Product, MOCK_PRODUCTS, CATEGORIAS, GENEROS, ProductAdminListResponse, CreateProductRequest, SingleVariantResponse, UpdateVariantRequest, UpdateProductBasicRequest } from '../models/product.model';
+import { Product, MOCK_PRODUCTS, CATEGORIAS, GENEROS, ProductAdminListResponse, CreateProductRequest, SingleVariantResponse, UpdateVariantRequest, UpdateProductBasicRequest, ProductCardResponse } from '../models/product.model';
 
 export interface ProductFilters {
   categoria?: string;
@@ -129,6 +129,41 @@ export class ProductService {
     }
 
     return of(filtered);
+  }
+
+  /**
+   * Obtener productos filtrados desde el endpoint público
+   */
+  getFilteredProductsPublic(
+    categoria?: string,
+    genero?: string,
+    isNuevo?: boolean,
+    colors?: string[],
+    sizes?: string[],
+    minPrice?: number,
+    maxPrice?: number,
+    minDiscount?: number,
+    sort?: string,
+    stock?: string,
+    pageNumber: number = 0,
+    pageSize: number = 12
+  ): Observable<ApiResponse<PaginatedResponse<ProductCardResponse>>> {
+    let params = new HttpParams();
+    if (categoria) params = params.set('categoria', categoria);
+    if (genero) params = params.set('genero', genero);
+    if (isNuevo !== undefined) params = params.set('isNuevo', isNuevo.toString());
+    if (colors && colors.length > 0) colors.forEach(c => params = params.append('colors', c));
+    if (sizes && sizes.length > 0) sizes.forEach(s => params = params.append('sizes', s));
+    if (minPrice !== undefined) params = params.set('minPrice', minPrice.toString());
+    if (maxPrice !== undefined) params = params.set('maxPrice', maxPrice.toString());
+    if (minDiscount !== undefined) params = params.set('minDiscount', minDiscount.toString());
+    if (sort) params = params.set('sort', sort);
+    if (stock) params = params.set('stock', stock);
+    params = params.set('pageNumber', pageNumber.toString());
+    params = params.set('pageSize', pageSize.toString());
+
+    // Asumimos que el endpoint `/filter` base es `/api/products`
+    return this.http.get<ApiResponse<PaginatedResponse<ProductCardResponse>>>(`${environment.apiUrl}/api/products/public/filter`, { params });
   }
 
   /**

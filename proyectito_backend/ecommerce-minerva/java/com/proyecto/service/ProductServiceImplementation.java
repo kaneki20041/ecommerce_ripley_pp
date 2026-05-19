@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ import com.proyecto.request.UpdateProductBasicRequest;
 import com.proyecto.request.UpdateVariantRequest;
 import com.proyecto.response.PaginatedResponse;
 import com.proyecto.response.ProductAdminListResponse;
+import com.proyecto.response.ProductCardResponse;
 
 @Service
 public class ProductServiceImplementation implements ProductService{
@@ -467,33 +469,76 @@ public class ProductServiceImplementation implements ProductService{
         throw new ProductException("Producto no encontrado con el id " + id);
     }
 
-    @Override
+	@Override
     @Transactional(readOnly = true)
-    public Page<Product> getAllProduct(
-            String categoria, List<String> colors, List<String> sizes,
+    public PaginatedResponse<ProductCardResponse> getAllProductPublic( 
+            String categoria, String genero, Boolean isNuevo, 
+            List<String> colors, List<String> sizes,
             Integer minPrice, Integer maxPrice, Integer minDiscount,
             String sort, String stock, Integer pageNumber, Integer pageSize) {
-
+            
         // Validaciones de negocio
         if (minPrice != null && maxPrice != null && minPrice > maxPrice) {
             throw new IllegalArgumentException("El precio mínimo no puede ser mayor que el máximo");
         }
 
-        // Lógica de transformación o validación adicional
-        if (sort != null && !sort.equals("asc") && !sort.equals("desc")) {
-            sort = "desc"; // Valor por defecto si es inválido
+        // ✅ 1. CREAR LA REGLA DE ORDENAMIENTO (Sort)
+        Sort sortObj = Sort.by(Sort.Direction.DESC, "createdAt"); // Por defecto: Más recientes
+        
+        if ("precio_menor".equals(sort)) {
+            sortObj = Sort.by(Sort.Direction.ASC, "price");
+        } else if ("precio_mayor".equals(sort)) {
+            sortObj = Sort.by(Sort.Direction.DESC, "price");
+        } else if ("relevancia".equals(sort)) {
+            sortObj = Sort.by(Sort.Direction.DESC, "createdAt"); // Puedes ajustarlo después si tienes un sistema de vistas
         }
+        
+        // ✅ 2. AGREGAR EL SORT AL PAGEABLE
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, sortObj);
+        
+        // ✅ 3. LLAMAR AL REPO (Fíjate que ya NO le pasamos la variable 'sort')
+        Page<Product> page = productRepository.filterProducts(
+                categoria, genero, isNuevo, colors, sizes, minPrice, maxPrice,
+                minDiscount, stock, pageable);
+                
+        // 4. MAPEO: Convertir Product (Entidad pesada) a ProductCardResponse (DTO liviano)
+        List<ProductCardResponse> cardList = page.getContent().stream().map(p -> {
+            ProductCardResponse card = new ProductCardResponse();
+            card.setId(p.getId());
+            card.setTitle(p.getTitle());
+            card.setMarca(p.getMarca());
+            card.setPrice(p.getPrice());
+            card.setDescuentoprice(p.getDescuentoprice());
+            card.setDescuentot(p.getDescuentot());
+            card.setNuevo(p.isNuevo());
 
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
-
-        try {
-            return productRepository.filterProducts(
-                    categoria, colors, sizes, minPrice, maxPrice,
-                    minDiscount, sort, stock, pageable);
-        } catch (Exception e) {
-            // Log del error y manejo específico
-            throw new RuntimeException("Error al filtrar productos", e);
-        }
+            // Lógica para obtener la imagen principal y los colores
+            if (p.getVariantes() != null && !p.getVariantes().isEmpty()) {
+                
+                List<String> coloresDisponibles = p.getVariantes().stream()
+                    .map(v -> v.getColor())
+                    .distinct() 
+                    .collect(java.util.stream.Collectors.toList());
+                card.setAvailableColors(coloresDisponibles);
+                
+                ProductVariant primeraVariante = p.getVariantes().iterator().next();
+                if (primeraVariante.getImageUrls() != null && !primeraVariante.getImageUrls().isEmpty()) {
+                    card.setMainImageUrl(primeraVariante.getImageUrls().get(0));
+                }
+            }
+            return card;
+        }).collect(java.util.stream.Collectors.toList());
+                
+        // 5. EMPAQUETAR Y DEVOLVER
+        PaginatedResponse<ProductCardResponse> response = new PaginatedResponse<>();
+        response.setContent(cardList);
+        response.setPageNumber(page.getNumber());
+        response.setPageSize(page.getSize());
+        response.setTotalElements(page.getTotalElements());
+        response.setTotalPages(page.getTotalPages());
+        response.setLast(page.isLast());
+        
+        return response;
     }
 
     @Override

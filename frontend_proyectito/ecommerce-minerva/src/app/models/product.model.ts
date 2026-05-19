@@ -426,3 +426,29 @@ export interface UpdateProductBasicRequest {
     nuevo: boolean;
     destacado: boolean;
 }
+
+export interface ProductCardResponse {
+    id: number;
+    title: string;
+    marca: string;
+    price: number;
+    descuentoprice: number;
+    descuentot: number;
+    nuevo: boolean;
+    mainImageUrl: string;
+    availableColors: string[];
+}
+
+export function mapProductToCardResponse(p: Product): ProductCardResponse {
+    return {
+        id: p.id,
+        title: p.nombre,
+        marca: p.marca || '',
+        price: p.precio,
+        descuentoprice: p.precioAnterior || 0,
+        descuentot: p.descuento || 0,
+        nuevo: p.nuevo,
+        mainImageUrl: p.imagenes && p.imagenes.length > 0 ? p.imagenes[0] : '',
+        availableColors: p.colores ? p.colores.map(c => c.hex) : []
+    };
+}

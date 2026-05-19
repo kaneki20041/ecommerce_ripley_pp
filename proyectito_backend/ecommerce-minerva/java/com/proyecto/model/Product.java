@@ -43,12 +43,6 @@ public class Product {
 
 	private String marca;
 
-	@OneToMany(mappedBy="product",cascade=CascadeType.ALL,orphanRemoval=true)
-	private List<Rating>ratings=new ArrayList<>();
-
-	@OneToMany
-	private List<Review>reviews=new ArrayList<>();
-
 	@Column(name="num_ratings")
 	private int numRatings;
 
@@ -77,8 +71,7 @@ public class Product {
 
 
 	public Product(Long id, String title, String description, String genero, String material, int price,
-			int descuentoprice, int descuentot, String marca, List<Rating> ratings,
-			List<Review> reviews, int numRatings, Categoria categoria, LocalDateTime createdAt, boolean isNuevo,
+			int descuentoprice, int descuentot, String marca, int numRatings, Categoria categoria, LocalDateTime createdAt, boolean isNuevo,
 			boolean isDestacado, List<ProductVariant> variantes, Usuario creadoPor) {
 		super();
 		this.id = id;
@@ -90,8 +83,6 @@ public class Product {
 		this.descuentoprice = descuentoprice;
 		this.descuentot = descuentot;
 		this.marca = marca;
-		this.ratings = ratings;
-		this.reviews = reviews;
 		this.numRatings = numRatings;
 		this.categoria = categoria;
 		this.createdAt = createdAt;
@@ -157,22 +148,6 @@ public class Product {
 
 	public void setMarca(String marca) {
 		this.marca = marca;
-	}
-
-	public List<Rating> getRatings() {
-		return ratings;
-	}
-
-	public void setRatings(List<Rating> ratings) {
-		this.ratings = ratings;
-	}
-
-	public List<Review> getReviews() {
-		return reviews;
-	}
-
-	public void setReviews(List<Review> reviews) {
-		this.reviews = reviews;
 	}
 
 	public int getNumRatings() {

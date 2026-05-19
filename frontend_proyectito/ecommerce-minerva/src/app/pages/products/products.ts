@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService, ProductFilters } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
-import { Product } from '../../models/product.model';
+import { Product, ProductCardResponse } from '../../models/product.model';
 import { ProductCardComponent } from '../../components/product-card/product-card';
 
 @Component({
@@ -16,8 +16,10 @@ import { ProductCardComponent } from '../../components/product-card/product-card
 })
 export class ProductsComponent implements OnInit {
   // Señales
-  products = signal<Product[]>([]);
+  products = signal<ProductCardResponse[]>([]);
   loading = signal(true);
+  totalPagesServer = signal(1);
+  totalElements = signal(0);
 
   // Filtros
   selectedCategoria = signal<string | undefined>(undefined);
@@ -47,38 +49,13 @@ export class ProductsComponent implements OnInit {
   // Mostrar/Ocultar filtros en móvil
   showFilters = signal(false);
 
-  // Productos ordenados y paginados
-  sortedProducts = computed(() => {
-    const prods = this.products();
-    const sorted = [...prods];
-
-    switch (this.sortBy()) {
-      case 'precio-asc':
-        sorted.sort((a, b) => a.precio - b.precio);
-        break;
-      case 'precio-desc':
-        sorted.sort((a, b) => b.precio - a.precio);
-        break;
-      case 'nuevos':
-        sorted.sort((a, b) => (b.nuevo ? 1 : 0) - (a.nuevo ? 1 : 0));
-        break;
-      default:
-        // relevancia - mostrar destacados primero
-        sorted.sort((a, b) => (b.destacado ? 1 : 0) - (a.destacado ? 1 : 0));
-    }
-
-    return sorted;
-  });
-
+  // Productos (ahora vienen paginados y ordenados del servidor)
   paginatedProducts = computed(() => {
-    const sorted = this.sortedProducts();
-    const start = (this.currentPage() - 1) * this.itemsPerPage;
-    const end = start + this.itemsPerPage;
-    return sorted.slice(start, end);
+    return this.products();
   });
 
   totalPages = computed(() => {
-    return Math.ceil(this.sortedProducts().length / this.itemsPerPage);
+    return this.totalPagesServer();
   });
 
   constructor(
@@ -107,22 +84,34 @@ export class ProductsComponent implements OnInit {
   loadProducts(): void {
     this.loading.set(true);
 
-    const filters: ProductFilters = {
-      categoria: this.selectedCategoria(),
-      genero: this.selectedGenero(),
-      precioMin: this.precioMin(),
-      precioMax: this.precioMax(),
-      tallas: this.selectedTallas(),
-      busqueda: this.searchQuery(),
-      nuevo: this.soloNuevos(),
-      enOferta: this.soloOfertas()
-    };
-
-    this.productService.getFilteredProducts(filters).subscribe({
-      next: (products) => {
-        this.products.set(products);
+    // Mapeamos sortBy a strings que el backend entienda, si es necesario, 
+    // o simplemente enviamos el valor actual.
+    // Usamos (currentPage - 1) porque Spring Data funciona con páginas 0-indexed.
+    this.productService.getFilteredProductsPublic(
+      this.selectedCategoria(),
+      this.selectedGenero(),
+      this.soloNuevos() ? true : undefined,
+      undefined, // colors no definido en UI actual
+      this.selectedTallas(),
+      this.precioMin(),
+      this.precioMax(),
+      this.soloOfertas() ? 1 : undefined, // minDiscount
+      this.sortBy(),
+      undefined, // stock no mapeado actualmente
+      this.currentPage() - 1,
+      this.itemsPerPage
+    ).subscribe({
+      next: (response) => {
+        if (response.result && response.data) {
+          this.products.set(response.data.content);
+          this.totalPagesServer.set(response.data.totalPages || 1);
+          this.totalElements.set(response.data.totalElements || 0);
+        } else {
+          this.products.set([]);
+          this.totalPagesServer.set(1);
+          this.totalElements.set(0);
+        }
         this.loading.set(false);
-        this.currentPage.set(1); // Resetear a página 1
       },
       error: (error) => {
         console.error('Error cargando productos:', error);
@@ -190,12 +179,14 @@ export class ProductsComponent implements OnInit {
   // Ordenamiento
   onSortChange(sort: 'relevancia' | 'precio-asc' | 'precio-desc' | 'nuevos'): void {
     this.sortBy.set(sort);
+    this.loadProducts();
   }
 
   // Paginación
   goToPage(page: number): void {
     if (page >= 1 && page <= this.totalPages()) {
       this.currentPage.set(page);
+      this.loadProducts();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
@@ -215,11 +206,11 @@ export class ProductsComponent implements OnInit {
     return this.cartService.isInCart(productId);
   }
 
-  quickAddToCart(product: Product): void {
-    // Agregar con primera talla y color disponible
-    const size = product.tallas[0];
-    const color = product.colores[0].nombre;
-    this.cartService.addToCart(product, 1, size, color);
+  quickAddToCart(product: ProductCardResponse): void {
+    // Adapter for cart
+    const size = 'Única';
+    const color = product.availableColors && product.availableColors.length > 0 ? product.availableColors[0] : 'N/A';
+    this.cartService.addToCart(product as any, 1, size, color);
   }
 
   // Mobile filters

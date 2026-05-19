@@ -1,6 +1,7 @@
 // 1. CARGAR MÓDULOS DEL NÚCLEO Y VARIABLES
 @use "sass:color";
 @use 'app/styles/variables' as v;
+@use 'app/styles/variables' as *;
 // 2. FUENTES (Se mantiene como importación global)
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 

@@ -13,6 +13,7 @@ import com.proyecto.request.UpdateProductBasicRequest;
 import com.proyecto.request.UpdateVariantRequest;
 import com.proyecto.response.PaginatedResponse;
 import com.proyecto.response.ProductAdminListResponse;
+import com.proyecto.response.ProductCardResponse;
 
 public interface ProductService {
 	public Product createProduct(CreateProductRequest req, Usuario creador);
@@ -23,8 +24,10 @@ public interface ProductService {
 
 	public String toggleVariantStatus(Long variantId) throws ProductException;
 
-	public Page<Product>getAllProduct(String categoria,List<String>colors,List<String>sizes,Integer minPrice,
-			Integer maxPrice, Integer minDiscount,String sort,String stock,Integer pageNumber,Integer pageSize);
+	public PaginatedResponse<ProductCardResponse>getAllProductPublic(String categoria, String genero, Boolean isNuevo, 
+            List<String> colors, List<String> sizes,
+            Integer minPrice, Integer maxPrice, Integer minDiscount,
+            String sort, String stock, Integer pageNumber, Integer pageSize);
 
 	public List<Product> findAllProducts();
 

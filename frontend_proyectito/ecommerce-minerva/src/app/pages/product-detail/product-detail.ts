@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
-import { Product } from '../../models/product.model';
+import { Product, ProductCardResponse, mapProductToCardResponse } from '../../models/product.model';
 import { ProductCardComponent } from '../../components/product-card/product-card';
 
 @Component({
@@ -15,7 +15,7 @@ import { ProductCardComponent } from '../../components/product-card/product-card
 })
 export class ProductDetailComponent implements OnInit {
   product = signal<Product | undefined>(undefined);
-  relatedProducts = signal<Product[]>([]);
+  relatedProducts = signal<ProductCardResponse[]>([]);
   loading = signal(true);
 
   // Imagen seleccionada
@@ -76,7 +76,7 @@ export class ProductDetailComponent implements OnInit {
   loadRelatedProducts(productId: number): void {
     this.productService.getRelatedProducts(productId, 4).subscribe({
       next: (products) => {
-        this.relatedProducts.set(products);
+        this.relatedProducts.set(products.map(p => mapProductToCardResponse(p)));
       }
     });
   }

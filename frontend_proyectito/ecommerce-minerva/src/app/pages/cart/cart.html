@@ -188,7 +188,9 @@
                     </div>
                 </div>
 
-                <!-- Checkout button -->
+
+
+<!-- Checkout button -->
                 <button class="checkout-btn" (click)="proceedToCheckout()">
                     Proceder al Pago
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -215,5 +217,42 @@
             </div>
 
         </div>
+
+        <!-- ===== Carrusel de productos recomendados ===== -->
+        <section class="recommendations" *ngIf="recommendedProducts.length">
+            <div class="recommendations-header">
+                <h2 class="section-title">También te puede gustar</h2>
+                <div class="carousel-controls">
+                    <button class="carousel-btn" (click)="scrollCarousel(-1)" id="carousel-prev">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button class="carousel-btn" (click)="scrollCarousel(1)" id="carousel-next">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="carousel-track-wrapper">
+                <div class="carousel-track" id="carousel-track">
+                    <div class="recommendation-card" *ngFor="let prod of recommendedProducts">
+                        <div class="card-image-wrap">
+                            <img [src]="prod.imagenes[0]" [alt]="prod.nombre" class="card-image" />
+                            <span class="card-badge" *ngIf="prod.nuevo">Nuevo</span>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-brand">{{ prod.marca }}</p>
+                            <h3 class="card-title">{{ prod.nombre }}</h3>
+                            <p class="card-price">S/ {{ prod.precio.toFixed(2) }}</p>
+                            <button class="add-btn" (click)="addRecommendedToCart(prod)">+ Añadir al carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 </div>

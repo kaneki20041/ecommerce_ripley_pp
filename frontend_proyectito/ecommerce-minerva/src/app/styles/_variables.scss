@@ -1,16 +1,24 @@
 // 1. CARGAR MÓDULOS DEL NÚCLEO (Si vas a procesar colores aquí mismo)
 @use "sass:color";
 
-// 2. PALETA DE COLORES
-$color-blue-baby:        #A8D8EA;
-$color-blue-baby-dark:   #7CB8D1;
-$color-yellow-elegant:   #FFD93D;
-$color-yellow-dark:      #F5C518;
-$color-white:            #FFFFFF;
-$color-black:            #1A1A1A;
-$color-gray-light:       #F5F5F5;
-$color-gray-medium:      #666666;
-$color-gray-dark:        #333333;
+// Monochrome palette
+$color-primary-bg:    #1A1A1A; // dark background
+$color-surface:       #2E2E2E; // cards, sections
+$color-primary-text:  #FFFFFF; // main text
+$color-secondary-text:#CCCCCC; // secondary text
+$color-accent:        #F5F5F5; // borders, highlights
+$color-border:        #333333;
+$color-white: $color-primary-text;
+$color-black: $color-primary-bg;
+$color-gray-light: $color-accent;
+$color-gray-medium: $color-secondary-text;
+$color-gray-dark: $color-border;
+
+// Legacy color aliases for compatibility with existing styles
+$color-blue-baby-dark: $color-primary-bg;
+$color-blue-baby: $color-primary-bg;
+$color-yellow-elegant: $color-accent;
+$color-yellow-dark: $color-accent;
 
 // 3. COLORES DE ESTADO (Semántica)
 $color-success:          #4CAF50;
