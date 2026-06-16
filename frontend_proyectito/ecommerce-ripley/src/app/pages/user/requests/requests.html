@@ -1,0 +1,68 @@
+<div class="dashboard-layout">
+    <app-dashboard-sidebar></app-dashboard-sidebar>
+
+    <main class="dashboard-content">
+
+        <div class="page-header">
+            <h1 class="page-title">Mis Solicitudes</h1>
+            <p class="page-subtitle">Revisa el estado de tus solicitudes de cancelación o devolución</p>
+        </div>
+
+        @if (loading()) {
+        <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Cargando solicitudes...</p>
+        </div>
+        } @else if (requests().length === 0) {
+        <div class="empty-state">
+            <div class="empty-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                    <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"/>
+                </svg>
+            </div>
+            <h3>Sin solicitudes aún</h3>
+            <p>Aún no has solicitado ninguna cancelación ni devolución.<br>Puedes hacerlo desde el detalle de un pedido.</p>
+        </div>
+        } @else {
+        <div class="requests-grid">
+            <div *ngFor="let req of requests()" class="req-card">
+
+                <!-- Top bar -->
+                <div class="req-card__top">
+                    <div class="req-card__id">
+                        <span class="req-card__num">Solicitud #{{ req.id }}</span>
+                        <span class="req-card__order-tag">Pedido #{{ req.order?.id }}</span>
+                    </div>
+                    <span class="status-pill {{ req.status?.toLowerCase() || 'pendiente' }}">
+                        {{ req.status || 'Pendiente' }}
+                    </span>
+                </div>
+
+                <!-- Meta info -->
+                <div class="req-card__body">
+                    <div class="req-meta">
+                        <span class="req-meta__label">Tipo</span>
+                        <span class="type-badge {{ (req.type || '').toLowerCase() }}">{{ req.type }}</span>
+                    </div>
+                    <div class="req-meta">
+                        <span class="req-meta__label">Fecha de solicitud</span>
+                        <span class="req-meta__value">{{ req.requestDate | date:'mediumDate' }}</span>
+                    </div>
+                    <div class="req-meta">
+                        <span class="req-meta__label">Monto del pedido</span>
+                        <span class="req-meta__value">S/ {{ (req.order?.totalDiscountedPrice || req.order?.totalPrice || 0) | number:'1.2-2' }}</span>
+                    </div>
+                </div>
+
+                <!-- Reason -->
+                <div class="req-card__reason">
+                    <p class="reason-label">Motivo</p>
+                    <p class="reason-text">{{ req.reason }}</p>
+                </div>
+
+            </div>
+        </div>
+        }
+
+    </main>
+</div>

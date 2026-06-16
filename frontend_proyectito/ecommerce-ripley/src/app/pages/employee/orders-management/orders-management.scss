@@ -1,0 +1,395 @@
+@use '../../../styles/variables' as *;
+
+$sidebar-width: 280px;
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+    background: $color-gray-light;
+}
+
+.dashboard-content {
+    flex: 1;
+    margin-left: $sidebar-width;
+    padding: 2rem;
+    transition: margin-left 0.3s ease;
+}
+
+// Page Header
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    gap: 1rem;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0 0 0.3rem 0;
+    color: $color-black;
+}
+
+.page-subtitle {
+    color: $color-gray-medium;
+    margin: 0;
+}
+
+// Buttons
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    svg {
+        stroke: currentColor;
+    }
+
+    &.btn-primary {
+        background: linear-gradient(135deg, $color-blue-baby-dark, $color-blue-baby);
+        color: $color-white;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(124, 184, 209, 0.4);
+        }
+    }
+
+    &.btn-secondary {
+        background: $color-white;
+        color: $color-blue-baby-dark;
+        border: 2px solid $color-blue-baby-dark;
+
+        &:hover {
+            background: $color-blue-baby-dark;
+            color: $color-white;
+        }
+    }
+
+    &.btn-icon {
+        gap: 0.6rem;
+    }
+}
+
+// Filters
+.filters-section {
+    background: $color-white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    border: 1px solid #E0E0E0;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: $color-black;
+    }
+}
+
+.filter-select {
+    padding: 0.6rem 1rem;
+    border: 2px solid #E0E0E0;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    min-width: 150px;
+
+    &:focus {
+        outline: none;
+        border-color: $color-blue-baby-dark;
+    }
+}
+
+.filter-stats {
+    margin-left: auto;
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.stat-badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    background: #E0E0E0;
+    color: $color-black;
+
+    &.pendiente {
+        background: rgba(#FF9800, 0.15);
+        color: darken(#FF9800, 15%);
+    }
+
+    &.proceso {
+        background: rgba(#2196F3, 0.15);
+        color: darken(#2196F3, 15%);
+    }
+
+    &.enviado {
+        background: rgba(#9C27B0, 0.15);
+        color: darken(#9C27B0, 15%);
+    }
+
+    &.completado {
+        background: rgba($color-success, 0.15);
+        color: darken($color-success, 10%);
+    }
+}
+
+// Table Container
+.table-container {
+    background: $color-white;
+    border-radius: 12px;
+    border: 1px solid #E0E0E0;
+}
+
+// Order Detail Modal Container
+.order-detail-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+        background: $color-gray-light;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: $color-blue-baby-dark;
+        border-radius: 3px;
+    }
+}
+
+// Detail Sections
+.form-section {
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid $color-gray-light;
+
+    &.border-none {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+}
+
+.section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    color: $color-black;
+}
+
+// Detail Grid (Información Básica)
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.detail-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    &.full-width {
+        grid-column: 1 / -1;
+    }
+
+    label {
+        font-weight: 700;
+        font-size: 0.85rem;
+        color: $color-gray-medium;
+        text-transform: uppercase;
+    }
+
+    p.data-text {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 500;
+        color: $color-black;
+
+        &.font-bold {
+            font-weight: 700;
+            color: $color-blue-baby-dark;
+        }
+
+        &.address-box {
+            background: $color-gray-light;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid $color-blue-baby-dark;
+        }
+    }
+}
+
+// Products List
+.products-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: $color-white;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    
+    &:hover {
+        border-color: $color-blue-baby-dark;
+    }
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .product-name {
+        font-weight: 600;
+        color: $color-black;
+    }
+
+    .product-quantity.badge {
+        background: rgba($color-blue-baby-dark, 0.1);
+        color: $color-blue-baby-dark;
+        padding: 0.2rem 0.6rem;
+        border-radius: 12px;
+        font-size: 0.85rem;
+        font-weight: 700;
+    }
+}
+
+.product-price {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: $color-black;
+}
+
+// Order Total Section
+.order-total-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba($color-blue-baby-dark, 0.1), rgba($color-blue-baby, 0.1));
+    border-radius: 12px;
+    border: 1px solid rgba($color-blue-baby-dark, 0.2);
+
+    .total-label {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: $color-black;
+    }
+
+    .total-amount {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: $color-blue-baby-dark;
+    }
+}
+
+// Responsive
+@media (max-width: 1024px) {
+    .dashboard-content {
+        margin-left: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-content {
+        margin-left: 0;
+        padding: 1rem;
+    }
+
+    .page-header {
+        flex-direction: column;
+    }
+
+    .filters-section {
+        flex-direction: column;
+        align-items: stretch;
+
+        .filter-stats {
+            margin-left: 0;
+        }
+    }
+    
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media print {
+    /* Hide the sidebar */
+    app-dashboard-sidebar {
+        display: none !important;
+    }
+    
+    /* Reset layout for printing */
+    .dashboard-layout {
+        display: block !important;
+        background: white !important;
+        min-height: auto !important;
+    }
+    
+    .dashboard-content {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Hide all regular screen elements */
+    .page-header, .filters-section, .table-container, .modal-backdrop, .modal-container, .btn {
+        display: none !important;
+    }
+
+    /* Show the print sheets */
+    .ripley-print-sheet, .boleta-print-sheet {
+        position: relative !important;
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 20px !important;
+        background: white !important;
+        box-shadow: none !important;
+        border: none !important;
+        visibility: visible !important;
+    }
+    
+    /* Ensure body doesn't have weird margins */
+    body {
+        margin: 0;
+        padding: 0;
+        background: white;
+    }
+}
+
+@media screen {
+    .ripley-print-sheet, .boleta-print-sheet {
+        display: none !important;
+    }
+}

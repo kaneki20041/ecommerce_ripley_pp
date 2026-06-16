@@ -1,0 +1,468 @@
+<div class="cart-page">
+    <div class="container">
+        <!-- Header -->
+        <div class="page-header">
+            <div class="title-area">
+                <h1 class="page-title">Carrito de Compras</h1>
+                <p class="items-count">{{ cartCount() }} producto{{ cartCount() !== 1 ? 's' : '' }}</p>
+            </div>
+            
+            <!-- Inline Countdown -->
+            <div class="inline-countdown-wrapper" *ngIf="showCheckoutCountdown">
+                <div class="inline-countdown-timer">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                        <path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span>Redirigiendo al pago en:</span>
+                    <strong class="time">{{ formatTimeLeft() }}</strong>
+                </div>
+                <button class="btn-cancel-inline" (click)="cancelCheckoutRedirect()">Cancelar y Revisar</button>
+            </div>
+        </div>
+
+        <!-- Empty state -->
+        <div class="empty-cart" *ngIf="cartItems().length === 0">
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="9" cy="21" r="1" stroke-width="2" />
+                <circle cx="20" cy="21" r="1" stroke-width="2" />
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" stroke-width="2" />
+            </svg>
+            <h2>Tu carrito está vacío</h2>
+            <p>¡Agrega productos para comenzar tu compra!</p>
+            <button class="shop-btn" (click)="continueShopping()">
+                Ir a Comprar
+            </button>
+        </div>
+
+        <!-- Cart content -->
+        <div class="cart-content" *ngIf="cartItems().length > 0">
+
+            <!-- Cart items -->
+            <div class="cart-items">
+                <div class="cart-header">
+                    <h2>Productos</h2>
+                    <button class="clear-cart-btn" (click)="clearCart()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path
+                                d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                                stroke-width="2" />
+                        </svg>
+                        Vaciar Carrito
+                    </button>
+                </div>
+
+                <div class="items-list">
+                    <div *ngFor="let item of cartItems()" class="cart-item">
+
+                        <!-- Imagen -->
+                        <div class="item-image" (click)="viewProduct(item.product.id)">
+                            <img [src]="getItemImage(item)" [alt]="getItemTitle(item)">
+                        </div>
+
+                        <!-- Info -->
+                        <div class="item-info">
+                            <h3 class="item-name" (click)="viewProduct(item.product.id)">
+                                {{ getItemTitle(item) }}
+                            </h3>
+                            <p class="item-brand" *ngIf="item.product.marca">
+                                {{ item.product.marca }}
+                            </p>
+
+                            <div class="item-variants">
+                                <span class="variant">
+                                    <strong>Talla:</strong> {{ item.selectedSize }}
+                                </span>
+                                <span class="variant">
+                                    <strong>Color:</strong>
+                                    <span class="color-indicator" [style.background-color]="getColorHex(item)"></span>
+                                    {{ item.selectedColor }}
+                                </span>
+                            </div>
+
+                            <div class="item-price-mobile">
+                                <span class="current-price">S/ {{ getItemPrice(item).toFixed(2) }}</span>
+                                <span class="old-price" *ngIf="getItemOldPrice(item)">
+                                    S/ {{ getItemOldPrice(item)!.toFixed(2) }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Cantidad -->
+                        <div class="item-quantity">
+                            <label>Cantidad</label>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" (click)="decreaseQuantity(item)"
+                                    [disabled]="item.quantity <= 1">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <line x1="5" y1="12" x2="19" y2="12" stroke-width="2" />
+                                    </svg>
+                                </button>
+                                <span class="qty-value">{{ item.quantity }}</span>
+                                <button class="qty-btn" (click)="increaseQuantity(item)"
+                                    [disabled]="item.quantity >= getVariantStock(item)">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <line x1="12" y1="5" x2="12" y2="19" stroke-width="2" />
+                                        <line x1="5" y1="12" x2="19" y2="12" stroke-width="2" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <span class="stock-info" [class.warning]="getVariantStock(item) <= 5 && getVariantStock(item) > 0" [class.danger]="getVariantStock(item) === 0">
+                                <span *ngIf="getVariantStock(item) > 5">Varios disponibles</span>
+                                <span *ngIf="getVariantStock(item) <= 5 && getVariantStock(item) > 0">⚠️ ¡Bajo stock! Solo quedan {{ getVariantStock(item) }}</span>
+                                <span *ngIf="getVariantStock(item) === 0">🚫 Agotado</span>
+                            </span>
+                        </div>
+
+                        <div class="item-price">
+                            <span class="unit-price">S/ {{ getItemPrice(item).toFixed(2) }} c/u</span>
+                            <span class="total-price">S/ {{ getItemSubtotal(item).toFixed(2) }}</span>
+                        </div>
+
+                        <!-- Eliminar -->
+                        <button class="remove-btn" (click)="removeItem(item)">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" />
+                                <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Continue shopping -->
+                <button class="continue-shopping-btn" (click)="continueShopping()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M19 12H5M12 19l-7-7 7-7" stroke-width="2" />
+                    </svg>
+                    Continuar Comprando
+                </button>
+            </div>
+
+            <!-- Order summary -->
+            <div class="order-summary">
+                <h2 class="summary-title">Resumen del Pedido</h2>
+
+                <!-- Cupón -->
+                <div class="coupon-section">
+                    <div class="coupon-header-flex" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <label style="margin-bottom: 0;">¿Tienes un cupón?</label>
+                        <button *ngIf="userCoupons.length > 0 && !couponApplied" class="btn-text-primary" style="background: none; border: none; color: #3b82f6; cursor: pointer; font-size: 0.875rem; font-weight: 600;" (click)="openCouponsModal()">Ver mis cupones</button>
+                    </div>
+                    <div class="coupon-input-group" *ngIf="!couponApplied">
+                        <input type="text" placeholder="Código del cupón" [(ngModel)]="couponInput"
+                            [class.error]="couponError">
+                        <button class="apply-btn" (click)="applyCoupon()">Aplicar</button>
+                    </div>
+                    <div class="coupon-applied" *ngIf="couponApplied">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path
+                                d="M22 11.08V12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2C14.76 2 17.27 3.15 19 5"
+                                stroke-width="2" />
+                            <path d="M22 4L12 14.01L9 11.01" stroke-width="2" />
+                        </svg>
+                        <span>Cupón "{{ couponCode }}" aplicado (-{{ couponDiscount }}%)</span>
+                        <button class="remove-coupon-btn" (click)="removeCoupon()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <line x1="18" y1="6" x2="6" y2="18" stroke-width="2" />
+                                <line x1="6" y1="6" x2="18" y2="18" stroke-width="2" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="coupon-error" *ngIf="couponError">{{ couponError }}</p>
+                </div>
+
+                <!-- Totales -->
+                <div class="summary-details">
+                    <div class="summary-row">
+                        <span>Subtotal ({{ cartCount() }} productos)</span>
+                        <span class="value">S/ {{ cartSubtotal().toFixed(2) }}</span>
+                    </div>
+
+                    <div class="summary-row" *ngIf="productsDiscount() > 0">
+                        <span>Descuento en productos</span>
+                        <span class="value discount">-S/ {{ productsDiscount().toFixed(2) }}</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Envío</span>
+                        <span class="value" [class.free]="shipping() === 0">
+                            {{ shipping() === 0 ? 'GRATIS' : 'S/ ' + shipping().toFixed(2) }}
+                        </span>
+                    </div>
+
+                    <div class="summary-row" *ngIf="couponApplied">
+                        <span>Cupón de descuento (-{{ couponDiscount }}%)</span>
+                        <span class="value discount">-S/ {{ getCouponAmount().toFixed(2) }}</span>
+                    </div>
+
+                    <div class="free-shipping-info" *ngIf="shipping() > 0 && cartSubtotal() < 150">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-width="2" />
+                        </svg>
+                        ¡Agrega S/ {{ (150 - cartSubtotal()).toFixed(2) }} más para envío gratis!
+                    </div>
+
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <span class="total-value">S/ {{ getFinalTotal().toFixed(2) }}</span>
+                    </div>
+                </div>
+
+
+
+<!-- Checkout button -->
+                <button class="checkout-btn" *ngIf="!showCheckoutCountdown" (click)="proceedToCheckout()">
+                    Proceder al Pago
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" />
+                    </svg>
+                </button>
+                <button class="checkout-btn success-btn" *ngIf="showCheckoutCountdown" (click)="executeCheckoutRedirect()">
+                    Ir al Pago Ahora
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" />
+                    </svg>
+                </button>
+
+                <!-- Security badges -->
+                <div class="security-badges">
+                    <div class="badge">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2" />
+                        </svg>
+                        <span>Compra Segura</span>
+                    </div>
+                    <div class="badge">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
+                                stroke-width="2" />
+                        </svg>
+                        <span>Protección al Comprador</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== Carrusel de productos recomendados ===== -->
+        <section class="recommendations" *ngIf="recommendedProducts.length">
+            <div class="recommendations-header">
+                <h2 class="section-title">También te puede gustar</h2>
+                <div class="carousel-controls">
+                    <button class="carousel-btn" (click)="scrollCarousel(-1)" id="carousel-prev">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M15 18l-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button class="carousel-btn" (click)="scrollCarousel(1)" id="carousel-next">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M9 18l6-6-6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="carousel-track-wrapper">
+                <div class="carousel-track" id="carousel-track">
+                     <div class="recommendation-card" *ngFor="let prod of recommendedProducts">
+                        <div class="card-image-wrap" (click)="goToRecommendedProduct(prod)" style="cursor: pointer;">
+                            <img [src]="getRecImage(prod)" [alt]="getRecTitle(prod)" class="card-image" />
+                            <span class="card-badge" *ngIf="prod.nuevo">Nuevo</span>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-brand" (click)="goToRecommendedProduct(prod)" style="cursor: pointer;">{{ prod.marca }}</p>
+                            <h3 class="card-title" (click)="goToRecommendedProduct(prod)" style="cursor: pointer;">{{ getRecTitle(prod) }}</h3>
+                            <p class="card-price">S/ {{ getRecPrice(prod).toFixed(2) }}</p>
+                            <button class="add-btn" (click)="goToRecommendedProduct(prod)">Ver Detalle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Modales / Mini-diálogos Premium -->
+    <!-- 1. Modal: Iniciar Sesión Requerido -->
+    <div class="mini-dialog-overlay" *ngIf="showLoginModal">
+        <div class="mini-dialog-card animate-pop">
+            <div class="dialog-icon warning">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                    <line x1="12" y1="8" x2="12" y2="12" stroke-width="2"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16" stroke-width="2"/>
+                </svg>
+            </div>
+            <h3 class="dialog-title">Inicio de Sesión Requerido</h3>
+            <p class="dialog-desc">Debes iniciar sesión con tu cuenta para continuar con el proceso de pago.</p>
+            <div class="dialog-actions">
+                <button class="btn-cancel" (click)="cancelLogin()">Cancelar</button>
+                <button class="btn-confirm login" (click)="confirmLogin()">Iniciar Sesión</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Modal: Confirmar Eliminar Item -->
+    <div class="mini-dialog-overlay" *ngIf="showDeleteConfirmModal">
+        <div class="mini-dialog-card animate-pop">
+            <div class="dialog-icon danger">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke-width="2" />
+                    <line x1="10" y1="11" x2="10" y2="17" stroke-width="2"/>
+                    <line x1="14" y1="11" x2="14" y2="17" stroke-width="2"/>
+                </svg>
+            </div>
+            <h3 class="dialog-title">¿Eliminar producto?</h3>
+            <p class="dialog-desc" *ngIf="itemToDelete">
+                ¿Estás seguro de que deseas eliminar <strong>{{ getItemTitle(itemToDelete) }}</strong> de tu carrito?
+            </p>
+            <div class="dialog-actions">
+                <button class="btn-cancel" (click)="cancelDelete()">Cancelar</button>
+                <button class="btn-confirm danger" (click)="confirmDelete()">Sí, Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Modal: Confirmar Vaciar Carrito -->
+    <div class="mini-dialog-overlay" *ngIf="showClearConfirmModal">
+        <div class="mini-dialog-card animate-pop">
+            <div class="dialog-icon danger">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-width="2" />
+                </svg>
+            </div>
+            <h3 class="dialog-title">¿Vaciar Carrito?</h3>
+            <p class="dialog-desc">Esta acción eliminará todos los productos del carrito. ¿Deseas continuar?</p>
+            <div class="dialog-actions">
+                <button class="btn-cancel" (click)="cancelClear()">Cancelar</button>
+                <button class="btn-confirm danger" (click)="confirmClear()">Sí, Vaciar</button>
+            </div>
+        </div>
+    </div><!-- Modal de Ofertas Upsell -->
+<div class="modal-overlay" *ngIf="showUpsellModal" (click)="continueToCheckoutAfterUpsell()">
+    <div class="modal-content upsell-modal" (click)="$event.stopPropagation()">
+        
+        <div class="modal-header">
+            <h3>🔥 ¡Espera! Tenemos ofertas exclusivas para ti</h3>
+            <button class="close-btn" (click)="continueToCheckoutAfterUpsell()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <p class="upsell-subtitle">Lleva estos productos complementarios con un <strong>{{ upsellDiscountPercentage }}% EXTRA de descuento</strong> al sumarlos ahora mismo:</p>
+            
+            <div class="upsell-grid">
+                <div class="upsell-card" *ngFor="let prod of recommendedProducts">
+                    <!-- Botón para rechazar esta categoría / producto -->
+                    <button class="ignore-btn" (click)="ignoreProduct(prod)" title="No me interesa">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+
+                    <div class="upsell-image">
+                        <img [src]="getRecImage(prod)" [alt]="getRecTitle(prod)">
+                        <div class="upsell-discount-badge">-{{ upsellDiscountPercentage }}% EXTRA</div>
+                    </div>
+
+                    <div class="upsell-info">
+                        <span class="upsell-brand">{{ prod.marca }}</span>
+                        <h4 class="upsell-title">{{ getRecTitle(prod) }}</h4>
+                        
+                        <div class="upsell-price-box">
+                            <span class="upsell-old-price">S/ {{ getRecPrice(prod).toFixed(2) }}</span>
+                            <span class="upsell-new-price">S/ {{ (getRecPrice(prod) * (1 - (upsellDiscountPercentage / 100))).toFixed(2) }}</span>
+                        </div>
+
+                        <!-- Info de variantes seleccionadas automáticamente -->
+                        <div class="upsell-variants" *ngIf="prod.suggestedSize || (prod.availableSizes && prod.availableSizes.length)">
+                            <span class="variant-badge">
+                                Talla: {{ prod.suggestedSize || (prod.availableSizes && prod.availableSizes[0] ? prod.availableSizes[0] : 'Única') }}
+                            </span>
+                            <span class="variant-badge" *ngIf="prod.availableColors && prod.availableColors.length">
+                                Color: {{ prod.availableColors[0] }}
+                            </span>
+                        </div>
+
+                        <!-- Scarcity Text -->
+                        <p class="scarcity-text" *ngIf="prod.stock > 0 && prod.stock <= 10">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            ¡Apresúrate, solo quedan {{ prod.stock }} disponibles!
+                        </p>
+
+                        <button class="add-upsell-btn" (click)="addUpsellToCart(prod)">
+                            Sumar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div *ngIf="!recommendedProducts.length" class="empty-upsell">
+                <p>Ya agregaste o revisaste todas las ofertas.</p>
+            </div>
+        </div>
+
+        <div class="modal-actions upsell-actions">
+            <button class="btn-primary full-width" (click)="continueToCheckoutAfterUpsell()">
+                Continuar al Pago
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast-notification" *ngIf="showToastMessage" [ngClass]="toastType">
+    <div class="toast-icon">
+        <svg *ngIf="toastType === 'success'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <svg *ngIf="toastType === 'error'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+    </div>
+    <div class="toast-content">
+        {{ toastMessage }}
+    </div>
+</div>
+
+<!-- Modal: Mis Cupones -->
+<div class="mini-dialog-overlay" *ngIf="showCouponsModal" (click)="closeCouponsModal()">
+    <div class="mini-dialog-card animate-pop" style="max-width: 450px; width: 90%; max-height: 80vh; overflow-y: auto;" (click)="$event.stopPropagation()">
+        <div class="dialog-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h3 class="dialog-title" style="margin: 0;">Mis Cupones</h3>
+            <button class="close-btn" style="background: none; border: none; cursor: pointer;" (click)="closeCouponsModal()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <line x1="18" y1="6" x2="6" y2="18" stroke-width="2"/>
+                    <line x1="6" y1="6" x2="18" y2="18" stroke-width="2"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="dialog-body">
+            <div *ngIf="userCoupons.length === 0" style="text-align: center; padding: 2rem 0; color: #64748b;">
+                No tienes cupones disponibles.
+            </div>
+            
+            <div *ngFor="let coupon of userCoupons" style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; cursor: pointer; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center;" (click)="selectCoupon(coupon.code)" onmouseover="this.style.borderColor='#3b82f6'; this.style.backgroundColor='#f8fafc';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.backgroundColor='white';">
+                <div>
+                    <div style="font-weight: 600; color: #1e293b; margin-bottom: 0.25rem;">{{ coupon.name || 'Cupón Especial' }}</div>
+                    <div style="font-size: 0.875rem; color: #64748b;">{{ coupon.code }}</div>
+                    <div style="font-size: 0.875rem; color: #64748b; margin-top: 0.25rem;">Válido hasta: {{ coupon.endDate | date:'dd/MM/yyyy' }}</div>
+                </div>
+                <div style="font-size: 1.25rem; font-weight: 700; color: #3b82f6;">
+                    {{ coupon.type === 'percentage' ? '-' + coupon.discount + '%' : '-S/ ' + coupon.discount }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

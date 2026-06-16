@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+$bg-dark: #0d0d14;
+$bg-card: #13131f;
+$border-color: rgba(255, 255, 255, 0.08);
+$text-primary: #f0f0f5;
+$text-muted: #888;
+$red-main: #e53e3e;
+$red-soft: rgba(229, 62, 62, 0.12);
+$green-main: #38a169;
+$green-soft: rgba(56, 161, 105, 0.12);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.failure-container {
+  min-height: 100vh;
+  background: $bg-dark;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  color: $text-primary;
+  padding: 0 1rem 3rem;
+}
+
+.failure-header {
+  width: 100%;
+  max-width: 700px;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid $border-color;
+  margin-bottom: 3rem;
+
+  .failure-logo img {
+    height: 36px;
+    filter: brightness(0) invert(1);
+  }
+}
+
+.failure-card {
+  width: 100%;
+  max-width: 640px;
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  animation: slideUp 0.5s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// Icono de Error Animado
+.error-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.error-circle {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: $red-soft;
+  border: 2px solid rgba(229, 62, 62, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse-red 2s infinite;
+
+  .error-x {
+    color: $red-main;
+    animation: drawX 0.6s ease 0.2s both;
+  }
+}
+
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(229, 62, 62, 0.2); }
+  50% { box-shadow: 0 0 0 12px rgba(229, 62, 62, 0); }
+}
+
+@keyframes drawX {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.failure-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: $text-primary;
+  margin-bottom: 0.75rem;
+}
+
+.failure-subtitle {
+  color: $text-muted;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+
+  .order-ref {
+    color: $text-primary;
+    font-weight: 600;
+  }
+}
+
+.failure-reason-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: $red-soft;
+  border: 1px solid rgba(229, 62, 62, 0.25);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  text-align: left;
+  margin-bottom: 2rem;
+
+  svg {
+    flex-shrink: 0;
+    color: $red-main;
+    margin-top: 2px;
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: #ccc;
+    line-height: 1.5;
+  }
+}
+
+// Tarjetas de prueba (solo para modo TEST)
+.test-cards-info {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid $border-color;
+  border-radius: 14px;
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+  text-align: left;
+
+  h3 {
+    font-size: 0.9rem;
+    color: $text-muted;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+}
+
+.test-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.test-card {
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+
+  &.approved {
+    background: $green-soft;
+    border: 1px solid rgba(56, 161, 105, 0.3);
+    .card-label { color: $green-main; }
+  }
+
+  &.rejected {
+    background: $red-soft;
+    border: 1px solid rgba(229, 62, 62, 0.3);
+    .card-label { color: $red-main; }
+  }
+
+  .card-label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  code {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: $text-primary;
+    font-family: 'Courier New', monospace;
+    margin-bottom: 0.2rem;
+  }
+
+  .card-hint {
+    font-size: 0.75rem;
+    color: $text-muted;
+  }
+}
+
+// Botones de acción
+.failure-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.btn-retry {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, #6e2585, #9b30b0);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.25s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(110, 37, 133, 0.4);
+  }
+}
+
+.btn-home {
+  display: block;
+  text-align: center;
+  color: $text-muted;
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: color 0.2s;
+
+  &:hover { color: $text-primary; }
+}
+
+.failure-security-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  color: $text-muted;
+  font-size: 0.78rem;
+
+  svg { color: #6e2585; }
+}

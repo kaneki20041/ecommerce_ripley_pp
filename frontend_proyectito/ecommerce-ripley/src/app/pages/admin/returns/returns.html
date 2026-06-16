@@ -1,0 +1,259 @@
+<div class="dashboard-layout">
+  <app-dashboard-sidebar></app-dashboard-sidebar>
+  
+  <main class="dashboard-content">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div>
+      <h1 class="page-title">Gestión de Solicitudes</h1>
+        <p class="page-subtitle">Administra las solicitudes de devolución y cancelación</p>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters-section">
+      <div class="filter-group">
+        <label>Estado:</label>
+        <select [(ngModel)]="statusFilter" class="filter-select">
+          <option value="all">Todas</option>
+          <option value="pendiente">Pendientes</option>
+          <option value="aprobada">Aprobadas</option>
+          <option value="rechazada">Rechazadas</option>
+        </select>
+      </div>
+
+      <div class="filter-stats">
+        <span class="stat-badge">Total: {{ returnsData().length }}</span>
+        <span class="stat-badge warning" style="background: rgba(255, 152, 0, 0.15); color: #F57C00;">Pendientes: {{ getPendingCount() }}</span>
+        <span class="stat-badge success" style="background: rgba(76, 175, 80, 0.15); color: #388E3C;">Aprobadas: {{ getApprovedCount() }}</span>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="coupons-stats">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke-width="2"/>
+            <polyline points="22,6 12,13 2,6" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <p class="stat-label">Total Solicitudes</p>
+          <h3 class="stat-value">{{ returnsData().length }}</h3>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon warning">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+            <line x1="12" y1="8" x2="12" y2="12" stroke-width="2"/>
+            <line x1="12" y1="16" x2="12.01" y2="16" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <p class="stat-label">Pendientes</p>
+          <h3 class="stat-value">{{ getPendingCount() }}</h3>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon success">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polyline points="20 6 9 17 4 12" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <p class="stat-label">Aprobadas</p>
+          <h3 class="stat-value">{{ getApprovedCount() }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="table-container">
+      <app-data-table
+        [columns]="columns"
+        [data]="getFilteredReturns()"
+        [actions]="actions"
+        [loading]="loading()"
+        [pagination]="true"
+        [itemsPerPage]="10"
+        emptyMessage="No se encontraron devoluciones">
+      </app-data-table>
+    </div>
+  </main>
+</div>
+
+<!-- Detail Modal -->
+@if (showDetailModal() && selectedReturn()) {
+  <app-modal
+    title="Detalle de Devolución"
+    size="md"
+    (onClose)="closeDetailModal()">
+    
+    <div class="return-detail">
+      <div class="detail-group">
+        <label>ID Pedido</label>
+        <p>{{ selectedReturn()?.orderId }}</p>
+      </div>
+      <div class="detail-group">
+        <label>Cliente</label>
+        <p>{{ selectedReturn()?.customer }}</p>
+      </div>
+      <div class="detail-group">
+        <label>Tipo de Solicitud</label>
+        <p>{{ selectedReturn()?.type }}</p>
+      </div>
+      <div class="detail-group">
+        <label>Monto del Pedido</label>
+        <p>S/ {{ selectedReturn()?.amount }}</p>
+      </div>
+      <div class="detail-group">
+        <label>Fecha de Solicitud</label>
+        <p>{{ selectedReturn()?.requestDate | date:'mediumDate' }}</p>
+      </div>
+      <div class="detail-group" style="grid-column: 1 / -1;">
+        <label>Motivo</label>
+        <p class="reason-box">{{ selectedReturn()?.reason }}</p>
+      </div>
+    </div>
+
+    <div modal-footer style="display: flex; gap: 1rem; width: 100%; justify-content: space-between; align-items: center;">
+      <!-- Receipt eye button on the left -->
+      <button type="button" class="btn btn-receipt" (click)="viewReceipt(selectedReturn()!)" title="Ver boleta de compra"
+              style="display: inline-flex; align-items: center; gap: 0.5rem; background: #f0f4ff; color: #3b5bdb; border: 1.5px solid #c5d0fa; border-radius: 8px; padding: 0.5rem 1rem; font-weight: 600; cursor: pointer; font-size: 0.85rem;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+        </svg>
+        Ver Boleta
+      </button>
+      <div style="display: flex; gap: 1rem;">
+        <button type="button" class="btn btn-secondary" (click)="closeDetailModal()">
+          Cerrar
+        </button>
+        @if (selectedReturn()?.status === 'pendiente') {
+          <button type="button" class="btn btn-danger" style="background: #FF5252; color: white;" (click)="openRejectModal(selectedReturn()!); closeDetailModal()">
+            Rechazar
+          </button>
+          <button type="button" class="btn btn-primary" style="background: #4CAF50;" (click)="approveReturn(selectedReturn()!); closeDetailModal()">
+            Aprobar
+          </button>
+        }
+      </div>
+    </div>
+  </app-modal>
+}
+
+<!-- Reject Modal -->
+@if (showRejectModal() && selectedReturn()) {
+  <app-modal
+    title="Rechazar Devolución"
+    size="md"
+    (onClose)="closeRejectModal()">
+    
+    <form class="coupon-form" (submit)="confirmReject(); $event.preventDefault()">
+      <div class="form-group">
+        <label>Razón del Rechazo *</label>
+        <textarea 
+          [(ngModel)]="rejectReason"
+          name="rejectReason"
+          required
+          rows="4"
+          placeholder="Explique el motivo del rechazo..."></textarea>
+      </div>
+    </form>
+
+    <div modal-footer>
+      <button type="button" class="btn btn-secondary" (click)="closeRejectModal()">
+        Cancelar
+      </button>
+      <button type="button" class="btn btn-danger" style="background: #FF5252; color: white;" (click)="confirmReject()" [disabled]="!rejectReason()">
+        Confirmar Rechazo
+      </button>
+    </div>
+  </app-modal>
+}
+
+<!-- Receipt / Boleta Modal -->
+@if (showReceiptModal() && receiptOrder()) {
+  <app-modal title="Boleta de Compra" size="lg" (onClose)="closeReceiptModal()">
+    <div class="receipt-modal-body">
+
+      <!-- Boleta format -->
+      <div class="boleta-container" style="background: #fff; padding: 2rem; border: 1px solid #ddd; border-radius: 8px; color: #111; font-family: 'Courier New', Courier, monospace; max-width: 500px; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+          <h2 style="margin: 0; font-size: 1.5rem; font-weight: bold; font-family: 'Arial', sans-serif; letter-spacing: 1px;">RIPLEY S.A.</h2>
+          <p style="margin: 0.3rem 0; font-size: 0.9rem;">RUC: 20337564373</p>
+          <p style="margin: 0.2rem 0; font-size: 0.85rem;">Av. Paseo de la República 3118, San Isidro</p>
+          <p style="margin: 0.2rem 0; font-size: 0.85rem;">Lima - Perú</p>
+          <div style="border-top: 1.5px dashed #444; border-bottom: 1.5px dashed #444; margin: 1.2rem 0; padding: 0.8rem 0;">
+            <h3 style="margin: 0; font-size: 1.1rem; font-family: 'Arial', sans-serif; letter-spacing: 0.5px;">BOLETA DE VENTA ELECTRÓNICA</h3>
+            <p style="margin: 0.3rem 0 0; font-weight: bold; font-size: 1.1rem;">B001-000{{ receiptOrder()?.id }}</p>
+          </div>
+        </div>
+
+        <div style="font-size: 0.85rem; margin-bottom: 1.5rem; line-height: 1.5;">
+          <div style="display: flex; justify-content: space-between;">
+            <span><strong>FECHA DE EMISIÓN:</strong></span>
+            <span>{{ receiptOrder()?.orderDate | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-top: 0.3rem;">
+            <span><strong>SEÑOR(A):</strong></span>
+            <span style="text-align: right; max-width: 60%;">{{ receiptOrder()?.customerName }}</span>
+          </div>
+          <!-- <div style="display: flex; justify-content: space-between; margin-top: 0.3rem;">
+            <span><strong>MÉTODO DE PAGO:</strong></span>
+            <span>Mercado Pago</span>
+          </div> -->
+        </div>
+
+        <table style="width: 100%; font-size: 0.85rem; border-collapse: collapse; margin-bottom: 1.5rem;">
+          <thead>
+            <tr style="border-bottom: 1.5px dashed #444;">
+              <th style="text-align: left; padding-bottom: 0.5rem; width: 12%;">CANT</th>
+              <th style="text-align: left; padding-bottom: 0.5rem; width: 48%;">DESCRIPCIÓN</th>
+              <th style="text-align: right; padding-bottom: 0.5rem; width: 20%;">P.UNIT</th>
+              <th style="text-align: right; padding-bottom: 0.5rem; width: 20%;">TOTAL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of receiptOrder()?.products">
+              <td style="padding: 0.5rem 0; vertical-align: top;">{{ p.quantity }}</td>
+              <td style="padding: 0.5rem 0; vertical-align: top; padding-right: 0.5rem;">{{ p.name }}</td>
+              <td style="padding: 0.5rem 0; vertical-align: top; text-align: right;">{{ p.price | number:'1.2-2' }}</td>
+              <td style="padding: 0.5rem 0; vertical-align: top; text-align: right;">{{ (p.price * p.quantity) | number:'1.2-2' }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="border-top: 1.5px dashed #444; padding-top: 0.8rem; font-size: 0.85rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+            <span>OP. GRAVADA:</span>
+            <span>S/ {{ (getReceiptTotal(receiptOrder()) / 1.18) | number:'1.2-2' }}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+            <span>IGV (18%):</span>
+            <span>S/ {{ (getReceiptTotal(receiptOrder()) - (getReceiptTotal(receiptOrder()) / 1.18)) | number:'1.2-2' }}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-top: 0.8rem; font-size: 1.1rem; font-weight: bold;">
+            <span>IMPORTE TOTAL:</span>
+            <span>S/ {{ getReceiptTotal(receiptOrder()) | number:'1.2-2' }}</span>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2.5rem; font-size: 0.8rem; color: #444;">
+          <p style="margin: 0;">Representación impresa de la</p>
+          <p style="margin: 0.2rem 0;">Boleta de Venta Electrónica</p>
+          <p style="margin: 1rem 0 0; font-weight: bold; font-family: 'Arial', sans-serif;">¡Gracias por tu compra en Ripley!</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div modal-footer style="display: flex; justify-content: flex-end; gap: 1rem;">
+      <button type="button" class="btn btn-secondary" (click)="closeReceiptModal()">Cerrar</button>
+    </div>
+  </app-modal>
+}

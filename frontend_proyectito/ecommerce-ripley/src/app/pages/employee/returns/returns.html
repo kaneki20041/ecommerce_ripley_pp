@@ -1,0 +1,93 @@
+<div class="dashboard-layout">
+    <app-dashboard-sidebar></app-dashboard-sidebar>
+
+    <main class="dashboard-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Solicitudes de Devolución / Cancelación</h1>
+                <p class="page-subtitle">Gestiona las solicitudes de los clientes</p>
+            </div>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <div class="filter-group">
+                <label>Estado:</label>
+                <select [(ngModel)]="statusFilter" class="filter-select">
+                    <option value="all">Todos</option>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="aprobada">Aprobada</option>
+                    <option value="rechazada">Rechazada</option>
+                </select>
+            </div>
+            
+            <div class="filter-stats">
+                <span class="stat-badge">Total: {{ returnsData().length }}</span>
+                <span class="stat-badge pendiente">Pendientes: {{ returnsData().filter(r => r.status === 'pendiente').length }}</span>
+                <span class="stat-badge aprobado">Aprobadas: {{ returnsData().filter(r => r.status === 'aprobada').length }}</span>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="table-container">
+            <app-data-table [columns]="columns" [data]="getFilteredReturns()" [actions]="actions" [loading]="loading()"
+                [pagination]="true" [itemsPerPage]="12" emptyMessage="No se encontraron devoluciones">
+            </app-data-table>
+        </div>
+    </main>
+</div>
+
+<!-- Return Detail Modal -->
+@if (showDetailModal() && selectedReturn()) {
+<app-modal title="Detalles de Devolución" size="md" (onClose)="closeDetailModal()">
+    <div class="order-detail-container">
+        <div class="form-section border-none">
+            <h3 class="section-title">Información de Solicitud</h3>
+            
+            <div class="detail-grid">
+                <div class="detail-group">
+                    <label>ID Devolución</label>
+                    <p class="data-text font-bold">#{{ selectedReturn()?.id }}</p>
+                </div>
+                <div class="detail-group">
+                    <label>Pedido Original</label>
+                    <p class="data-text font-bold">{{ selectedReturn()?.orderId }}</p>
+                </div>
+                <div class="detail-group">
+                    <label>Cliente</label>
+                    <p class="data-text">{{ selectedReturn()?.customer }}</p>
+                </div>
+                <div class="detail-group">
+                    <label>Fecha de Solicitud</label>
+                    <p class="data-text">{{ selectedReturn()?.requestDate }}</p>
+                </div>
+                <div class="detail-group full-width">
+                    <label>Producto a devolver</label>
+                    <p class="data-text">{{ selectedReturn()?.product }}</p>
+                </div>
+                <div class="detail-group full-width">
+                    <label>Motivo de la Devolución</label>
+                    <p class="data-text address-box">{{ selectedReturn()?.reason }}</p>
+                </div>
+                <div class="detail-group">
+                    <label>Monto a reembolsar</label>
+                    <p class="data-text font-bold" style="color: #4CAF50;">S/ {{ selectedReturn()?.amount | number:'1.2-2' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div modal-footer style="display: flex; gap: 1rem; width: 100%; justify-content: flex-end;">
+        <button type="button" class="btn btn-outline" (click)="closeDetailModal()">
+            Cerrar
+        </button>
+        <button *ngIf="selectedReturn()?.status === 'pendiente'" type="button" class="btn btn-secondary" (click)="processReturn(selectedReturn()!, 'RECHAZADA')">
+            Rechazar
+        </button>
+        <button *ngIf="selectedReturn()?.status === 'pendiente'" type="button" class="btn btn-primary" (click)="processReturn(selectedReturn()!, 'APROBADA')">
+            Aprobar
+        </button>
+    </div>
+</app-modal>
+}

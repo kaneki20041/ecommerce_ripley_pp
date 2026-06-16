@@ -1,0 +1,189 @@
+<div class="dashboard-layout">
+    <app-dashboard-sidebar></app-dashboard-sidebar>
+
+    <main class="dashboard-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Inventario Ripley</h1>
+                <p class="page-subtitle">Panel de control operativo</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" (click)="refreshData()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <polyline points="23 4 23 10 17 10" stroke-width="2" />
+                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" stroke-width="2" />
+                    </svg>
+                    Actualizar
+                </button>
+                <button class="btn btn-primary" routerLink="/employee/productos">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="12" y1="5" x2="12" y2="19" stroke-width="2" />
+                        <line x1="5" y1="12" x2="19" y2="12" stroke-width="2" />
+                    </svg>
+                    Nuevo Producto
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Grid (3 cards) -->
+        <div class="stats-grid">
+            <app-stats-card *ngFor="let stat of stats" [title]="stat.title" [value]="stat.value" [icon]="stat.icon"
+                [color]="stat.color" [trend]="stat.trend" [loading]="loading()">
+            </app-stats-card>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Pending Orders -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Pedidos Pendientes de Hoy</h3>
+                    <a routerLink="/employee/pedidos" class="view-all">Ver todos →</a>
+                </div>
+                <app-data-table [columns]="pendingOrdersColumns" [data]="pendingOrdersData" [actions]="ordersActions"
+                    [pagination]="false" [loading]="loading()" emptyMessage="No hay pedidos pendientes">
+                </app-data-table>
+            </div>
+
+            <!-- Low Stock Products con Paginación -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Productos con Stock Bajo</h3>
+                    <a routerLink="/employee/productos" class="view-all">Ver inventario →</a>
+                </div>
+
+                <!-- Loading state -->
+                <div *ngIf="loadingLowStock()" class="stock-loading">
+                    <div class="spinner-mini"></div>
+                    <span>Cargando...</span>
+                </div>
+
+                <!-- Lista de productos -->
+                <div class="stock-list" *ngIf="!loadingLowStock()">
+                    <div *ngIf="lowStockProducts.length === 0" class="stock-empty">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <polyline points="20 6 9 17 4 12" stroke-width="2" />
+                        </svg>
+                        <span>¡Sin productos en stock bajo!</span>
+                    </div>
+
+                    <div *ngFor="let product of lowStockProducts" class="stock-item"
+                        [class.stock-critical]="product.stock === 0"
+                        [class.stock-warning]="product.stock > 0 && product.stock <= 2"
+                        [class.stock-low]="product.stock > 2"
+                        (click)="openRestockModal(product)"
+                        title="Clic para reponer stock">
+                        <div class="stock-info">
+                            <p class="stock-name">{{ product.name }}</p>
+                            <p class="stock-category">{{ product.category }}</p>
+                        </div>
+                        <div class="stock-right">
+                            <div class="stock-badge" [class.badge-critical]="product.stock === 0"
+                                [class.badge-warning]="product.stock > 0 && product.stock <= 2"
+                                [class.badge-low]="product.stock > 2">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <path
+                                        d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+                                        stroke-width="2" />
+                                    <line x1="12" y1="9" x2="12" y2="13" stroke-width="2" />
+                                    <line x1="12" y1="17" x2="12.01" y2="17" stroke-width="2" />
+                                </svg>
+                                <span>{{ product.stock === 0 ? 'Sin stock' : product.stock + ' uds.' }}</span>
+                            </div>
+                            <div class="restock-hint">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19" />
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                </svg>
+                                Reponer
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paginación -->
+                <div class="stock-pagination" *ngIf="lowStockTotalPages > 1 && !loadingLowStock()">
+                    <button class="page-btn" (click)="prevLowStockPage()" [disabled]="lowStockPage === 0">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <polyline points="15 18 9 12 15 6" stroke-width="2" />
+                        </svg>
+                    </button>
+                    <span class="page-info">
+                        Página {{ lowStockPage + 1 }} de {{ lowStockTotalPages }}
+                        <span class="page-total">({{ lowStockTotalElements }} variantes)</span>
+                    </span>
+                    <button class="page-btn" (click)="nextLowStockPage()"
+                        [disabled]="lowStockPage >= lowStockTotalPages - 1">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <polyline points="9 18 15 12 9 6" stroke-width="2" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Total info cuando hay solo una página -->
+                <div class="stock-footer" *ngIf="lowStockTotalPages <= 1 && lowStockTotalElements > 0 && !loadingLowStock()">
+                    <span>{{ lowStockTotalElements }} variante(s) con stock bajo en total</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast de éxito restock -->
+        <div class="restock-toast" *ngIf="restockSuccessMsg">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+            </svg>
+            {{ restockSuccessMsg }}
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <h3>Acciones Rápidas</h3>
+            <div class="actions-grid">
+                <button class="action-card" routerLink="/employee/productos">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path
+                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+                            stroke-width="2" />
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96" stroke-width="2" />
+                        <line x1="12" y1="22.08" x2="12" y2="12" stroke-width="2" />
+                    </svg>
+                    <span>Gestionar Productos</span>
+                </button>
+
+                <button class="action-card" routerLink="/employee/pedidos">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" stroke-width="2" />
+                        <line x1="3" y1="6" x2="21" y2="6" stroke-width="2" />
+                        <path d="M16 10a4 4 0 0 1-8 0" stroke-width="2" />
+                    </svg>
+                    <span>Ver Pedidos</span>
+                </button>
+
+                <button class="action-card" routerLink="/employee/devoluciones">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <polyline points="9 14 4 9 9 4" stroke-width="2" />
+                        <path d="M20 20v-7a4 4 0 0 0-4-4H4" stroke-width="2" />
+                    </svg>
+                    <span>Devoluciones</span>
+                </button>
+
+                <button class="action-card" routerLink="/employee/perfil">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke-width="2" />
+                        <circle cx="12" cy="7" r="4" stroke-width="2" />
+                    </svg>
+                    <span>Mi Perfil</span>
+                </button>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Modal de Reposición de Stock -->
+<app-restock-modal
+    [item]="restockItem"
+    [visible]="restockModalVisible"
+    (closed)="onRestockClosed()"
+    (confirmed)="onRestockConfirmed($event)">
+</app-restock-modal>

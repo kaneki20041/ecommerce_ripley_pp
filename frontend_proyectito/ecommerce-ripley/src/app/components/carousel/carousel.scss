@@ -1,0 +1,233 @@
+@use "sass:color";
+
+// ── Paleta Ripley ─────────────────────────────────────────────────────────────
+$ripley-magenta:      #61005A;
+$ripley-magenta-mid:  #8E155A;
+$ripley-magenta-light:#B5257A;
+$color-white:         #FFFFFF;
+$color-black:         #1A1A1A;
+$transition-slow:     0.6s cubic-bezier(0.23, 1, 0.32, 1);
+$transition-medium:   0.35s cubic-bezier(0.23, 1, 0.32, 1);
+$transition-fast:     0.18s ease;
+
+.carousel-container {
+  width: 100%;
+  margin-top: 0; // Se apoya en el padding-top del app-container
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-wrapper {
+  position: relative;
+  width: 100%;
+  height: 620px;
+  overflow: hidden;
+}
+
+.carousel-slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity $transition-slow;
+  display: flex;
+  align-items: center;
+
+  &.active { opacity: 1; z-index: 1; }
+}
+
+// Overlay con gradiente lateral izquierdo (texto a la izquierda)
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    rgba(10, 0, 10, 0.80) 0%,
+    rgba(97, 0, 90, 0.45) 45%,
+    rgba(0, 0, 0, 0.05)   75%,
+    transparent           100%
+  );
+}
+
+// Contenido alineado a la izquierda para look editorial
+.slide-content {
+  position: relative;
+  z-index: 2;
+  text-align: left;
+  max-width: 640px;
+  padding: 0 4rem;
+  color: $color-white;
+}
+
+// Etiqueta pequeña sobre el título
+.slide-eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all $transition-slow;
+
+  &.show { opacity: 1; transform: translateY(0); }
+}
+
+.slide-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 900;
+  margin: 0 0 1.2rem;
+  line-height: 1.1;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all $transition-slow 0.1s;
+  white-space: pre-line;
+
+  &.show { opacity: 1; transform: translateY(0); }
+}
+
+.slide-subtitle {
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin: 0 0 2.5rem;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.6;
+  max-width: 460px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all $transition-slow 0.2s;
+
+  &.show { opacity: 1; transform: translateY(0); }
+}
+
+// Botón CTA — Glassmorphism magenta
+.slide-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2.2rem;
+  background: linear-gradient(135deg, $ripley-magenta, $ripley-magenta-mid);
+  color: $color-white;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 50px;
+  box-shadow:
+    0 8px 32px rgba($ripley-magenta, 0.45),
+    inset 0 1px 0 rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.15);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity $transition-slow 0.35s, transform $transition-slow 0.35s;
+
+  svg { transition: transform $transition-fast; }
+
+  &.show { opacity: 1; transform: translateY(0); }
+
+  &:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 14px 40px rgba($ripley-magenta, 0.6), inset 0 1px 0 rgba(255,255,255,0.2);
+    background: linear-gradient(135deg, $ripley-magenta-mid, $ripley-magenta-light);
+
+    svg { transform: translateX(5px); }
+  }
+}
+
+// ── Navigation Arrows ─────────────────────────────────────────────────────────
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.25);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all $transition-medium;
+  z-index: 10;
+  color: $color-white;
+
+  &:hover {
+    background: rgba($ripley-magenta, 0.75);
+    border-color: rgba($ripley-magenta-light, 0.4);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 24px rgba($ripley-magenta, 0.4);
+  }
+
+  &.prev { left: 2rem; }
+  &.next { right: 2rem; }
+  svg { display: block; }
+}
+
+// ── Indicators ────────────────────────────────────────────────────────────────
+.carousel-indicators {
+  position: absolute;
+  bottom: 2.2rem;
+  left: 4rem;
+  display: flex;
+  gap: 0.6rem;
+  z-index: 10;
+}
+
+.indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.4);
+  cursor: pointer;
+  transition: all $transition-medium;
+  padding: 0;
+
+  &:hover { background: rgba(255,255,255,0.7); }
+
+  &.active {
+    background: $color-white;
+    width: 28px;
+    border-radius: 4px;
+  }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+@media (max-width: 1024px) {
+  .carousel-wrapper { height: 520px; }
+  .slide-title { font-size: 2.6rem; }
+}
+
+@media (max-width: 768px) {
+  .carousel-container { margin-top: 0; }
+  .carousel-wrapper   { height: 440px; }
+  .slide-content      { padding: 0 2rem; max-width: 100%; }
+  .slide-title        { font-size: 2rem; }
+  .slide-subtitle     { font-size: 1rem; margin-bottom: 1.8rem; }
+  .slide-cta          { padding: 0.85rem 1.8rem; font-size: 0.95rem; }
+  .carousel-nav       { width: 42px; height: 42px; }
+  .carousel-nav.prev  { left: 1rem; }
+  .carousel-nav.next  { right: 1rem; }
+  .carousel-indicators { left: 2rem; }
+}
+
+@media (max-width: 480px) {
+  .carousel-wrapper   { height: 380px; }
+  .slide-content      { padding: 0 1.25rem; }
+  .slide-title        { font-size: 1.7rem; }
+  .slide-subtitle     { font-size: 0.9rem; max-width: 100%; }
+}

@@ -1,0 +1,56 @@
+<div class="dashboard-layout">
+    <app-dashboard-sidebar></app-dashboard-sidebar>
+
+    <main class="dashboard-content">
+        <h1 class="page-title">Reportes</h1>
+
+        <div class="report-config">
+            <div class="form-group">
+                <label>Tipo de Reporte</label>
+                <select [(ngModel)]="reportType">
+                    <option value="sales">Ventas</option>
+                    <option value="products">Productos</option>
+                    <option value="users">Usuarios</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Desde</label>
+                <input type="date" [(ngModel)]="dateFrom">
+            </div>
+            <div class="form-group">
+                <label>Hasta</label>
+                <input type="date" [(ngModel)]="dateTo">
+            </div>
+            <div class="actions">
+                <button class="btn btn-primary" (click)="generateReport()">Generar</button>
+                <button class="btn btn-secondary" (click)="exportPDF()" [disabled]="details().length === 0" style="margin-left: 10px; background-color: #f44336; color: white;">Exportar PDF</button>
+                <button class="btn btn-secondary" (click)="exportExcel()" [disabled]="details().length === 0" style="margin-left: 10px; background-color: #4CAF50; color: white;">Exportar Excel</button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            @for (stat of stats(); track stat.title) {
+            <app-stats-card [title]="stat.title" [value]="stat.value" [icon]="stat.icon" [color]="stat.color">
+            </app-stats-card>
+            }
+        </div>
+
+        <div class="details-section" *ngIf="details().length > 0">
+            <h3>Lista Detallada</h3>
+            <div class="table-container">
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let col of columns()">{{ col }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of details()">
+                            <td *ngFor="let col of columns()">{{ item[col] }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>

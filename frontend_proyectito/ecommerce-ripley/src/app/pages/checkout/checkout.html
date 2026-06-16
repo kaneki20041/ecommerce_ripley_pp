@@ -1,0 +1,372 @@
+<div class="checkout-layout-container">
+  <!-- Header del Checkout Premium Ripley -->
+  <header class="checkout-header">
+    <div class="header-content">
+      <a routerLink="/home" class="checkout-logo">
+        <img src="https://simple.ripley.com.pe/static/img/ripley-logo.svg" alt="Logo Ripley" onerror="this.src='https://th.bing.com/th?q=Comercial+Eccsa+Logo+Ripley&w=120&h=120&c=1&rs=1&qlt=70'">
+      </a>
+      <!-- Indicador de pasos dinámico -->
+      <div class="checkout-steps-badge">
+        <span class="step" [class.active]="checkoutStep() === 1" [class.completed]="checkoutStep() === 2">
+          <span class="step-num">1</span> Despacho
+        </span>
+        <span class="step-line" [class.active-line]="checkoutStep() === 2"></span>
+        <span class="step" [class.active]="checkoutStep() === 2">
+          <span class="step-num">2</span> Pago Seguro
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================ -->
+  <!-- PASO 1: FORMULARIO DE ENTREGA                                -->
+  <!-- ============================================================ -->
+  <div class="checkout-content-grid" *ngIf="checkoutStep() === 1">
+
+    <!-- Columna Izquierda: Formulario de Entrega -->
+    <main class="checkout-main-form">
+      <div class="checkout-card">
+
+        <!-- Cabecera del formulario -->
+        <div class="delivery-header">
+          <h2 class="delivery-title">Entrega</h2>
+          <a routerLink="/carrito" class="btn-modify">
+            Modificar
+            <svg class="modify-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"></path>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+            </svg>
+          </a>
+        </div>
+
+        <p class="delivery-subtitle">Ingresa tu dirección</p>
+
+        <!-- Banner de Error -->
+        <div class="error-banner" *ngIf="errorMessage()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+            <line x1="12" y1="8" x2="12" y2="12" stroke-width="2"/>
+            <line x1="12" y1="16" x2="12.01" y2="16" stroke-width="2"/>
+          </svg>
+          <span>{{ errorMessage() }}</span>
+        </div>
+
+        <!-- Formulario -->
+        <form (ngSubmit)="onSubmit()" #checkoutForm="ngForm" class="ripley-form">
+
+          <!-- Selector de Tipo de Despacho -->
+          <div class="delivery-tabs">
+            <button type="button" class="tab-btn" [class.active]="shippingMethod === 'DOMICILIO'" (click)="onShippingMethodChange('DOMICILIO')">
+              <svg class="tab-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="3" width="15" height="13"></rect>
+                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                <circle cx="18.5" cy="18.5" r="2.5"></circle>
+              </svg>
+              Envío a Domicilio
+            </button>
+            <button type="button" class="tab-btn" [class.active]="shippingMethod === 'TIENDA'" (click)="onShippingMethodChange('TIENDA')">
+              <svg class="tab-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              Retiro en Tienda
+            </button>
+          </div>
+
+          <!-- BLOQUE ENVÍO A DOMICILIO -->
+          <ng-container *ngIf="shippingMethod === 'DOMICILIO'">
+            <div class="outlined-group">
+              <input type="text" id="streetAddress" name="streetAddress" [(ngModel)]="streetAddress" required placeholder=" " #addrInput="ngModel" [class.invalid]="addrInput.touched && addrInput.invalid">
+              <label for="streetAddress">Dirección*</label>
+            </div>
+
+            <div class="outlined-group">
+              <input type="text" id="streetNumber" name="streetNumber" [(ngModel)]="streetNumber" required placeholder=" " #numInput="ngModel" [class.invalid]="numInput.touched && numInput.invalid">
+              <label for="streetNumber">Número*</label>
+            </div>
+
+            <div class="outlined-group">
+              <input type="text" id="apartment" name="apartment" [(ngModel)]="apartment" placeholder=" ">
+              <label for="apartment">Depto/Casa/Oficina</label>
+            </div>
+
+            <div class="outlined-group select-group">
+              <select id="departamento" name="departamento" [(ngModel)]="departamentoSeleccionado" (ngModelChange)="onDepartamentoChange($event)" required #deptSelect="ngModel" [class.invalid]="deptSelect.touched && !departamentoSeleccionado">
+                <option value="" disabled selected>Seleccione un departamento</option>
+                <option *ngFor="let dept of departamentos" [value]="dept">{{ dept }}</option>
+              </select>
+              <label for="departamento" class="select-label">Departamento</label>
+              <span class="select-arrow"></span>
+            </div>
+
+            <div class="outlined-group select-group">
+              <select id="provincia" name="provincia" [(ngModel)]="provinciaSeleccionada" (ngModelChange)="onProvinciaChange($event)" [disabled]="!departamentoSeleccionado" required #provSelect="ngModel" [class.invalid]="provSelect.touched && !provinciaSeleccionada">
+                <option value="" disabled selected>Seleccione una provincia</option>
+                <option *ngFor="let prov of provinciasFiltradas" [value]="prov">{{ prov }}</option>
+              </select>
+              <label for="provincia" class="select-label">Provincia</label>
+              <span class="select-arrow"></span>
+            </div>
+
+            <div class="outlined-group select-group">
+              <select id="distrito" name="distrito" [(ngModel)]="distritoSeleccionado" [disabled]="!provinciaSeleccionada" required #distSelect="ngModel" [class.invalid]="distSelect.touched && !distritoSeleccionado">
+                <option value="" disabled selected>Seleccione un distrito</option>
+                <option *ngFor="let dist of distritosFiltrados" [value]="dist">{{ dist }}</option>
+              </select>
+              <label for="distrito" class="select-label">Distrito</label>
+              <span class="select-arrow"></span>
+            </div>
+
+            <div class="outlined-group textarea-group">
+              <textarea id="deliveryInstructions" name="deliveryInstructions" [(ngModel)]="deliveryInstructions" placeholder=" " rows="3"></textarea>
+              <label for="deliveryInstructions">Instrucciones de entrega</label>
+            </div>
+
+            <div class="outlined-group">
+              <input type="text" id="addressName" name="addressName" [(ngModel)]="addressName" required placeholder=" " #nameAddrInput="ngModel" [class.invalid]="nameAddrInput.touched && nameAddrInput.invalid">
+              <label for="addressName">Nombre de la dirección*</label>
+            </div>
+          </ng-container>
+
+          <!-- BLOQUE RETIRO EN TIENDA -->
+          <ng-container *ngIf="shippingMethod === 'TIENDA'">
+            <div class="outlined-group select-group">
+              <select id="storeSelect" name="storeSelect" [(ngModel)]="selectedStore" required #storeSelect="ngModel" [class.invalid]="storeSelect.touched && !selectedStore">
+                <option value="" disabled selected>Selecciona una tienda Ripley</option>
+                <option *ngFor="let tienda of tiendasRipley" [value]="tienda.name">{{ tienda.name }} - {{ tienda.address }}</option>
+              </select>
+              <label for="storeSelect" class="select-label">Tienda Ripley para Retiro*</label>
+              <span class="select-arrow"></span>
+            </div>
+
+            <div class="geolocation-recommender">
+              <button type="button" class="btn-geo" (click)="detectClosestStore()" [disabled]="recommendingStore">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="geo-icon" [class.spinning]="recommendingStore">
+                  <circle cx="12" cy="12" r="10"/>
+                  <circle cx="12" cy="12" r="3"/>
+                  <line x1="12" y1="1" x2="12" y2="4"/>
+                  <line x1="12" y1="20" x2="12" y2="23"/>
+                  <line x1="1" y1="12" x2="4" y2="12"/>
+                  <line x1="20" y1="12" x2="23" y2="12"/>
+                </svg>
+                {{ recommendingStore ? 'Detectando tienda...' : 'Recomendar tienda por Cercanía' }}
+              </button>
+              <div class="recommendation-badge-note" *ngIf="recommendedStoreNote">
+                <svg class="info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span>{{ recommendedStoreNote }}</span>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Celular (requerido para ambos métodos) -->
+          <div class="outlined-group">
+            <input type="tel" id="celular" name="celular" [(ngModel)]="celular" required placeholder=" " pattern="9[0-9]{8}" #celularInput="ngModel" [class.invalid]="celularInput.touched && celularInput.invalid">
+            <label for="celular">Celular*</label>
+            <span class="hint-text" *ngIf="celularInput.touched && celularInput.invalid">Debe empezar con 9 y tener 9 dígitos</span>
+          </div>
+
+          <!-- Guardar dirección preferente (solo domicilio) -->
+          <div class="checkbox-container" *ngIf="shippingMethod === 'DOMICILIO'">
+            <label class="custom-checkbox">
+              <input type="checkbox" name="savePreferred" [(ngModel)]="savePreferred">
+              <span class="checkbox-box"></span>
+              <span class="checkbox-label">Guardar como dirección preferente</span>
+            </label>
+          </div>
+
+          <!-- Botón Continuar → Paso 2 -->
+          <button type="submit" class="btn-continue" [disabled]="checkoutForm.invalid || loading()">
+            <span *ngIf="!loading()">
+              Continuar al Pago
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </span>
+            <div class="btn-loader" *ngIf="loading()"></div>
+          </button>
+
+        </form>
+      </div>
+    </main>
+
+    <!-- Columna Derecha: Resumen de Compra -->
+    <aside class="checkout-summary-column">
+      <ng-container *ngTemplateOutlet="summaryCard"></ng-container>
+    </aside>
+
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- PASO 2: FORMULARIO DE PAGO — MERCADO PAGO PAYMENT BRICK     -->
+  <!-- ============================================================ -->
+  <div class="checkout-content-grid step-2-grid" *ngIf="checkoutStep() === 2">
+
+    <!-- Columna Izquierda: Payment Brick -->
+    <main class="checkout-main-form">
+      <div class="checkout-card">
+
+        <!-- Cabecera del pago -->
+        <div class="delivery-header">
+          <div class="payment-header-info">
+            <h2 class="delivery-title">Pago Seguro</h2>
+            <div class="mp-badge">
+              <img src="https://logodownload.org/wp-content/uploads/2019/06/mercado-pago-logo-1.png"
+                   alt="Mercado Pago" class="mp-logo-badge">
+              <span>Powered by Mercado Pago</span>
+            </div>
+          </div>
+          <!-- Volver al paso 1 -->
+          <button type="button" class="btn-modify" (click)="checkoutStep.set(1)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            Volver
+          </button>
+        </div>
+
+        <!-- Resumen del pedido (mini) -->
+        <div class="order-summary-mini">
+          <div class="order-mini-row">
+            <span>Orden #{{ createdOrderId() }}</span>
+            <span class="order-mini-total">S/ {{ cartTotal() | number:'1.2-2' }}</span>
+          </div>
+          <div class="order-mini-method">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path *ngIf="shippingMethod === 'DOMICILIO'" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <path *ngIf="shippingMethod === 'TIENDA'" d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            </svg>
+            <span>{{ shippingMethod === 'DOMICILIO' ? 'Envío a domicilio' : 'Retiro en ' + selectedStore }}</span>
+          </div>
+        </div>
+
+        <!-- Banner de error -->
+        <div class="error-banner" *ngIf="errorMessage()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="10" stroke-width="2"/>
+            <line x1="12" y1="8" x2="12" y2="12" stroke-width="2"/>
+            <line x1="12" y1="16" x2="12.01" y2="16" stroke-width="2"/>
+          </svg>
+          <span>{{ errorMessage() }}</span>
+        </div>
+
+        <!-- Loader mientras el Brick carga -->
+        <div class="brick-loading-wrapper" *ngIf="loadingBrick()">
+          <div class="brick-skeleton-line"></div>
+          <div class="brick-skeleton-line short"></div>
+          <div class="brick-skeleton-line"></div>
+          <div class="brick-skeleton-line medium"></div>
+          <div class="brick-loader-text">
+            <div class="mp-spinner"></div>
+            <span>Cargando formulario de pago seguro...</span>
+          </div>
+        </div>
+
+        <!-- Contenedor del Payment Brick (el SDK de MP renderiza aquí) -->
+        <div id="mp-payment-brick-container" class="mp-brick-container"></div>
+
+
+
+      </div>
+    </main>
+
+    <!-- Columna Derecha: Resumen (igual que paso 1) -->
+    <aside class="checkout-summary-column">
+      <ng-container *ngTemplateOutlet="summaryCard"></ng-container>
+    </aside>
+
+  </div>
+
+  <!-- ================================================================ -->
+  <!-- TEMPLATE REUTILIZABLE: RESUMEN DE COMPRA (SIDEBAR)               -->
+  <!-- ================================================================ -->
+  <ng-template #summaryCard>
+    <div class="summary-card">
+
+      <!-- Título con Icono de Bolsa -->
+      <div class="summary-header">
+        <svg class="bag-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <span class="summary-header-title">MI producto ({{ cartItems().length }})</span>
+      </div>
+
+      <!-- Lista de Productos -->
+      <div class="summary-products">
+        <div class="product-item" *ngFor="let item of cartItems()">
+          <img class="product-img" [src]="getItemImage(item)" [alt]="getItemTitle(item)">
+
+          <div class="product-info">
+            <h4 class="product-title">{{ getItemTitle(item) | uppercase }}</h4>
+            <div class="product-tags">
+              <span class="badge-tag">Color: {{ item.selectedColor }}</span>
+              <span class="badge-tag">Talla: ropa {{ item.selectedSize }}</span>
+            </div>
+          </div>
+
+          <div class="product-price">
+            S/ {{ getItemPrice(item) | number:'1.2-2' }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Desglose Financiero -->
+      <div class="summary-pricing">
+        <div class="price-row">
+          <span class="price-label">Subtotal</span>
+          <span class="price-value">S/ {{ cartSubtotal() | number:'1.2-2' }}</span>
+        </div>
+
+        <div class="price-row" *ngIf="productsDiscount() > 0">
+          <span class="price-label discount-label">Descuentos</span>
+          <span class="price-value discount-value">- S/ {{ productsDiscount() | number:'1.2-2' }}</span>
+        </div>
+
+        <div class="price-row">
+          <span class="price-label">Despacho</span>
+          <span class="price-value">
+            <span *ngIf="shipping() === 0" class="free-shipping">GRATIS</span>
+            <span *ngIf="shipping() > 0">S/ {{ shipping() | number:'1.2-2' }}</span>
+          </span>
+        </div>
+
+        <div class="price-row total-row">
+          <span class="price-label">Total a pagar</span>
+          <span class="price-value">S/ {{ cartTotal() | number:'1.2-2' }}</span>
+        </div>
+      </div>
+
+      <!-- Términos -->
+      <p class="terms-text">
+        Al pagar, aceptas nuestros
+        <a href="#" (click)="$event.preventDefault()">términos y condiciones</a> y
+        <a href="#" (click)="$event.preventDefault()">política de privacidad</a>
+      </p>
+
+      <!-- Seguridad -->
+      <div class="security-badges">
+        <div class="security-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <span>SSL 256-bit</span>
+        </div>
+        <div class="security-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span>Pago Seguro</span>
+        </div>
+      </div>
+
+    </div>
+  </ng-template>
+
+</div>

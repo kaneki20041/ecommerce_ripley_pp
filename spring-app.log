@@ -1,0 +1,976 @@
+2026-06-14T00:12:23.656-05:00  WARN 12624 --- [ecommerce-minerva] [HikariPool-4 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Thread starvation or clock leap detected (housekeeper delta=8m41s642ms327µs800ns).
+2026-06-14T00:12:37.091-05:00  INFO 12624 --- [ecommerce-minerva] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 167 class path changes (0 additions, 166 deletions, 1 modification)
+2026-06-14T00:12:37.107-05:00  INFO 12624 --- [ecommerce-minerva] [Thread-17] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-14T00:12:37.133-05:00  INFO 12624 --- [ecommerce-minerva] [Thread-17] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2026-06-14T00:12:37.137-05:00  INFO 12624 --- [ecommerce-minerva] [Thread-17] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2026-06-14T00:12:37.410-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] c.p.e.EcommerceMinervaApplication        : Starting EcommerceMinervaApplication using Java 21.0.10 with PID 12624 (C:\Users\gato_\Desktop\ecommerce-ripleysito\proyectito_backend\ecommerce-minerva\target\classes started by gato_ in C:\Users\gato_\Desktop\ecommerce-ripleysito)
+2026-06-14T00:12:37.425-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] c.p.e.EcommerceMinervaApplication        : No active profile set, falling back to 1 default profile: "default"
+2026-06-14T00:12:37.994-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-14T00:12:37.994-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 0 ms. Found 0 JPA repository interfaces.
+2026-06-14T00:12:38.356-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-06-14T00:12:38.382-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-14T00:12:38.394-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2026-06-14T00:12:38.491-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.a.c.c.C.[Tomcat-2].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2026-06-14T00:12:38.499-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1074 ms
+2026-06-14T00:12:38.556-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-14T00:12:38.602-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-06-14T00:12:38.628-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-14T00:12:38.629-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2026-06-14T00:12:39.218-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection ConnectionID:167 ClientConnectionId: 98a043bf-c409-402e-9901-51b7acb1bff0
+2026-06-14T00:12:39.218-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2026-06-14T00:12:39.218-05:00  WARN 12624 --- [ecommerce-minerva] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-14T00:12:39.251-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-14T00:12:39.251-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-14T00:12:39.334-05:00  WARN 12624 --- [ecommerce-minerva] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-14T00:12:39.523-05:00  WARN 12624 --- [ecommerce-minerva] [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 7e70cfea-7d50-4488-ba37-eba259a1facd
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-06-14T00:12:39.615-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-06-14T00:12:39.640-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-06-14T00:12:39.657-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] c.p.e.EcommerceMinervaApplication        : Started EcommerceMinervaApplication in 2.377 seconds (process running for 20007.717)
+2026-06-14T00:12:39.665-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   SpringBootWebSecurityConfiguration.SecurityFilterChainConfiguration matched:
+      - AllNestedConditions 2 matched 0 did not; NestedCondition on DefaultWebSecurityCondition.Beans @ConditionalOnMissingBean (types: org.springframework.security.web.SecurityFilterChain; SearchStrategy: all) did not find any beans; NestedCondition on DefaultWebSecurityCondition.Classes @ConditionalOnClass found required classes 'org.springframework.security.web.SecurityFilterChain', 'org.springframework.security.config.annotation.web.builders.HttpSecurity' (DefaultWebSecurityCondition)
+
+   SpringBootWebSecurityConfiguration.WebSecurityEnablerConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.security.config.annotation.web.configuration.EnableWebSecurity' (OnClassCondition)
+      - @ConditionalOnMissingBean (names: springSecurityFilterChain; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   UserDetailsServiceAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.security.authentication.AuthenticationManager' (OnClassCondition)
+      - AnyNestedCondition 1 matched 2 did not; NestedCondition on UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured.PasswordConfigured @ConditionalOnProperty (spring.security.user.password) did not find property 'password'; NestedCondition on UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured.NameConfigured @ConditionalOnProperty (spring.security.user.name) did not find property 'name'; NestedCondition on UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured.MissingAlternative @ConditionalOnMissingClass did not find unwanted classes 'org.springframework.security.oauth2.client.registration.ClientRegistrationRepository', 'org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector', 'org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository' (UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured)
+      - @ConditionalOnBean (types: org.springframework.security.config.annotation.ObjectPostProcessor; SearchStrategy: all) found bean 'objectPostProcessor'; @ConditionalOnMissingBean (types: org.springframework.security.authentication.AuthenticationManager,org.springframework.security.authentication.AuthenticationProvider,org.springframework.security.core.userdetails.UserDetailsService,org.springframework.security.authentication.AuthenticationManagerResolver,org.springframework.security.oauth2.jwt.JwtDecoder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+    None
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2026-06-14T00:12:47.805-05:00  INFO 12624 --- [ecommerce-minerva] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 166 class path changes (166 additions, 0 deletions, 0 modifications)
+2026-06-14T00:12:47.811-05:00  INFO 12624 --- [ecommerce-minerva] [Thread-26] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-14T00:12:47.818-05:00  INFO 12624 --- [ecommerce-minerva] [Thread-26] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown initiated...
+2026-06-14T00:12:47.821-05:00  INFO 12624 --- [ecommerce-minerva] [Thread-26] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown completed.
+2026-06-14T00:12:47.957-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] c.p.e.EcommerceMinervaApplication        : Starting EcommerceMinervaApplication using Java 21.0.10 with PID 12624 (C:\Users\gato_\Desktop\ecommerce-ripleysito\proyectito_backend\ecommerce-minerva\target\classes started by gato_ in C:\Users\gato_\Desktop\ecommerce-ripleysito)
+2026-06-14T00:12:47.957-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] c.p.e.EcommerceMinervaApplication        : No active profile set, falling back to 1 default profile: "default"
+2026-06-14T00:12:49.255-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-14T00:12:49.386-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 124 ms. Found 15 JPA repository interfaces.
+2026-06-14T00:12:49.575-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-06-14T00:12:49.575-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-14T00:12:49.575-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2026-06-14T00:12:49.622-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.a.c.c.C.[Tomcat-2].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2026-06-14T00:12:49.622-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1660 ms
+2026-06-14T00:12:49.684-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-14T00:12:49.692-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-06-14T00:12:49.702-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-14T00:12:49.702-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
+2026-06-14T00:12:49.787-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-6 - Added connection ConnectionID:172 ClientConnectionId: a4929e40-610c-4168-9e1a-ceeb92c3f202
+2026-06-14T00:12:49.787-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Start completed.
+2026-06-14T00:12:49.787-05:00  WARN 12624 --- [ecommerce-minerva] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-14T00:12:50.343-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-14T00:12:51.018-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-14T00:12:51.652-05:00  WARN 12624 --- [ecommerce-minerva] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-14T00:12:51.844-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-06-14T00:12:51.866-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-06-14T00:12:51.866-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] c.p.e.EcommerceMinervaApplication        : Started EcommerceMinervaApplication in 3.946 seconds (process running for 20019.929)
+2026-06-14T00:12:51.866-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Checking database for old mockup absolute HTTP URLs...
+2026-06-14T00:12:51.874-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : No old HTTP/HTTPS mockup URLs found.
+2026-06-14T00:12:51.874-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Initializing hierarchical categories...
+2026-06-14T00:12:51.902-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Jeans' -> updated to level 3 under parent 'Ropa Mujer'
+2026-06-14T00:12:51.919-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Shorts' -> updated to level 3 under parent 'Ropa Mujer'
+2026-06-14T00:12:51.968-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Ropa de baño' -> updated to level 2 under parent 'Mujer'
+2026-06-14T00:12:52.011-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatillas urbanas' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-14T00:12:52.011-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatillas deportivas' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-14T00:12:52.020-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatos de vestir' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-14T00:12:52.020-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatos casuales' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-14T00:12:52.032-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Sandalias' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-14T00:12:52.041-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Pantuflas' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-14T00:12:52.058-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatillas urbanas' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-14T00:12:52.058-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatillas deportivas' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-14T00:12:52.066-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatos casuales' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-14T00:12:52.075-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatos de vestir' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-14T00:12:52.084-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Sandalias' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-14T00:12:52.091-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Pantuflas' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-14T00:12:52.138-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Jeans' -> updated to level 3 under parent 'Ropa Hombre'
+2026-06-14T00:12:52.146-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Shorts' -> updated to level 3 under parent 'Ropa Hombre'
+2026-06-14T00:12:52.147-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Ropa de baño' -> updated to level 3 under parent 'Ropa Hombre'
+2026-06-14T00:12:52.192-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Hierarchical categories initialized successfully!
+2026-06-14T00:12:52.194-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Initializing database with default data...
+2026-06-14T00:12:52.286-05:00  INFO 12624 --- [ecommerce-minerva] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   SpringBootWebSecurityConfiguration.SecurityFilterChainConfiguration:
+      Did not match:
+         - AllNestedConditions 1 matched 1 did not; NestedCondition on DefaultWebSecurityCondition.Beans @ConditionalOnMissingBean (types: org.springframework.security.web.SecurityFilterChain; SearchStrategy: all) found beans of type 'org.springframework.security.web.SecurityFilterChain' securityFilterChain; NestedCondition on DefaultWebSecurityCondition.Classes @ConditionalOnClass found required classes 'org.springframework.security.web.SecurityFilterChain', 'org.springframework.security.config.annotation.web.builders.HttpSecurity' (DefaultWebSecurityCondition)
+
+   SpringBootWebSecurityConfiguration.WebSecurityEnablerConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (names: springSecurityFilterChain; SearchStrategy: all) found beans named springSecurityFilterChain (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.security.config.annotation.web.configuration.EnableWebSecurity' (OnClassCondition)
+
+   UserDetailsServiceAutoConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.security.authentication.AuthenticationManager,org.springframework.security.authentication.AuthenticationProvider,org.springframework.security.core.userdetails.UserDetailsService,org.springframework.security.authentication.AuthenticationManagerResolver,org.springframework.security.oauth2.jwt.JwtDecoder; SearchStrategy: all) found beans of type 'org.springframework.security.authentication.AuthenticationManager' authenticationManager and found beans of type 'org.springframework.security.core.userdetails.UserDetailsService' customeUserService (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.security.authentication.AuthenticationManager' (OnClassCondition)
+         - AnyNestedCondition 1 matched 2 did not; NestedCondition on UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured.PasswordConfigured @ConditionalOnProperty (spring.security.user.password) did not find property 'password'; NestedCondition on UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured.NameConfigured @ConditionalOnProperty (spring.security.user.name) did not find property 'name'; NestedCondition on UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured.MissingAlternative @ConditionalOnMissingClass did not find unwanted classes 'org.springframework.security.oauth2.client.registration.ClientRegistrationRepository', 'org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector', 'org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository' (UserDetailsServiceAutoConfiguration.MissingAlternativeOrUserPropertiesConfigured)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2026-06-14T00:16:35.305-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] c.p.e.EcommerceMinervaApplication        : Starting EcommerceMinervaApplication using Java 21.0.10 with PID 18808 (C:\Users\gato_\Desktop\ecommerce-ripleysito\proyectito_backend\ecommerce-minerva\target\classes started by gato_ in C:\Users\gato_\Desktop\ecommerce-ripleysito)
+2026-06-14T00:16:35.310-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] c.p.e.EcommerceMinervaApplication        : No active profile set, falling back to 1 default profile: "default"
+2026-06-14T00:16:35.865-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-06-14T00:16:35.865-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-06-14T00:16:37.109-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-14T00:16:37.368-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 249 ms. Found 15 JPA repository interfaces.
+2026-06-14T00:16:39.295-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-06-14T00:16:39.326-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-14T00:16:39.328-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2026-06-14T00:16:39.453-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-14T00:16:39.454-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3588 ms
+2026-06-14T00:16:39.819-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-14T00:16:39.986-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-06-14T00:16:40.064-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-06-14T00:16:40.551-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-14T00:16:40.632-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-14T00:16:41.281-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection ConnectionID:1 ClientConnectionId: 28bcd151-2966-48be-be50-3225534053fe
+2026-06-14T00:16:41.283-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-14T00:16:41.344-05:00  WARN 18808 --- [ecommerce-minerva] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-14T00:16:43.819-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-14T00:16:45.171-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-14T00:16:45.823-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-14T00:16:47.851-05:00  WARN 18808 --- [ecommerce-minerva] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-14T00:16:48.783-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-06-14T00:16:48.855-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-06-14T00:16:48.868-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] c.p.e.EcommerceMinervaApplication        : Started EcommerceMinervaApplication in 14.376 seconds (process running for 15.207)
+2026-06-14T00:16:48.884-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Checking database for old mockup absolute HTTP URLs...
+2026-06-14T00:16:48.989-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : No old HTTP/HTTPS mockup URLs found.
+2026-06-14T00:16:48.989-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Initializing hierarchical categories...
+2026-06-14T00:16:49.275-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Jeans' -> updated to level 3 under parent 'Ropa Mujer'
+2026-06-14T00:16:49.394-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Shorts' -> updated to level 3 under parent 'Ropa Mujer'
+2026-06-14T00:16:49.495-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Ropa de baño' -> updated to level 2 under parent 'Mujer'
+2026-06-14T00:16:49.582-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatillas urbanas' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-14T00:16:49.591-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatillas deportivas' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-14T00:16:49.599-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatos de vestir' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-14T00:16:49.606-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatos casuales' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-14T00:16:49.618-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Sandalias' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-14T00:16:49.626-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Pantuflas' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-14T00:16:49.643-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatillas urbanas' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-14T00:16:49.652-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatillas deportivas' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-14T00:16:49.671-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatos casuales' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-14T00:16:49.681-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatos de vestir' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-14T00:16:49.695-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Sandalias' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-14T00:16:49.703-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Pantuflas' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-14T00:16:49.760-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Jeans' -> updated to level 3 under parent 'Ropa Hombre'
+2026-06-14T00:16:49.806-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Shorts' -> updated to level 3 under parent 'Ropa Hombre'
+2026-06-14T00:16:49.815-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Ropa de baño' -> updated to level 3 under parent 'Ropa Hombre'
+2026-06-14T00:16:49.871-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Hierarchical categories initialized successfully!
+2026-06-14T00:16:49.873-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Initializing database with default data...
+2026-06-14T00:16:55.286-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-14T00:16:55.287-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-14T00:16:55.291-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-06-14T00:17:37.031-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-4] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection ConnectionID:3 ClientConnectionId: 13d532b3-b627-4474-aaca-266d26fc26cb (La conexión está cerrada.). Possibly consider using a shorter maxLifetime value.
+2026-06-14T00:17:37.032-05:00  WARN 18808 --- [ecommerce-minerva] [mssql-timeout-task-1-13d532b3-b627-4474-aaca-266d26fc26cb] c.m.s.jdbc.internals.TDS.Command         : TDSCommand@4a890873 (SQLServerStatement:187 executeXXX): Command could not be timed out. Reason: Socket closed
+2026-06-14T00:17:41.357-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-6] com.proyecto.Controller.AuthController   : Intento de login: admin@ripleysito.com
+2026-06-14T00:17:46.364-05:00  WARN 18808 --- [ecommerce-minerva] [mssql-timeout-task-2-f9abb87d-f502-403a-b391-e744aa79e80c] c.m.s.jdbc.internals.TDS.Command         : TDSCommand@62ea7fb5 (SQLServerStatement:192 executeXXX): Command could not be timed out. Reason: Socket closed
+2026-06-14T00:17:46.364-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection ConnectionID:5 ClientConnectionId: f9abb87d-f502-403a-b391-e744aa79e80c (La conexión está cerrada.). Possibly consider using a shorter maxLifetime value.
+2026-06-14T00:17:53.855-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-6] com.proyecto.Controller.AuthController   : Login exitoso: admin@ripleysito.com (Rol: ADMIN)
+2026-06-14T00:27:03.099-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-5] ration$PageModule$WarningLoggingModifier : Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2026-06-14T00:29:51.308-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] com.proyecto.Controller.AuthController   : Intento de login: joseandi20041@gmail.com
+2026-06-14T00:29:51.415-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] com.proyecto.Controller.AuthController   : Login exitoso: joseandi20041@gmail.com (Rol: USER)
+2026-06-14T00:30:05.246-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-10] c.p.s.RecomendacionServiceImplementation : [GROQ] obtenerSugerenciasCarrito() llamado. Usuario: joseandi20041@gmail.com | Items en carrito: 2
+2026-06-14T00:30:05.618-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-10] c.p.s.RecomendacionServiceImplementation : [GROQ] Pocos candidatos sin categorías del carrito (10) - agregando otros productos de la BD
+2026-06-14T00:30:05.627-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-10] c.p.s.RecomendacionServiceImplementation : [SMART CART] Usando métrica por defecto: AI_RECOMMENDED
+2026-06-14T00:30:05.628-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-10] c.p.s.RecomendacionServiceImplementation : [GROQ] Métricas de prompt activas: [USER_HISTORY, CTR_DATA, NEW_ARRIVALS]
+2026-06-14T00:30:05.636-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-10] c.p.s.RecomendacionServiceImplementation : [GROQ] Iniciando llamada a la API de Groq (LLM)...
+2026-06-14T00:30:05.637-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-10] c.p.s.RecomendacionServiceImplementation : [GROQ] Intentando parseo JSON estructurado con Spring AI (.entity())
+2026-06-14T00:30:05.795-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-10] c.p.s.RecomendacionServiceImplementation : [GROQ] ⚠️ Parseo estructurado falló (The template string is not valid.). Intentando plaintext + Regex...
+2026-06-14T00:30:05.912-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-10] o.s.web.client.DefaultRestClient         : Writing [ChatCompletionRequest[messages=[ChatCompletionMessage[rawContent=Eres un experto en retail y cross-selling para la tienda Minerva. Analiza el carrito del cliente para seleccionar exactamente 4 productos complementarios de la lista de candidatos. Busca complementar el outfit o necesidad del cliente. Prioriza los productos con mayor 'ctr' (Click-Through Rate), ya que son los más populares, pero mantén coherencia con el carrito. Da preferencia a los productos marcados como 'nuevo: true' para promover los nuevos ingresos. Retorna ESTRICTAMENTE una lista JSON con solo los IDs de los productos recomendados. Ejemplo: [12, 45, 23, 8], role=SYSTEM, name=null, toolCallId=null, toolCalls=null, refusal=null], ChatCompletionMessage[rawContent=--- HISTORIAL DEL CLIENTE ---
+Género: No especificado
+Categorías más compradas: [Polos y tops, Zapatillas Urbanas, Zapatillas Deportivas]
+Marcas preferidas: [Reebok, H&M]
+
+--- CARRITO ACTUAL ---
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+
+--- CANDIDATOS DISPONIBLES ---
+[
+  { "id": 53, "nombre": "Zapatillas Adidas Ultraboost", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "nuevo": true },
+  { "id": 54, "nombre": "Zapatillas Zara Essential 3", "categoria": "Zapatillas Urbanas", "ctr": 0.0%, "nuevo": true },
+  { "id": 57, "nombre": "Polo Nike Essential 6", "categoria": "Poleras y polerones", "ctr": 0.0% },
+  { "id": 59, "nombre": "Zapatillas Adidas Essential 8", "categoria": "Zapatillas Urbanas", "ctr": 0.0% },
+  { "id": 61, "nombre": "Zapatillas Reebok Essential 10", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "nuevo": true },
+  { "id": 65, "nombre": "Zapatillas Reebok Essential 14", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "nuevo": true },
+  { "id": 66, "nombre": "Zapatillas Reebok Essential 15", "categoria": "Zapatillas Urbanas", "ctr": 2.4%, "nuevo": true },
+  { "id": 67, "nombre": "Zapatillas H&M Essential 16", "categoria": "Zapatillas Deportivas", "ctr": 0.0% },
+  { "id": 68, "nombre": "Zapatillas H&M Essential 17", "categoria": "Zapatillas Urbanas", "ctr": 5.0%, "nuevo": true },
+  { "id": 69, "nombre": "Zapatillas H&M Essential 18", "categoria": "Zapatillas Urbanas", "ctr": 0.0%, "nuevo": true },
+  { "id": 52, "nombre": "Polo Nike Dri-FIT", "categoria": "Polos y tops", "ctr": 2.4%, "nuevo": true }
+]
+
+Selecciona exactamente los IDs de los 4 mejores productos complementarios., role=USER, name=null, toolCallId=null, toolCalls=null, refusal=null]], model=llama-3.1-8b-instant, frequencyPenalty=null, logitBias=null, logprobs=null, topLogprobs=null, maxTokens=null, maxCompletionTokens=null, n=null, presencePenalty=null, responseFormat=null, seed=null, stop=null, stream=false, streamOptions=null, temperature=0.7, topP=null, tools=null, toolChoice=null, parallelToolCalls=null, user=null]] as "application/json" with org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+2026-06-14T00:30:07.216-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-10] o.s.web.client.DefaultRestClient         : Reading to [org.springframework.ai.openai.api.OpenAiApi$ChatCompletion]
+2026-06-14T00:30:07.238-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-10] c.p.s.RecomendacionServiceImplementation : [GROQ] Respuesta en texto plano de Groq: Para seleccionar los 4 mejores productos complementarios, consideraré las siguientes condiciones:
+
+1. Los productos deben estar relacionados con el carrito actual del cliente.
+2. Priorizaré los productos con mayor Click-Through Rate (CTR), ya que son los más populares.
+3. Doy preferencia a los productos marcados como "nuevo: true" para promover los nuevos ingresos.
+4. Debo seleccionar exactamente 4 productos complementarios.
+
+Analicémoslo paso a paso:
+
+1. El carrito del cliente contiene dos polos Reebok Essential 19, por lo que buscaremos productos complementarios que sean relacionados con polos y tops o zapatillas deportivas.
+2. Los productos más populares que coinciden con estas categorías son:
+ * Zapatillas Reebok Essential 15 (CTR: 2.4%)
+ * Zapatillas H&M Essential 17 (CTR: 5.0%)
+ * Polo Nike Dri-FIT (CTR: 2.4%)
+
+Estos productos cumplen con las condiciones anteriores y son los más populares. Por lo tanto, seleccionaré los IDs de estos productos:
+
+ * 66 (Zapatillas Reebok Essential 15)
+ * 68 (Zapatillas H&M Essential 17)
+ * 52 (Polo Nike Dri-FIT)
+
+Ahora debemos seleccionar dos productos más complementarios que sean relacionados con polos y tops o zapatillas deportivas. Dado que el cliente tiene como marcas preferidas Reebok y H&M, buscaremos productos de estas marcas que cumplan con las condiciones anteriores.
+
+Los productos más populares que coinciden con estas categorías son:
+ * Zapatillas Reebok Essential 14 (CTR: 0.0%, Nuevo: true)
+ * Zapatillas Reebok Essential 10 (CTR: 0.0%, Nuevo: true)
+
+Estos productos cumplen con las condiciones anteriores y son nuevos. Por lo tanto, seleccionaré los IDs de estos productos:
+
+ * 65 (Zapatillas Reebok Essential 14)
+ * 61 (Zapatillas Reebok Essential 10)
+
+La lista de recomendaciones con exactamente 4 productos complementarios es:
+
+```json
+[66, 68, 52, 65]
+```
+
+Esta lista contiene los IDs de los 4 mejores productos complementarios que cumplen con las condiciones anteriores.
+2026-06-14T00:30:07.240-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-10] c.p.s.RecomendacionServiceImplementation : [GROQ] IDs extraídos por Regex: [4, 1, 2, 3]
+2026-06-14T00:30:07.240-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-10] c.p.s.RecomendacionServiceImplementation : [SMART CART] IDs finales a retornar: [4, 1, 2, 3]
+2026-06-14T00:30:07.253-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-10] c.p.s.RecomendacionServiceImplementation : [SMART CART] Menos tarjetas finales de lo esperado (0). Completando con destacados directos.
+2026-06-14T00:30:38.821-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-6] com.proyecto.Controller.AuthController   : Intento de login: admin@ripleysito.com
+2026-06-14T00:30:38.923-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-6] com.proyecto.Controller.AuthController   : Login exitoso: admin@ripleysito.com (Rol: ADMIN)
+2026-06-14T00:31:06.371-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-6] com.proyecto.Controller.AuthController   : Intento de login: joseandi20041@gmail.com
+2026-06-14T00:31:11.494-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-6] com.proyecto.Controller.AuthController   : Login exitoso: joseandi20041@gmail.com (Rol: USER)
+2026-06-14T00:32:05.766-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-10] com.proyecto.Controller.AuthController   : Intento de login: joseandi20041@gmail.com
+2026-06-14T00:32:05.895-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-10] com.proyecto.Controller.AuthController   : Login exitoso: joseandi20041@gmail.com (Rol: USER)
+2026-06-14T00:33:12.641-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] obtenerSugerenciasCarrito() llamado. Usuario: joseandi20041@gmail.com | Items en carrito: 2
+2026-06-14T00:33:12.801-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] Pocos candidatos sin categorías del carrito (10) - agregando otros productos de la BD
+2026-06-14T00:33:12.807-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [SMART CART] Usando métrica por defecto: AI_RECOMMENDED
+2026-06-14T00:33:12.807-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] Métricas de prompt activas: [USER_HISTORY, CTR_DATA]
+2026-06-14T00:33:12.815-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] Iniciando llamada a la API de Groq (LLM)...
+2026-06-14T00:33:12.816-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] Intentando parseo JSON estructurado con Spring AI (.entity())
+2026-06-14T00:33:12.819-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] ⚠️ Parseo estructurado falló (The template string is not valid.). Intentando plaintext + Regex...
+2026-06-14T00:33:12.823-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] o.s.web.client.DefaultRestClient         : Writing [ChatCompletionRequest[messages=[ChatCompletionMessage[rawContent=Eres un experto en retail y cross-selling para la tienda Minerva. Analiza el carrito del cliente para seleccionar exactamente 4 productos complementarios de la lista de candidatos. Busca complementar el outfit o necesidad del cliente. Prioriza los productos con mayor 'ctr' (Click-Through Rate), ya que son los más populares, pero mantén coherencia con el carrito. Retorna ESTRICTAMENTE una lista JSON con solo los IDs de los productos recomendados. Ejemplo: [12, 45, 23, 8], role=SYSTEM, name=null, toolCallId=null, toolCalls=null, refusal=null], ChatCompletionMessage[rawContent=--- HISTORIAL DEL CLIENTE ---
+Género: No especificado
+Categorías más compradas: [Polos y tops, Zapatillas Urbanas, Zapatillas Deportivas]
+Marcas preferidas: [Reebok, H&M]
+
+--- CARRITO ACTUAL ---
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+
+--- CANDIDATOS DISPONIBLES ---
+[
+  { "id": 53, "nombre": "Zapatillas Adidas Ultraboost", "categoria": "Zapatillas Deportivas", "ctr": 0.0% },
+  { "id": 54, "nombre": "Zapatillas Zara Essential 3", "categoria": "Zapatillas Urbanas", "ctr": 0.0% },
+  { "id": 57, "nombre": "Polo Nike Essential 6", "categoria": "Poleras y polerones", "ctr": 0.0% },
+  { "id": 59, "nombre": "Zapatillas Adidas Essential 8", "categoria": "Zapatillas Urbanas", "ctr": 0.0% },
+  { "id": 61, "nombre": "Zapatillas Reebok Essential 10", "categoria": "Zapatillas Deportivas", "ctr": 0.0% },
+  { "id": 65, "nombre": "Zapatillas Reebok Essential 14", "categoria": "Zapatillas Deportivas", "ctr": 0.0% },
+  { "id": 66, "nombre": "Zapatillas Reebok Essential 15", "categoria": "Zapatillas Urbanas", "ctr": 2.4% },
+  { "id": 67, "nombre": "Zapatillas H&M Essential 16", "categoria": "Zapatillas Deportivas", "ctr": 0.0% },
+  { "id": 68, "nombre": "Zapatillas H&M Essential 17", "categoria": "Zapatillas Urbanas", "ctr": 5.0% },
+  { "id": 69, "nombre": "Zapatillas H&M Essential 18", "categoria": "Zapatillas Urbanas", "ctr": 0.0% },
+  { "id": 52, "nombre": "Polo Nike Dri-FIT", "categoria": "Polos y tops", "ctr": 2.3% }
+]
+
+Selecciona exactamente los IDs de los 4 mejores productos complementarios., role=USER, name=null, toolCallId=null, toolCalls=null, refusal=null]], model=llama-3.1-8b-instant, frequencyPenalty=null, logitBias=null, logprobs=null, topLogprobs=null, maxTokens=null, maxCompletionTokens=null, n=null, presencePenalty=null, responseFormat=null, seed=null, stop=null, stream=false, streamOptions=null, temperature=0.7, topP=null, tools=null, toolChoice=null, parallelToolCalls=null, user=null]] as "application/json" with org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+2026-06-14T00:33:13.830-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] o.s.web.client.DefaultRestClient         : Reading to [org.springframework.ai.openai.api.OpenAiApi$ChatCompletion]
+2026-06-14T00:33:13.837-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] Respuesta en texto plano de Groq: Para seleccionar los 4 mejores productos complementarios, considero las siguientes reglas:
+
+1. **Categorías más compradas**: Dado que el cliente ha comprado productos de las categorías "Polos y tops" y "Zapatillas Urbanas" y "Zapatillas Deportivas", priorizaré los productos que pertenecen a estas categorías.
+2. **Marcas preferidas**: Dado que el cliente prefiere las marcas Reebok y H&M, priorizaré los productos que pertenecen a estas marcas.
+3. **CTR**: Priorizaré los productos con mayor CTR (Click-Through Rate) para asegurarme de que se seleccionen los productos más populares.
+
+Con estas reglas en mente, selecciono los siguientes 4 productos complementarios:
+
+1. **Zapatillas Reebok Essential 15** (id: 66) - Categoría "Zapatillas Urbanas", marca Reebok, CTR 2.4%
+2. **Polo Nike Dri-FIT** (id: 52) - Categoría "Polos y tops", marca Nike, CTR 2.3%
+3. **Zapatillas H&M Essential 18** (id: 68) - Categoría "Zapatillas Urbanas", marca H&M, CTR 5.0%
+4. **Zapatillas Reebok Essential 14** (id: 65) - Categoría "Zapatillas Deportivas", marca Reebok, CTR 0.0% (aunque no tiene CTR, se selecciona por ser de la misma marca y categoría que los otros productos)
+
+La respuesta final es:
+```
+[66, 52, 68, 65]
+```
+Estos 4 productos complementarios ofrecen una buena combinación de categorías, marcas y popularidad para complementar el carrito del cliente.
+2026-06-14T00:33:13.839-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] IDs extraídos por Regex: [4, 1, 2, 3]
+2026-06-14T00:33:13.839-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [SMART CART] IDs finales a retornar: [4, 1, 2, 3]
+2026-06-14T00:33:13.862-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [SMART CART] Menos tarjetas finales de lo esperado (0). Completando con destacados directos.
+2026-06-14T00:33:33.984-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-6] com.proyecto.Controller.AuthController   : Intento de login: admin@ripleysito.com
+2026-06-14T00:33:34.106-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-6] com.proyecto.Controller.AuthController   : Login exitoso: admin@ripleysito.com (Rol: ADMIN)
+2026-06-14T00:33:56.187-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-6] com.proyecto.Controller.AuthController   : Intento de login: joseandi20041@gmail.com
+2026-06-14T00:33:56.290-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-6] com.proyecto.Controller.AuthController   : Login exitoso: joseandi20041@gmail.com (Rol: USER)
+2026-06-14T00:33:59.910-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] obtenerSugerenciasCarrito() llamado. Usuario: joseandi20041@gmail.com | Items en carrito: 2
+2026-06-14T00:34:00.086-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] Pocos candidatos sin categorías del carrito (10) - agregando otros productos de la BD
+2026-06-14T00:34:00.091-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [SMART CART] Usando métrica por defecto: AI_RECOMMENDED
+2026-06-14T00:34:00.091-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] Métricas de prompt activas: [USER_HISTORY, PRICE_MATCH, CTR_DATA, DISCOUNTS, NEW_ARRIVALS]
+2026-06-14T00:34:00.097-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] Iniciando llamada a la API de Groq (LLM)...
+2026-06-14T00:34:00.097-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] Intentando parseo JSON estructurado con Spring AI (.entity())
+2026-06-14T00:34:00.101-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] ⚠️ Parseo estructurado falló (The template string is not valid.). Intentando plaintext + Regex...
+2026-06-14T00:34:00.106-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] o.s.web.client.DefaultRestClient         : Writing [ChatCompletionRequest[messages=[ChatCompletionMessage[rawContent=Eres un experto en retail y cross-selling para la tienda Minerva. Analiza el carrito del cliente para seleccionar exactamente 4 productos complementarios de la lista de candidatos. Busca complementar el outfit o necesidad del cliente. Prioriza los productos con mayor 'ctr' (Click-Through Rate), ya que son los más populares, pero mantén coherencia con el carrito. Considera también los productos con mayor descuento para impulsar las ventas en liquidación. Da preferencia a los productos marcados como 'nuevo: true' para promover los nuevos ingresos. Considera el precio de los productos en el carrito y recomienda complementos dentro de un rango de precio similar o inferior. Retorna ESTRICTAMENTE una lista JSON con solo los IDs de los productos recomendados. Ejemplo: [12, 45, 23, 8], role=SYSTEM, name=null, toolCallId=null, toolCalls=null, refusal=null], ChatCompletionMessage[rawContent=--- HISTORIAL DEL CLIENTE ---
+Género: No especificado
+Categorías más compradas: [Polos y tops, Zapatillas Urbanas, Zapatillas Deportivas]
+Marcas preferidas: [Reebok, H&M]
+
+--- CARRITO ACTUAL ---
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+
+--- CANDIDATOS DISPONIBLES ---
+[
+  { "id": 53, "nombre": "Zapatillas Adidas Ultraboost", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.428, "nuevo": true },
+  { "id": 54, "nombre": "Zapatillas Zara Essential 3", "categoria": "Zapatillas Urbanas", "ctr": 0.0%, "descuento": 5%, "precio": S/.207, "nuevo": true },
+  { "id": 57, "nombre": "Polo Nike Essential 6", "categoria": "Poleras y polerones", "ctr": 0.0%, "descuento": 5%, "precio": S/.130 },
+  { "id": 59, "nombre": "Zapatillas Adidas Essential 8", "categoria": "Zapatillas Urbanas", "ctr": 0.0%, "precio": S/.289 },
+  { "id": 61, "nombre": "Zapatillas Reebok Essential 10", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.222, "nuevo": true },
+  { "id": 65, "nombre": "Zapatillas Reebok Essential 14", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.195, "nuevo": true },
+  { "id": 66, "nombre": "Zapatillas Reebok Essential 15", "categoria": "Zapatillas Urbanas", "ctr": 2.4%, "descuento": 5%, "precio": S/.195, "nuevo": true },
+  { "id": 67, "nombre": "Zapatillas H&M Essential 16", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.345 },
+  { "id": 68, "nombre": "Zapatillas H&M Essential 17", "categoria": "Zapatillas Urbanas", "ctr": 5.0%, "descuento": 5%, "precio": S/.142, "nuevo": true },
+  { "id": 69, "nombre": "Zapatillas H&M Essential 18", "categoria": "Zapatillas Urbanas", "ctr": 0.0%, "descuento": 5%, "precio": S/.358, "nuevo": true },
+  { "id": 52, "nombre": "Polo Nike Dri-FIT", "categoria": "Polos y tops", "ctr": 2.3%, "precio": S/.120, "nuevo": true }
+]
+
+Selecciona exactamente los IDs de los 4 mejores productos complementarios., role=USER, name=null, toolCallId=null, toolCalls=null, refusal=null]], model=llama-3.1-8b-instant, frequencyPenalty=null, logitBias=null, logprobs=null, topLogprobs=null, maxTokens=null, maxCompletionTokens=null, n=null, presencePenalty=null, responseFormat=null, seed=null, stop=null, stream=false, streamOptions=null, temperature=0.7, topP=null, tools=null, toolChoice=null, parallelToolCalls=null, user=null]] as "application/json" with org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+2026-06-14T00:34:00.993-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] o.s.web.client.DefaultRestClient         : Reading to [org.springframework.ai.openai.api.OpenAiApi$ChatCompletion]
+2026-06-14T00:34:00.999-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] Respuesta en texto plano de Groq: Basándome en el análisis del carrito y las categorías más compradas del cliente, puedo recomendar los siguientes 4 productos complementarios:
+
+1. **Zapatillas H&M Essential 18**: Esta opción se alinea con las zapatillas urbanas que el cliente ha comprado anteriormente y también con sus marcas preferidas. Además, tiene un alto CTR (5.0%) y un descuento de 5%.
+2. **Polo Nike Dri-FIT**: Este polo es una buena opción complementaria para el polo Reebok Essential 19 en el carrito. Tiene un alto CTR (2.3%) y es un producto nuevo.
+3. **Zapatillas Reebok Essential 15**: Aunque el cliente ya ha comprado un polo Reebok, agregar una zapatilla Reebok puede ser una buena opción. Esta zapatilla tiene un alto CTR (2.4%) y un descuento de 5%.
+4. **Zapatillas H&M Essential 17**: Esta opción se alinea con las zapatillas urbanas que el cliente ha comprado anteriormente y también con sus marcas preferidas. Es un producto nuevo y tiene un alto CTR (5.0%).
+
+Los IDs de estos productos recomendados son:
+
+```json
+[69, 52, 66, 68]
+```
+2026-06-14T00:34:01.001-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] IDs extraídos por Regex: [4, 1, 18, 5]
+2026-06-14T00:34:01.002-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [SMART CART] IDs finales a retornar: [4, 1, 18, 5]
+2026-06-14T00:34:01.016-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [SMART CART] Menos tarjetas finales de lo esperado (0). Completando con destacados directos.
+2026-06-14T00:34:27.725-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] com.proyecto.Controller.AuthController   : Intento de login: admin@ripleysito.com
+2026-06-14T00:34:27.869-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] com.proyecto.Controller.AuthController   : Login exitoso: admin@ripleysito.com (Rol: ADMIN)
+2026-06-14T00:34:58.350-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-9] com.proyecto.Controller.AuthController   : Intento de login: joseandi20041@gmail.com
+2026-06-14T00:34:58.459-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-9] com.proyecto.Controller.AuthController   : Login exitoso: joseandi20041@gmail.com (Rol: USER)
+2026-06-14T00:34:59.477-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] obtenerSugerenciasCarrito() llamado. Usuario: joseandi20041@gmail.com | Items en carrito: 2
+2026-06-14T00:34:59.598-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] Pocos candidatos sin categorías del carrito (10) - agregando otros productos de la BD
+2026-06-14T00:34:59.603-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [SMART CART] Usando métrica por defecto: AI_RECOMMENDED
+2026-06-14T00:34:59.604-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] Métricas de prompt activas: [USER_HISTORY, PRICE_MATCH, CTR_DATA, DISCOUNTS, NEW_ARRIVALS]
+2026-06-14T00:34:59.609-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] Iniciando llamada a la API de Groq (LLM)...
+2026-06-14T00:34:59.609-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] Intentando parseo JSON estructurado con Spring AI (.entity())
+2026-06-14T00:34:59.612-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] ⚠️ Parseo estructurado falló (The template string is not valid.). Intentando plaintext + Regex...
+2026-06-14T00:34:59.616-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] o.s.web.client.DefaultRestClient         : Writing [ChatCompletionRequest[messages=[ChatCompletionMessage[rawContent=Eres un experto en retail y cross-selling para la tienda Minerva. Analiza el carrito del cliente para seleccionar exactamente 6 productos complementarios de la lista de candidatos. Busca complementar el outfit o necesidad del cliente. Prioriza los productos con mayor 'ctr' (Click-Through Rate), ya que son los más populares, pero mantén coherencia con el carrito. Considera también los productos con mayor descuento para impulsar las ventas en liquidación. Da preferencia a los productos marcados como 'nuevo: true' para promover los nuevos ingresos. Considera el precio de los productos en el carrito y recomienda complementos dentro de un rango de precio similar o inferior. Retorna ESTRICTAMENTE una lista JSON con solo los IDs de los productos recomendados. Ejemplo: [12, 45, 23, 8], role=SYSTEM, name=null, toolCallId=null, toolCalls=null, refusal=null], ChatCompletionMessage[rawContent=--- HISTORIAL DEL CLIENTE ---
+Género: No especificado
+Categorías más compradas: [Polos y tops, Zapatillas Urbanas, Zapatillas Deportivas]
+Marcas preferidas: [Reebok, H&M]
+
+--- CARRITO ACTUAL ---
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+
+--- CANDIDATOS DISPONIBLES ---
+[
+  { "id": 53, "nombre": "Zapatillas Adidas Ultraboost", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.428, "nuevo": true },
+  { "id": 54, "nombre": "Zapatillas Zara Essential 3", "categoria": "Zapatillas Urbanas", "ctr": 0.0%, "descuento": 5%, "precio": S/.207, "nuevo": true },
+  { "id": 57, "nombre": "Polo Nike Essential 6", "categoria": "Poleras y polerones", "ctr": 0.0%, "descuento": 5%, "precio": S/.130 },
+  { "id": 59, "nombre": "Zapatillas Adidas Essential 8", "categoria": "Zapatillas Urbanas", "ctr": 0.0%, "precio": S/.289 },
+  { "id": 61, "nombre": "Zapatillas Reebok Essential 10", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.222, "nuevo": true },
+  { "id": 65, "nombre": "Zapatillas Reebok Essential 14", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.195, "nuevo": true },
+  { "id": 66, "nombre": "Zapatillas Reebok Essential 15", "categoria": "Zapatillas Urbanas", "ctr": 2.4%, "descuento": 5%, "precio": S/.195, "nuevo": true },
+  { "id": 67, "nombre": "Zapatillas H&M Essential 16", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.345 },
+  { "id": 68, "nombre": "Zapatillas H&M Essential 17", "categoria": "Zapatillas Urbanas", "ctr": 5.0%, "descuento": 5%, "precio": S/.142, "nuevo": true },
+  { "id": 69, "nombre": "Zapatillas H&M Essential 18", "categoria": "Zapatillas Urbanas", "ctr": 0.0%, "descuento": 5%, "precio": S/.358, "nuevo": true },
+  { "id": 52, "nombre": "Polo Nike Dri-FIT", "categoria": "Polos y tops", "ctr": 2.3%, "precio": S/.120, "nuevo": true }
+]
+
+Selecciona exactamente los IDs de los 6 mejores productos complementarios., role=USER, name=null, toolCallId=null, toolCalls=null, refusal=null]], model=llama-3.1-8b-instant, frequencyPenalty=null, logitBias=null, logprobs=null, topLogprobs=null, maxTokens=null, maxCompletionTokens=null, n=null, presencePenalty=null, responseFormat=null, seed=null, stop=null, stream=false, streamOptions=null, temperature=0.7, topP=null, tools=null, toolChoice=null, parallelToolCalls=null, user=null]] as "application/json" with org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+2026-06-14T00:35:00.661-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] o.s.web.client.DefaultRestClient         : Reading to [org.springframework.ai.openai.api.OpenAiApi$ChatCompletion]
+2026-06-14T00:35:00.666-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] Respuesta en texto plano de Groq: Basándome en el carrito actual y los candidatos disponibles, selecciono los siguientes 6 productos complementarios:
+
+1. **ID: 66** - Zapatillas Reebok Essential 15 (Categoría: Zapatillas Urbanas) - Con un CTR del 2.4% y un descuento del 5%, es una buena opción para complementar el polo Reebok.
+2. **ID: 52** - Polo Nike Dri-FIT (Categoría: Polos y tops) - Con un CTR del 2.3% y un precio asequible, es una buena opción para complementar los polos Reebok.
+3. **ID: 68** - Zapatillas H&M Essential 17 (Categoría: Zapatillas Urbanas) - Con un CTR del 5.0% y un descuento del 5%, es una buena opción para complementar el estilo urbano del carrito.
+4. **ID: 61** - Zapatillas Reebok Essential 10 (Categoría: Zapatillas Deportivas) - Con un descuento del 5% y un precio asequible, es una buena opción para complementar las zapatillas deportivas Reebok.
+5. **ID: 65** - Zapatillas Reebok Essential 14 (Categoría: Zapatillas Deportivas) - Con un descuento del 5% y un precio asequible, es una buena opción para complementar las zapatillas deportivas Reebok.
+6. **ID: 67** - Zapatillas H&M Essential 16 (Categoría: Zapatillas Deportivas) - Con un descuento del 5% y un precio asequible, es una buena opción para complementar las zapatillas deportivas Reebok.
+
+La lista de IDs recomendados es:
+
+```
+[66, 52, 68, 61, 65, 67]
+```
+
+Esta lista se seleccionó tomando en cuenta la coherencia con el carrito, el CTR de los productos, los descuentos y la variedad de categorías y marcas.
+2026-06-14T00:35:00.667-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] IDs extraídos por Regex: [6, 1, 66, 15, 2, 4]
+2026-06-14T00:35:00.669-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [SMART CART] IDs finales a retornar: [6, 1, 66, 15, 2, 4]
+2026-06-14T00:35:00.698-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [SMART CART] Menos tarjetas finales de lo esperado (1). Completando con destacados directos.
+2026-06-14T00:35:18.673-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-2] c.p.s.RecomendacionServiceImplementation : [GROQ] obtenerSugerenciasCarrito() llamado. Usuario: joseandi20041@gmail.com | Items en carrito: 2
+2026-06-14T00:35:18.754-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-2] c.p.s.RecomendacionServiceImplementation : [GROQ] Pocos candidatos sin categorías del carrito (10) - agregando otros productos de la BD
+2026-06-14T00:35:18.760-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-2] c.p.s.RecomendacionServiceImplementation : [SMART CART] Usando métrica por defecto: AI_RECOMMENDED
+2026-06-14T00:35:18.760-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-2] c.p.s.RecomendacionServiceImplementation : [GROQ] Métricas de prompt activas: [USER_HISTORY, PRICE_MATCH, CTR_DATA, DISCOUNTS, NEW_ARRIVALS]
+2026-06-14T00:35:18.767-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-2] c.p.s.RecomendacionServiceImplementation : [GROQ] Iniciando llamada a la API de Groq (LLM)...
+2026-06-14T00:35:18.767-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-2] c.p.s.RecomendacionServiceImplementation : [GROQ] Intentando parseo JSON estructurado con Spring AI (.entity())
+2026-06-14T00:35:18.770-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-2] c.p.s.RecomendacionServiceImplementation : [GROQ] ⚠️ Parseo estructurado falló (The template string is not valid.). Intentando plaintext + Regex...
+2026-06-14T00:35:18.775-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-2] o.s.web.client.DefaultRestClient         : Writing [ChatCompletionRequest[messages=[ChatCompletionMessage[rawContent=Eres un experto en retail y cross-selling para la tienda Minerva. Analiza el carrito del cliente para seleccionar exactamente 6 productos complementarios de la lista de candidatos. Busca complementar el outfit o necesidad del cliente. Prioriza los productos con mayor 'ctr' (Click-Through Rate), ya que son los más populares, pero mantén coherencia con el carrito. Considera también los productos con mayor descuento para impulsar las ventas en liquidación. Da preferencia a los productos marcados como 'nuevo: true' para promover los nuevos ingresos. Considera el precio de los productos en el carrito y recomienda complementos dentro de un rango de precio similar o inferior. Retorna ESTRICTAMENTE una lista JSON con solo los IDs de los productos recomendados. Ejemplo: [12, 45, 23, 8], role=SYSTEM, name=null, toolCallId=null, toolCalls=null, refusal=null], ChatCompletionMessage[rawContent=--- HISTORIAL DEL CLIENTE ---
+Género: No especificado
+Categorías más compradas: [Polos y tops, Zapatillas Urbanas, Zapatillas Deportivas]
+Marcas preferidas: [Reebok, H&M]
+
+--- CARRITO ACTUAL ---
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+
+--- CANDIDATOS DISPONIBLES ---
+[
+  { "id": 53, "nombre": "Zapatillas Adidas Ultraboost", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.428, "nuevo": true },
+  { "id": 54, "nombre": "Zapatillas Zara Essential 3", "categoria": "Zapatillas Urbanas", "ctr": 0.0%, "descuento": 5%, "precio": S/.207, "nuevo": true },
+  { "id": 57, "nombre": "Polo Nike Essential 6", "categoria": "Poleras y polerones", "ctr": 0.0%, "descuento": 5%, "precio": S/.130 },
+  { "id": 59, "nombre": "Zapatillas Adidas Essential 8", "categoria": "Zapatillas Urbanas", "ctr": 0.0%, "precio": S/.289 },
+  { "id": 61, "nombre": "Zapatillas Reebok Essential 10", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.222, "nuevo": true },
+  { "id": 65, "nombre": "Zapatillas Reebok Essential 14", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.195, "nuevo": true },
+  { "id": 66, "nombre": "Zapatillas Reebok Essential 15", "categoria": "Zapatillas Urbanas", "ctr": 4.8%, "descuento": 5%, "precio": S/.195, "nuevo": true },
+  { "id": 67, "nombre": "Zapatillas H&M Essential 16", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.345 },
+  { "id": 68, "nombre": "Zapatillas H&M Essential 17", "categoria": "Zapatillas Urbanas", "ctr": 5.0%, "descuento": 5%, "precio": S/.142, "nuevo": true },
+  { "id": 69, "nombre": "Zapatillas H&M Essential 18", "categoria": "Zapatillas Urbanas", "ctr": 0.0%, "descuento": 5%, "precio": S/.358, "nuevo": true },
+  { "id": 52, "nombre": "Polo Nike Dri-FIT", "categoria": "Polos y tops", "ctr": 2.2%, "precio": S/.120, "nuevo": true }
+]
+
+Selecciona exactamente los IDs de los 6 mejores productos complementarios., role=USER, name=null, toolCallId=null, toolCalls=null, refusal=null]], model=llama-3.1-8b-instant, frequencyPenalty=null, logitBias=null, logprobs=null, topLogprobs=null, maxTokens=null, maxCompletionTokens=null, n=null, presencePenalty=null, responseFormat=null, seed=null, stop=null, stream=false, streamOptions=null, temperature=0.7, topP=null, tools=null, toolChoice=null, parallelToolCalls=null, user=null]] as "application/json" with org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+2026-06-14T00:35:20.102-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-2] o.s.web.client.DefaultRestClient         : Reading to [org.springframework.ai.openai.api.OpenAiApi$ChatCompletion]
+2026-06-14T00:35:20.110-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-2] c.p.s.RecomendacionServiceImplementation : [GROQ] Respuesta en texto plano de Groq: Para seleccionar los 6 mejores productos complementarios, considerando la coherencia con el carrito actual, las categorías más compradas, las marcas preferidas y los criterios de prioridad, realizaré los siguientes cálculos y consideraciones:
+
+1. **Categorías más compradas**: El cliente ha comprado productos en las categorías "Polos y tops" y "Zapatillas Deportivas" y "Zapatillas Urbanas". Los productos complementarios deben pertenecer a alguna de estas categorías.
+2. **Marcas preferidas**: El cliente prefiere las marcas Reebok y H&M. Los productos complementarios deben pertenecer a alguna de estas marcas o similares (ya que no hay otros productos de la misma marca en la lista de candidatos).
+3. **CTR (Click-Through Rate)**: Los productos con mayor CTR son los más populares. Los productos con CTR > 0,0% son considerados como populares.
+4. **Descuento**: Los productos con descuento son más atractivos. Los productos con descuento > 0% son considerados como más atractivos.
+5. **Nuevo**: Los productos nuevos son más atractivos. Los productos con `nuevo: true` son considerados como más atractivos.
+6. **Precio**: Los productos con precio similar o inferior al precio de los productos ya comprados en el carrito son considerados como más atractivos.
+
+Considerando estos criterios, seleccionaré los siguientes 6 productos complementarios:
+
+- **Zapatillas Reebok Essential 15** (ID: 66): Pertenece a la categoría "Zapatillas Urbanas", tiene un CTR de 4,8%, descuento y es nuevo.
+- **Zapatillas H&M Essential 18** (ID: 69): Pertenece a la categoría "Zapatillas Urbanas", tiene un CTR de 0,0%, descuento y es nuevo.
+- **Zapatillas H&M Essential 17** (ID: 68): Pertenece a la categoría "Zapatillas Urbanas", tiene un CTR de 5,0%, descuento y es nuevo.
+- **Zapatillas Reebok Essential 14** (ID: 65): Pertenece a la categoría "Zapatillas Deportivas", tiene un CTR de 0,0%, descuento y es nuevo.
+- **Zapatillas Reebok Essential 10** (ID: 61): Pertenece a la categoría "Zapatillas Deportivas", tiene un CTR de 0,0%, descuento y es nuevo.
+- **Polo Nike Dri-FIT** (ID: 52): Pertenece a la categoría "Polos y tops", tiene un CTR de 2,2% y es nuevo.
+
+Estos productos complementarios se ajustan a los criterios de coherencia con el carrito actual, categorías más compradas, marcas preferidas y criterios de prioridad.
+
+**Respuesta JSON con los IDs de los 6 productos recomendados:**
+```json
+[
+  66,
+  69,
+  68,
+  65,
+  61,
+  52
+]
+```
+2026-06-14T00:35:20.112-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-2] c.p.s.RecomendacionServiceImplementation : [GROQ] IDs extraídos por Regex: [6, 1, 2, 3, 0, 4]
+2026-06-14T00:35:20.112-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-2] c.p.s.RecomendacionServiceImplementation : [SMART CART] IDs finales a retornar: [6, 1, 2, 3, 0, 4]
+2026-06-14T00:35:20.124-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-2] c.p.s.RecomendacionServiceImplementation : [SMART CART] Menos tarjetas finales de lo esperado (0). Completando con destacados directos.
+2026-06-14T00:35:32.030-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] obtenerSugerenciasCarrito() llamado. Usuario: joseandi20041@gmail.com | Items en carrito: 2
+2026-06-14T00:35:34.499-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] Pocos candidatos sin categorías del carrito (10) - agregando otros productos de la BD
+2026-06-14T00:35:34.503-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [SMART CART] Usando métrica por defecto: AI_RECOMMENDED
+2026-06-14T00:35:34.503-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] Métricas de prompt activas: [USER_HISTORY, PRICE_MATCH, CTR_DATA, DISCOUNTS, NEW_ARRIVALS]
+2026-06-14T00:35:34.508-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] Iniciando llamada a la API de Groq (LLM)...
+2026-06-14T00:35:34.510-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] Intentando parseo JSON estructurado con Spring AI (.entity())
+2026-06-14T00:35:34.512-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] ⚠️ Parseo estructurado falló (The template string is not valid.). Intentando plaintext + Regex...
+2026-06-14T00:35:34.515-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] o.s.web.client.DefaultRestClient         : Writing [ChatCompletionRequest[messages=[ChatCompletionMessage[rawContent=Eres un experto en retail y cross-selling para la tienda Minerva. Analiza el carrito del cliente para seleccionar exactamente 6 productos complementarios de la lista de candidatos. Busca complementar el outfit o necesidad del cliente. Prioriza los productos con mayor 'ctr' (Click-Through Rate), ya que son los más populares, pero mantén coherencia con el carrito. Considera también los productos con mayor descuento para impulsar las ventas en liquidación. Da preferencia a los productos marcados como 'nuevo: true' para promover los nuevos ingresos. Considera el precio de los productos en el carrito y recomienda complementos dentro de un rango de precio similar o inferior. Retorna ESTRICTAMENTE una lista JSON con solo los IDs de los productos recomendados. Ejemplo: [12, 45, 23, 8], role=SYSTEM, name=null, toolCallId=null, toolCalls=null, refusal=null], ChatCompletionMessage[rawContent=--- HISTORIAL DEL CLIENTE ---
+Género: No especificado
+Categorías más compradas: [Polos y tops, Zapatillas Urbanas, Zapatillas Deportivas]
+Marcas preferidas: [Reebok, H&M]
+
+--- CARRITO ACTUAL ---
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+
+--- CANDIDATOS DISPONIBLES ---
+[
+  { "id": 53, "nombre": "Zapatillas Adidas Ultraboost", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.428, "nuevo": true },
+  { "id": 54, "nombre": "Zapatillas Zara Essential 3", "categoria": "Zapatillas Urbanas", "ctr": 0.0%, "descuento": 5%, "precio": S/.207, "nuevo": true },
+  { "id": 57, "nombre": "Polo Nike Essential 6", "categoria": "Poleras y polerones", "ctr": 0.0%, "descuento": 5%, "precio": S/.130 },
+  { "id": 59, "nombre": "Zapatillas Adidas Essential 8", "categoria": "Zapatillas Urbanas", "ctr": 0.0%, "precio": S/.289 },
+  { "id": 61, "nombre": "Zapatillas Reebok Essential 10", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.222, "nuevo": true },
+  { "id": 65, "nombre": "Zapatillas Reebok Essential 14", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.195, "nuevo": true },
+  { "id": 66, "nombre": "Zapatillas Reebok Essential 15", "categoria": "Zapatillas Urbanas", "ctr": 4.8%, "descuento": 5%, "precio": S/.195, "nuevo": true },
+  { "id": 67, "nombre": "Zapatillas H&M Essential 16", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.345 },
+  { "id": 68, "nombre": "Zapatillas H&M Essential 17", "categoria": "Zapatillas Urbanas", "ctr": 5.0%, "descuento": 5%, "precio": S/.142, "nuevo": true },
+  { "id": 69, "nombre": "Zapatillas H&M Essential 18", "categoria": "Zapatillas Urbanas", "ctr": 0.0%, "descuento": 5%, "precio": S/.358, "nuevo": true },
+  { "id": 52, "nombre": "Polo Nike Dri-FIT", "categoria": "Polos y tops", "ctr": 3.3%, "precio": S/.120, "nuevo": true }
+]
+
+Selecciona exactamente los IDs de los 6 mejores productos complementarios., role=USER, name=null, toolCallId=null, toolCalls=null, refusal=null]], model=llama-3.1-8b-instant, frequencyPenalty=null, logitBias=null, logprobs=null, topLogprobs=null, maxTokens=null, maxCompletionTokens=null, n=null, presencePenalty=null, responseFormat=null, seed=null, stop=null, stream=false, streamOptions=null, temperature=0.7, topP=null, tools=null, toolChoice=null, parallelToolCalls=null, user=null]] as "application/json" with org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+2026-06-14T00:35:35.381-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] o.s.web.client.DefaultRestClient         : Reading to [org.springframework.ai.openai.api.OpenAiApi$ChatCompletion]
+2026-06-14T00:35:35.385-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] Respuesta en texto plano de Groq: Basándome en el carrito actual y los candidatos disponibles, recomiendo los siguientes 6 productos complementarios:
+
+[12, 66, 61, 68, 65, 69]
+
+Los productos recomendados son:
+
+- Zapatillas Reebok Essential 15 (ID 66): complementa con el polo Reebok Essential 19 y tiene un alto CTR (4.8%) y un descuento del 5%.
+- Zapatillas Reebok Essential 10 (ID 61): complementa con el polo Reebok Essential 19 y tiene un descuento del 5%.
+- Zapatillas H&M Essential 17 (ID 68): complementa con el polo Reebok Essential 19 y tiene un alto CTR (5.0%) y un descuento del 5%.
+- Zapatillas Reebok Essential 14 (ID 65): complementa con el polo Reebok Essential 19 y tiene un descuento del 5%.
+- Zapatillas H&M Essential 18 (ID 69): complementa con el polo Reebok Essential 19 y tiene un descuento del 5%.
+- Zapatillas Nike Dri-FIT (ID 52): complementa con el polo Reebok Essential 19 y tiene un alto CTR (3.3%) y es nuevo.
+
+Estos productos complementan con el carrito actual y tienen características y características similares a los productos favoritos del cliente, como la marca Reebok y H&M, y la categoría de polos y zapatillas.
+2026-06-14T00:35:35.386-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] IDs extraídos por Regex: [6, 12, 66, 61, 68, 65]
+2026-06-14T00:35:35.387-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [SMART CART] IDs finales a retornar: [6, 12, 66, 61, 68, 65]
+2026-06-14T00:35:35.422-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [SMART CART] Menos tarjetas finales de lo esperado (4). Completando con destacados directos.
+2026-06-14T00:35:46.456-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] obtenerSugerenciasCarrito() llamado. Usuario: joseandi20041@gmail.com | Items en carrito: 2
+2026-06-14T00:35:46.515-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] Pocos candidatos sin categorías del carrito (10) - agregando otros productos de la BD
+2026-06-14T00:35:46.518-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [SMART CART] Usando métrica por defecto: AI_RECOMMENDED
+2026-06-14T00:35:46.519-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] Métricas de prompt activas: [USER_HISTORY, PRICE_MATCH, CTR_DATA, DISCOUNTS, NEW_ARRIVALS]
+2026-06-14T00:35:46.523-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] Iniciando llamada a la API de Groq (LLM)...
+2026-06-14T00:35:46.523-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] Intentando parseo JSON estructurado con Spring AI (.entity())
+2026-06-14T00:35:46.527-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] ⚠️ Parseo estructurado falló (The template string is not valid.). Intentando plaintext + Regex...
+2026-06-14T00:35:46.530-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] o.s.web.client.DefaultRestClient         : Writing [ChatCompletionRequest[messages=[ChatCompletionMessage[rawContent=Eres un experto en retail y cross-selling para la tienda Minerva. Analiza el carrito del cliente para seleccionar exactamente 6 productos complementarios de la lista de candidatos. Busca complementar el outfit o necesidad del cliente. Prioriza los productos con mayor 'ctr' (Click-Through Rate), ya que son los más populares, pero mantén coherencia con el carrito. Considera también los productos con mayor descuento para impulsar las ventas en liquidación. Da preferencia a los productos marcados como 'nuevo: true' para promover los nuevos ingresos. Considera el precio de los productos en el carrito y recomienda complementos dentro de un rango de precio similar o inferior. Retorna ESTRICTAMENTE una lista JSON con solo los IDs de los productos recomendados. Ejemplo: [12, 45, 23, 8], role=SYSTEM, name=null, toolCallId=null, toolCalls=null, refusal=null], ChatCompletionMessage[rawContent=--- HISTORIAL DEL CLIENTE ---
+Género: No especificado
+Categorías más compradas: [Polos y tops, Zapatillas Urbanas, Zapatillas Deportivas]
+Marcas preferidas: [Reebok, H&M]
+
+--- CARRITO ACTUAL ---
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+
+--- CANDIDATOS DISPONIBLES ---
+[
+  { "id": 53, "nombre": "Zapatillas Adidas Ultraboost", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.428, "nuevo": true },
+  { "id": 54, "nombre": "Zapatillas Zara Essential 3", "categoria": "Zapatillas Urbanas", "ctr": 0.0%, "descuento": 5%, "precio": S/.207, "nuevo": true },
+  { "id": 57, "nombre": "Polo Nike Essential 6", "categoria": "Poleras y polerones", "ctr": 0.0%, "descuento": 5%, "precio": S/.130 },
+  { "id": 59, "nombre": "Zapatillas Adidas Essential 8", "categoria": "Zapatillas Urbanas", "ctr": 0.0%, "precio": S/.289 },
+  { "id": 61, "nombre": "Zapatillas Reebok Essential 10", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.222, "nuevo": true },
+  { "id": 65, "nombre": "Zapatillas Reebok Essential 14", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.195, "nuevo": true },
+  { "id": 66, "nombre": "Zapatillas Reebok Essential 15", "categoria": "Zapatillas Urbanas", "ctr": 4.7%, "descuento": 5%, "precio": S/.195, "nuevo": true },
+  { "id": 67, "nombre": "Zapatillas H&M Essential 16", "categoria": "Zapatillas Deportivas", "ctr": 0.0%, "descuento": 5%, "precio": S/.345 },
+  { "id": 68, "nombre": "Zapatillas H&M Essential 17", "categoria": "Zapatillas Urbanas", "ctr": 4.9%, "descuento": 5%, "precio": S/.142, "nuevo": true },
+  { "id": 69, "nombre": "Zapatillas H&M Essential 18", "categoria": "Zapatillas Urbanas", "ctr": 0.0%, "descuento": 5%, "precio": S/.358, "nuevo": true },
+  { "id": 52, "nombre": "Polo Nike Dri-FIT", "categoria": "Polos y tops", "ctr": 3.3%, "precio": S/.120, "nuevo": true }
+]
+
+Selecciona exactamente los IDs de los 6 mejores productos complementarios., role=USER, name=null, toolCallId=null, toolCalls=null, refusal=null]], model=llama-3.1-8b-instant, frequencyPenalty=null, logitBias=null, logprobs=null, topLogprobs=null, maxTokens=null, maxCompletionTokens=null, n=null, presencePenalty=null, responseFormat=null, seed=null, stop=null, stream=false, streamOptions=null, temperature=0.7, topP=null, tools=null, toolChoice=null, parallelToolCalls=null, user=null]] as "application/json" with org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+2026-06-14T00:35:47.319-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] o.s.web.client.DefaultRestClient         : Reading to [org.springframework.ai.openai.api.OpenAiApi$ChatCompletion]
+2026-06-14T00:35:47.325-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] Respuesta en texto plano de Groq: Después de analizar el carrito del cliente y los candidatos disponibles, se pueden seleccionar los siguientes 6 productos complementarios:
+
+1. **Zapatillas H&M Essential 18** (ID: 69) - Categoría: Zapatillas Urbanas - Precio: S/.358 - Nuevo: true
+2. **Zapatillas Reebok Essential 15** (ID: 66) - Categoría: Zapatillas Urbanas - Precio: S/.195 - Nuevo: true
+3. **Zapatillas Reebok Essential 14** (ID: 65) - Categoría: Zapatillas Deportivas - Precio: S/.195 - Nuevo: true
+4. **Zapatillas Reebok Essential 10** (ID: 61) - Categoría: Zapatillas Deportivas - Precio: S/.222 - Nuevo: true
+5. **Polo Nike Dri-FIT** (ID: 52) - Categoría: Polos y tops - Precio: S/.120 - Nuevo: true
+6. **Zapatillas Adidas Ultraboost** (ID: 53) - Categoría: Zapatillas Deportivas - Precio: S/.428 - Nuevo: true
+
+Estos productos complementarios están dentro del rango de precio similar o inferior al carrito actual, y se priorizan los productos con mayor 'ctr' y descuento. También se seleccionan los productos marcados como 'nuevo: true' para promover los nuevos ingresos.
+
+La respuesta final es:
+```json
+[69, 66, 65, 61, 52, 53]
+```
+2026-06-14T00:35:47.327-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [GROQ] IDs extraídos por Regex: [6, 1, 18, 69, 358, 2]
+2026-06-14T00:35:47.328-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [SMART CART] IDs finales a retornar: [6, 1, 18, 69, 358, 2]
+2026-06-14T00:35:47.346-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-8] c.p.s.RecomendacionServiceImplementation : [SMART CART] Menos tarjetas finales de lo esperado (1). Completando con destacados directos.
+2026-06-14T00:38:15.466-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-1] com.proyecto.Controller.AuthController   : Intento de login: joseandi20041@gmail.com
+2026-06-14T00:38:15.589-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-1] com.proyecto.Controller.AuthController   : Login exitoso: joseandi20041@gmail.com (Rol: USER)
+2026-06-14T00:38:22.911-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-9] com.proyecto.Controller.AuthController   : Intento de login: admin@ripleysito.com
+2026-06-14T00:38:22.998-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-9] com.proyecto.Controller.AuthController   : Login exitoso: admin@ripleysito.com (Rol: ADMIN)
+2026-06-14T00:39:46.162-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-2] com.proyecto.Controller.AuthController   : Intento de login: joseandi20041@gmail.com
+2026-06-14T00:39:46.264-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-2] com.proyecto.Controller.AuthController   : Login exitoso: joseandi20041@gmail.com (Rol: USER)
+2026-06-14T00:39:49.112-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] obtenerSugerenciasCarrito() llamado. Usuario: joseandi20041@gmail.com | Items en carrito: 2
+2026-06-14T00:39:49.352-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] Pocos candidatos sin categorías del carrito (10) - agregando otros productos de la BD
+2026-06-14T00:39:49.356-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [SMART CART] Usando métrica por defecto: AI_RECOMMENDED
+2026-06-14T00:39:49.356-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] Métricas de prompt activas: [NEW_ARRIVALS]
+2026-06-14T00:39:49.357-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] Iniciando llamada a la API de Groq (LLM)...
+2026-06-14T00:39:49.357-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] Intentando parseo JSON estructurado con Spring AI (.entity())
+2026-06-14T00:39:49.361-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] ⚠️ Parseo estructurado falló (The template string is not valid.). Intentando plaintext + Regex...
+2026-06-14T00:39:49.364-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] o.s.web.client.DefaultRestClient         : Writing [ChatCompletionRequest[messages=[ChatCompletionMessage[rawContent=Eres un experto en retail y cross-selling para la tienda Minerva. Analiza el carrito del cliente para seleccionar exactamente 4 productos complementarios de la lista de candidatos. Busca complementar el outfit o necesidad del cliente. Da preferencia a los productos marcados como 'nuevo: true' para promover los nuevos ingresos. Retorna ESTRICTAMENTE una lista JSON con solo los IDs de los productos recomendados. Ejemplo: [12, 45, 23, 8], role=SYSTEM, name=null, toolCallId=null, toolCalls=null, refusal=null], ChatCompletionMessage[rawContent=--- CARRITO ACTUAL ---
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+
+--- CANDIDATOS DISPONIBLES ---
+[
+  { "id": 53, "nombre": "Zapatillas Adidas Ultraboost", "categoria": "Zapatillas Deportivas", "nuevo": true },
+  { "id": 54, "nombre": "Zapatillas Zara Essential 3", "categoria": "Zapatillas Urbanas", "nuevo": true },
+  { "id": 57, "nombre": "Polo Nike Essential 6", "categoria": "Poleras y polerones" },
+  { "id": 59, "nombre": "Zapatillas Adidas Essential 8", "categoria": "Zapatillas Urbanas" },
+  { "id": 61, "nombre": "Zapatillas Reebok Essential 10", "categoria": "Zapatillas Deportivas", "nuevo": true },
+  { "id": 65, "nombre": "Zapatillas Reebok Essential 14", "categoria": "Zapatillas Deportivas", "nuevo": true },
+  { "id": 66, "nombre": "Zapatillas Reebok Essential 15", "categoria": "Zapatillas Urbanas", "nuevo": true },
+  { "id": 67, "nombre": "Zapatillas H&M Essential 16", "categoria": "Zapatillas Deportivas" },
+  { "id": 68, "nombre": "Zapatillas H&M Essential 17", "categoria": "Zapatillas Urbanas", "nuevo": true },
+  { "id": 69, "nombre": "Zapatillas H&M Essential 18", "categoria": "Zapatillas Urbanas", "nuevo": true },
+  { "id": 52, "nombre": "Polo Nike Dri-FIT", "categoria": "Polos y tops", "nuevo": true }
+]
+
+Selecciona exactamente los IDs de los 4 mejores productos complementarios., role=USER, name=null, toolCallId=null, toolCalls=null, refusal=null]], model=llama-3.1-8b-instant, frequencyPenalty=null, logitBias=null, logprobs=null, topLogprobs=null, maxTokens=null, maxCompletionTokens=null, n=null, presencePenalty=null, responseFormat=null, seed=null, stop=null, stream=false, streamOptions=null, temperature=0.7, topP=null, tools=null, toolChoice=null, parallelToolCalls=null, user=null]] as "application/json" with org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+2026-06-14T00:39:50.355-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] o.s.web.client.DefaultRestClient         : Reading to [org.springframework.ai.openai.api.OpenAiApi$ChatCompletion]
+2026-06-14T00:39:50.361-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] Respuesta en texto plano de Groq: Para seleccionar los mejores productos complementarios, debemos analizar el carrito del cliente y buscar productos que se complementen entre sí. En este caso, el cliente ha agregado dos polos Reebok Essential 19, por lo que es probable que busque complementarlos con otros productos de la misma categoría o con productos que se ajusten a un estilo similar.
+
+Dado que hay varios productos nuevos disponibles, intentaré seleccionar algunos de ellos para complementar el outfit del cliente.
+
+Aquí hay mi selección:
+
+- El cliente ya tiene dos polos, por lo que buscaré una zapatilla deportiva para complementar su outfit. Me gustaría seleccionar la zapatilla Reebok Essential 14, que es nueva y se ajusta a la categoría de zapatillas deportivas.
+- La zapatilla Reebok Essential 14 se complementa bien con otro producto deportivo, por lo que seleccionaré la zapatilla Reebok Essential 10, que también es nueva y se ajusta a la categoría de zapatillas deportivas.
+- Para complementar el outfit del cliente con un producto de la misma categoría que los polos, seleccionaré el Polo Nike Dri-FIT, que es nuevo y se ajusta a la categoría de polos y tops.
+- Finalmente, para agregar un poco de variedad al outfit del cliente, seleccionaré la zapatilla Adidas Ultraboost, que es nueva y se ajusta a la categoría de zapatillas deportivas.
+
+Aquí hay la lista de IDs de los productos recomendados en formato JSON:
+
+```
+[
+  65, 61, 52, 53
+]
+```
+2026-06-14T00:39:50.363-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [GROQ] IDs extraídos por Regex: [19, 14, 10, 65]
+2026-06-14T00:39:50.364-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [SMART CART] IDs finales a retornar: [19, 14, 10, 65]
+2026-06-14T00:39:50.390-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-3] c.p.s.RecomendacionServiceImplementation : [SMART CART] Menos tarjetas finales de lo esperado (1). Completando con destacados directos.
+2026-06-14T00:40:54.649-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-4] com.proyecto.Controller.AuthController   : Intento de login: admin@ripleysito.com
+2026-06-14T00:40:54.748-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-4] com.proyecto.Controller.AuthController   : Login exitoso: admin@ripleysito.com (Rol: ADMIN)
+2026-06-14T00:43:54.385-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-7] com.proyecto.Controller.AuthController   : Intento de login: joseandi20041@gmail.com
+2026-06-14T00:43:54.544-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-7] com.proyecto.Controller.AuthController   : Login exitoso: joseandi20041@gmail.com (Rol: USER)
+2026-06-14T00:43:55.798-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-7] c.p.s.RecomendacionServiceImplementation : [GROQ] obtenerSugerenciasCarrito() llamado. Usuario: joseandi20041@gmail.com | Items en carrito: 2
+2026-06-14T00:43:55.863-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-7] c.p.s.RecomendacionServiceImplementation : [GROQ] Categorías ignoradas por el usuario en esta sesión: [Zapatillas Deportivas, Polos y tops, Zapatillas Urbanas]
+2026-06-14T00:43:55.921-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-7] c.p.s.RecomendacionServiceImplementation : [GROQ] Pocos candidatos sin categorías del carrito (1) - agregando otros productos de la BD
+2026-06-14T00:43:55.978-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-7] c.p.s.RecomendacionServiceImplementation : [SMART CART] Usando métrica por defecto: AI_RECOMMENDED
+2026-06-14T00:43:55.979-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-7] c.p.s.RecomendacionServiceImplementation : [GROQ] Métricas de prompt activas: [NEW_ARRIVALS]
+2026-06-14T00:43:55.979-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-7] c.p.s.RecomendacionServiceImplementation : [GROQ] Iniciando llamada a la API de Groq (LLM)...
+2026-06-14T00:43:55.980-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-7] c.p.s.RecomendacionServiceImplementation : [GROQ] Intentando parseo JSON estructurado con Spring AI (.entity())
+2026-06-14T00:43:55.985-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-7] c.p.s.RecomendacionServiceImplementation : [GROQ] ⚠️ Parseo estructurado falló (The template string is not valid.). Intentando plaintext + Regex...
+2026-06-14T00:43:55.992-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-7] o.s.web.client.DefaultRestClient         : Writing [ChatCompletionRequest[messages=[ChatCompletionMessage[rawContent=Eres un experto en retail y cross-selling para la tienda Minerva. Analiza el carrito del cliente para seleccionar exactamente 5 productos complementarios de la lista de candidatos. Busca complementar el outfit o necesidad del cliente. Da preferencia a los productos marcados como 'nuevo: true' para promover los nuevos ingresos. Retorna ESTRICTAMENTE una lista JSON con solo los IDs de los productos recomendados. Ejemplo: [12, 45, 23, 8], role=SYSTEM, name=null, toolCallId=null, toolCalls=null, refusal=null], ChatCompletionMessage[rawContent=--- CARRITO ACTUAL ---
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+- Polo Reebok Essential 19 (Categoría: Polos y tops)
+
+--- CANDIDATOS DISPONIBLES ---
+[
+  { "id": 57, "nombre": "Polo Nike Essential 6", "categoria": "Poleras y polerones" },
+  { "id": 52, "nombre": "Polo Nike Dri-FIT", "categoria": "Polos y tops", "nuevo": true },
+  { "id": 53, "nombre": "Zapatillas Adidas Ultraboost", "categoria": "Zapatillas Deportivas", "nuevo": true },
+  { "id": 54, "nombre": "Zapatillas Zara Essential 3", "categoria": "Zapatillas Urbanas", "nuevo": true },
+  { "id": 59, "nombre": "Zapatillas Adidas Essential 8", "categoria": "Zapatillas Urbanas" },
+  { "id": 61, "nombre": "Zapatillas Reebok Essential 10", "categoria": "Zapatillas Deportivas", "nuevo": true },
+  { "id": 65, "nombre": "Zapatillas Reebok Essential 14", "categoria": "Zapatillas Deportivas", "nuevo": true },
+  { "id": 66, "nombre": "Zapatillas Reebok Essential 15", "categoria": "Zapatillas Urbanas", "nuevo": true },
+  { "id": 67, "nombre": "Zapatillas H&M Essential 16", "categoria": "Zapatillas Deportivas" },
+  { "id": 68, "nombre": "Zapatillas H&M Essential 17", "categoria": "Zapatillas Urbanas", "nuevo": true },
+  { "id": 69, "nombre": "Zapatillas H&M Essential 18", "categoria": "Zapatillas Urbanas", "nuevo": true }
+]
+
+Selecciona exactamente los IDs de los 5 mejores productos complementarios., role=USER, name=null, toolCallId=null, toolCalls=null, refusal=null]], model=llama-3.1-8b-instant, frequencyPenalty=null, logitBias=null, logprobs=null, topLogprobs=null, maxTokens=null, maxCompletionTokens=null, n=null, presencePenalty=null, responseFormat=null, seed=null, stop=null, stream=false, streamOptions=null, temperature=0.7, topP=null, tools=null, toolChoice=null, parallelToolCalls=null, user=null]] as "application/json" with org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
+2026-06-14T00:43:57.720-05:00 DEBUG 18808 --- [ecommerce-minerva] [http-nio-8080-exec-7] o.s.web.client.DefaultRestClient         : Reading to [org.springframework.ai.openai.api.OpenAiApi$ChatCompletion]
+2026-06-14T00:43:57.723-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-7] c.p.s.RecomendacionServiceImplementation : [GROQ] Respuesta en texto plano de Groq: Para seleccionar los 5 mejores productos complementarios, podemos utilizar un algoritmo que tenga en cuenta la categoría y la marca de los productos en el carrito actual. Dado que el cliente ha seleccionado dos polos Reebok Essential 19, podemos asumir que el cliente está interesado en productos de la marca Reebok y de la categoría Polos y tops.
+
+Aquí hay un posible algoritmo:
+
+1. Buscar productos de la misma categoría que los productos en el carrito actual (Polos y tops).
+2. Buscar productos de la misma marca que los productos en el carrito actual (Reebok).
+3. Priorizar productos nuevos (nuevo: true).
+4. Seleccionar exactamente 5 productos que cumplan con las condiciones anteriores.
+
+Aplicando este algoritmo a la lista de candidatos, obtenemos los siguientes resultados:
+
+- Buscar productos de la misma categoría: Polos y tops.
+- Buscar productos de la misma marca: Reebok.
+- No hay productos de la misma categoría y marca que se ajusten a las condiciones. Entonces, seleccionaremos productos de la categoría Polos y tops.
+
+- Buscar productos de la categoría Polos y tops y priorizar productos nuevos:
+  - { "id": 57, "nombre": "Polo Nike Essential 6", "categoria": "Poleras y polerones" } (no nuevo)
+  - { "id": 52, "nombre": "Polo Nike Dri-FIT", "categoria": "Polos y tops", "nuevo": true } (nuevo)
+  - { "id": 65, "nombre": "Zapatillas Reebok Essential 14", "categoria": "Zapatillas Deportivas", "nuevo": true } (no de la categoría Polos y tops)
+
+- Otros productos de la categoría Polos y tops:
+  - { "id": 57, "nombre": "Polo Nike Essential 6", "categoria": "Poleras y polerones" } (no nuevo)
+  - { "id": 52, "nombre": "Polo Nike Dri-FIT", "categoria": "Polos y tops", "nuevo": true } (nuevo)
+  - { "id": 53, "nombre": "Zapatillas Adidas Ultraboost", "categoria": "Zapatillas Deportivas", "nuevo": true } (no de la categoría Polos y tops)
+  - { "id": 54, "nombre": "Zapatillas Zara Essential 3", "categoria": "Zapatillas Urbanas", "nuevo": true } (no de la categoría Polos y tops)
+  - { "id": 61, "nombre": "Zapatillas Reebok Essential 10", "categoria": "Zapatillas Deportivas", "nuevo": true } (no de la categoría Polos y tops)
+  
+- Seleccionar exactamente 5 productos que cumplan con las condiciones anteriores. Dado que no hay productos de la categoría Polos y tops que se ajusten a las condiciones, seleccionaremos productos de la categoría Polos y tops que sean nuevos y no sean de la marca Reebok. Dado que solo hay un producto de la categoría Polos y tops que es nuevo y no es de la marca Reebok, seleccionaremos este producto.
+
+- Finalmente, seleccionamos los 4 mejores productos complementarios de la lista de candidatos:
+  - { "id": 52, "nombre": "Polo Nike Dri-FIT", "categoria": "Polos y tops", "nuevo": true } (nuevo)
+  - { "id": 53, "nombre": "Zapatillas Adidas Ultraboost", "categoria": "Zapatillas Deportivas", "nuevo": true } (nuevo)
+  - { "id": 54, "nombre": "Zapatillas Zara Essential 3", "categoria": "Zapatillas Urbanas", "nuevo": true } (nuevo)
+  - { "id": 61, "nombre": "Zapatillas Reebok Essential 10", "categoria": "Zapatillas Deportivas", "nuevo": true } (nuevo)
+  - { "id": 66, "nombre": "Zapatillas Reebok Essential 15", "categoria": "Zapatillas Urbanas", "nuevo": true } (nuevo)
+
+La respuesta final es la siguiente lista JSON con los IDs de los 5 mejores productos complementarios:
+
+```
+[52, 53, 54, 61, 66]
+```
+2026-06-14T00:43:57.723-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-7] c.p.s.RecomendacionServiceImplementation : [GROQ] IDs extraídos por Regex: [5, 19, 1, 2, 3]
+2026-06-14T00:43:57.724-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-7] c.p.s.RecomendacionServiceImplementation : [SMART CART] IDs finales a retornar: [5, 19, 1, 2, 3]
+2026-06-14T00:43:57.731-05:00  WARN 18808 --- [ecommerce-minerva] [http-nio-8080-exec-7] c.p.s.RecomendacionServiceImplementation : [SMART CART] Menos tarjetas finales de lo esperado (0). Completando con destacados directos.
+2026-06-14T00:44:43.845-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-2] com.proyecto.Controller.AuthController   : Intento de login: admin@ripleysito.com
+2026-06-14T00:44:43.982-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-2] com.proyecto.Controller.AuthController   : Login exitoso: admin@ripleysito.com (Rol: ADMIN)
+2026-06-14T00:49:13.023-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-4] com.proyecto.Controller.AuthController   : Intento de login: joseandi20041@gmail.com
+2026-06-14T00:49:13.171-05:00  INFO 18808 --- [ecommerce-minerva] [http-nio-8080-exec-4] com.proyecto.Controller.AuthController   : Login exitoso: joseandi20041@gmail.com (Rol: USER)
+2026-06-14T00:51:08.548-05:00  WARN 18808 --- [ecommerce-minerva] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection ConnectionID:23 ClientConnectionId: ff567ae8-13e4-478b-93a5-9d0e71c9f1ff (La conexión está cerrada.). Possibly consider using a shorter maxLifetime value.
+2026-06-14T00:51:13.570-05:00  WARN 18808 --- [ecommerce-minerva] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection ConnectionID:25 ClientConnectionId: a18e11ef-74f3-4710-bb02-812c690768da (La conexión está cerrada.). Possibly consider using a shorter maxLifetime value.
+2026-06-14T00:51:13.570-05:00  WARN 18808 --- [ecommerce-minerva] [mssql-timeout-task-4-a18e11ef-74f3-4710-bb02-812c690768da] c.m.s.jdbc.internals.TDS.Command         : TDSCommand@18fd8082 (SQLServerStatement:2155 executeXXX): Command could not be timed out. Reason: Socket closed
+2026-06-14T00:53:36.541-05:00  WARN 18808 --- [ecommerce-minerva] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection ConnectionID:22 ClientConnectionId: 9a9cdb8d-463d-49e0-8587-5189e83f9934 (La conexión está cerrada.). Possibly consider using a shorter maxLifetime value.
+2026-06-14T00:53:36.541-05:00  WARN 18808 --- [ecommerce-minerva] [mssql-timeout-task-5-9a9cdb8d-463d-49e0-8587-5189e83f9934] c.m.s.jdbc.internals.TDS.Command         : TDSCommand@6d4f45a3 (SQLServerStatement:2171 executeXXX): Command could not be timed out. Reason: Socket closed
+2026-06-14T02:04:06.371-05:00  INFO 18808 --- [ecommerce-minerva] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-06-14T02:04:08.074-05:00  INFO 18808 --- [ecommerce-minerva] [Thread-6] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-14T02:04:08.292-05:00  INFO 18808 --- [ecommerce-minerva] [Thread-6] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-14T02:04:38.325-05:00  WARN 18808 --- [ecommerce-minerva] [Thread-6] com.zaxxer.hikari.pool.HikariPool        : Timed-out waiting for add connection executor to shutdown
+2026-06-14T02:04:38.329-05:00  INFO 18808 --- [ecommerce-minerva] [Thread-6] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-14T02:04:41.806-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] c.p.e.EcommerceMinervaApplication        : Starting EcommerceMinervaApplication using Java 21.0.10 with PID 18808 (C:\Users\gato_\Desktop\ecommerce-ripleysito\proyectito_backend\ecommerce-minerva\target\classes started by gato_ in C:\Users\gato_\Desktop\ecommerce-ripleysito)
+2026-06-14T02:04:41.814-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] c.p.e.EcommerceMinervaApplication        : No active profile set, falling back to 1 default profile: "default"
+2026-06-14T02:04:44.452-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-14T02:04:44.709-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 252 ms. Found 15 JPA repository interfaces.
+2026-06-14T02:04:46.390-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-06-14T02:04:46.403-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-14T02:04:46.405-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2026-06-14T02:04:47.075-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-14T02:04:47.137-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 5042 ms
+2026-06-14T02:04:47.669-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-14T02:04:47.802-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-06-14T02:04:47.955-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-14T02:04:47.980-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-06-14T02:05:18.735-05:00  WARN 18808 --- [ecommerce-minerva] [restartedMain] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 4060, SQLState: S0001
+2026-06-14T02:05:18.736-05:00 ERROR 18808 --- [ecommerce-minerva] [restartedMain] o.h.engine.jdbc.spi.SqlExceptionHelper   : Cannot open database "pe1_ripleysito" requested by the login. The login failed. ClientConnectionId:6fb175cd-9071-4988-ad25-82129944f8d7
+2026-06-14T02:05:18.748-05:00  WARN 18808 --- [ecommerce-minerva] [restartedMain] o.h.e.j.e.i.JdbcEnvironmentInitiator     : HHH000342: Could not obtain connection to query metadata
+
+org.hibernate.exception.SQLGrammarException: unable to obtain isolated JDBC connection [Cannot open database "pe1_ripleysito" requested by the login. The login failed. ClientConnectionId:6fb175cd-9071-4988-ad25-82129944f8d7] [n/a]
+	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:91) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:116) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:292) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:124) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:78) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:130) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:238) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:221) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:189) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:171) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1431) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1502) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75) ~[spring-orm-6.1.13.jar:6.1.13]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390) ~[spring-orm-6.1.13.jar:6.1.13]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.1.13.jar:6.1.13]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.1.13.jar:6.1.13]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366) ~[spring-orm-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:954) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.4.jar:3.3.4]
+	at com.proyecto.ecommerce_minerva.EcommerceMinervaApplication.main(EcommerceMinervaApplication.java:28) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.4.jar:3.3.4]
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot open database "pe1_ripleysito" requested by the login. The login failed. ClientConnectionId:6fb175cd-9071-4988-ad25-82129944f8d7
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:261) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.TDSTokenHandler.onEOF(tdsparser.java:305) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.TDSParser.parse(tdsparser.java:137) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.TDSParser.parse(tdsparser.java:42) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.sendLogon(SQLServerConnection.java:6864) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.logon(SQLServerConnection.java:5411) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection$LogonCommand.doExecute(SQLServerConnection.java:5343) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7718) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4393) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.connectHelper(SQLServerConnection.java:3830) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.login(SQLServerConnection.java:3355) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.connectInternal(SQLServerConnection.java:3180) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.connect(SQLServerConnection.java:1963) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerDriver.connect(SQLServerDriver.java:1259) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:137) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:360) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:202) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:461) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:550) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:98) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111) ~[HikariCP-5.1.0.jar:na]
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:439) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:61) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	... 38 common frames omitted
+
+2026-06-14T02:05:18.780-05:00  WARN 18808 --- [ecommerce-minerva] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-14T02:05:20.018-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-14T02:05:20.036-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-06-14T02:05:50.582-05:00  WARN 18808 --- [ecommerce-minerva] [restartedMain] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 4060, SQLState: S0001
+2026-06-14T02:05:50.582-05:00 ERROR 18808 --- [ecommerce-minerva] [restartedMain] o.h.engine.jdbc.spi.SqlExceptionHelper   : Cannot open database "pe1_ripleysito" requested by the login. The login failed. ClientConnectionId:18152986-2df4-430c-bb18-a696fc7d64d0
+2026-06-14T02:05:50.592-05:00 ERROR 18808 --- [ecommerce-minerva] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Failed to initialize JPA EntityManagerFactory: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.SQLGrammarException: Unable to open JDBC Connection for DDL execution [Cannot open database "pe1_ripleysito" requested by the login. The login failed. ClientConnectionId:18152986-2df4-430c-bb18-a696fc7d64d0] [n/a]
+2026-06-14T02:05:50.593-05:00  WARN 18808 --- [ecommerce-minerva] [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.SQLGrammarException: Unable to open JDBC Connection for DDL execution [Cannot open database "pe1_ripleysito" requested by the login. The login failed. ClientConnectionId:18152986-2df4-430c-bb18-a696fc7d64d0] [n/a]
+2026-06-14T02:05:50.594-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-06-14T02:05:50.622-05:00  INFO 18808 --- [ecommerce-minerva] [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-06-14T02:05:50.706-05:00 ERROR 18808 --- [ecommerce-minerva] [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.SQLGrammarException: Unable to open JDBC Connection for DDL execution [Cannot open database "pe1_ripleysito" requested by the login. The login failed. ClientConnectionId:18152986-2df4-430c-bb18-a696fc7d64d0] [n/a]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1806) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:954) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.4.jar:3.3.4]
+	at com.proyecto.ecommerce_minerva.EcommerceMinervaApplication.main(EcommerceMinervaApplication.java:28) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.4.jar:3.3.4]
+Caused by: jakarta.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.SQLGrammarException: Unable to open JDBC Connection for DDL execution [Cannot open database "pe1_ripleysito" requested by the login. The login failed. ClientConnectionId:18152986-2df4-430c-bb18-a696fc7d64d0] [n/a]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:421) ~[spring-orm-6.1.13.jar:6.1.13]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.1.13.jar:6.1.13]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366) ~[spring-orm-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802) ~[spring-beans-6.1.13.jar:6.1.13]
+	... 18 common frames omitted
+Caused by: org.hibernate.exception.SQLGrammarException: Unable to open JDBC Connection for DDL execution [Cannot open database "pe1_ripleysito" requested by the login. The login failed. ClientConnectionId:18152986-2df4-430c-bb18-a696fc7d64d0] [n/a]
+	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:91) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl.getIsolatedConnection(DdlTransactionIsolatorNonJtaImpl.java:74) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl.getIsolatedConnection(DdlTransactionIsolatorNonJtaImpl.java:39) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.exec.ImprovedExtractionContextImpl.getJdbcConnection(ImprovedExtractionContextImpl.java:63) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.extract.spi.ExtractionContext.getQueryResults(ExtractionContext.java:43) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.extract.internal.SequenceInformationExtractorLegacyImpl.extractMetadata(SequenceInformationExtractorLegacyImpl.java:39) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.extract.internal.DatabaseInformationImpl.initializeSequences(DatabaseInformationImpl.java:66) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.extract.internal.DatabaseInformationImpl.<init>(DatabaseInformationImpl.java:60) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.Helper.buildDatabaseInformation(Helper.java:185) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:100) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:280) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at java.base/java.util.HashMap.forEach(Unknown Source) ~[na:na]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:322) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:457) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1506) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75) ~[spring-orm-6.1.13.jar:6.1.13]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390) ~[spring-orm-6.1.13.jar:6.1.13]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.1.13.jar:6.1.13]
+	... 22 common frames omitted
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot open database "pe1_ripleysito" requested by the login. The login failed. ClientConnectionId:18152986-2df4-430c-bb18-a696fc7d64d0
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:261) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.TDSTokenHandler.onEOF(tdsparser.java:305) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.TDSParser.parse(tdsparser.java:137) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.TDSParser.parse(tdsparser.java:42) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.sendLogon(SQLServerConnection.java:6864) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.logon(SQLServerConnection.java:5411) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection$LogonCommand.doExecute(SQLServerConnection.java:5343) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7718) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4393) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.connectHelper(SQLServerConnection.java:3830) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.login(SQLServerConnection.java:3355) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.connectInternal(SQLServerConnection.java:3180) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.connect(SQLServerConnection.java:1963) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerDriver.connect(SQLServerDriver.java:1259) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:137) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:360) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:202) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:461) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:550) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:98) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111) ~[HikariCP-5.1.0.jar:na]
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:439) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl.getIsolatedConnection(DdlTransactionIsolatorNonJtaImpl.java:46) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	... 42 common frames omitted
+

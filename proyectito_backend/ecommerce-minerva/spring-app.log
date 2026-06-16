@@ -1,0 +1,129 @@
+2026-06-11T14:03:28.465-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] c.p.e.EcommerceMinervaApplication        : Starting EcommerceMinervaApplication using Java 21.0.9 with PID 17028 (C:\Users\gato_\Desktop\ecommerce-ripleysito\proyectito_backend\ecommerce-minerva\target\classes started by gato_ in C:\Users\gato_\Desktop\ecommerce-ripleysito\proyectito_backend\ecommerce-minerva)
+2026-06-11T14:03:28.468-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] c.p.e.EcommerceMinervaApplication        : No active profile set, falling back to 1 default profile: "default"
+2026-06-11T14:03:28.835-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-06-11T14:03:28.841-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-06-11T14:03:29.799-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-11T14:03:30.002-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 195 ms. Found 15 JPA repository interfaces.
+2026-06-11T14:03:31.474-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-06-11T14:03:31.516-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-11T14:03:31.517-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2026-06-11T14:03:31.656-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-11T14:03:31.658-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2815 ms
+2026-06-11T14:03:31.989-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-11T14:03:32.064-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-06-11T14:03:32.107-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-06-11T14:03:32.532-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-11T14:03:32.566-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-11T14:03:33.051-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection ConnectionID:1 ClientConnectionId: 868dff9c-b55d-4184-933d-563c1fca36bc
+2026-06-11T14:03:33.053-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-11T14:03:33.092-05:00  WARN 17028 --- [ecommerce-minerva] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-06-11T14:03:34.945-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-11T14:03:36.477-05:00  WARN 17028 --- [ecommerce-minerva] [restartedMain] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "
+    alter table cart_item 
+       add is_upsell bit not null" via JDBC [ALTER TABLE only allows columns to be added that can contain nulls, or have a DEFAULT definition specified, or the column being added is an identity or timestamp column, or alternatively if none of the previous conditions are satisfied the table must be empty to allow addition of this column. Column 'is_upsell' cannot be added to non-empty table 'cart_item' because it does not satisfy these conditions.]
+
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    alter table cart_item 
+       add is_upsell bit not null" via JDBC [ALTER TABLE only allows columns to be added that can contain nulls, or have a DEFAULT definition specified, or the column being added is an identity or timestamp column, or alternatively if none of the previous conditions are satisfied the table must be empty to allow addition of this column. Column 'is_upsell' cannot be added to non-empty table 'cart_item' because it does not satisfy these conditions.]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlString(AbstractSchemaMigrator.java:583) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.applySqlStrings(AbstractSchemaMigrator.java:523) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.migrateTable(AbstractSchemaMigrator.java:341) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.GroupedSchemaMigratorImpl.performTablesMigration(GroupedSchemaMigratorImpl.java:84) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.performMigration(AbstractSchemaMigrator.java:240) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:119) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:280) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at java.base/java.util.HashMap.forEach(Unknown Source) ~[na:na]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:322) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:457) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1506) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75) ~[spring-orm-6.1.13.jar:6.1.13]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390) ~[spring-orm-6.1.13.jar:6.1.13]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.1.13.jar:6.1.13]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.1.13.jar:6.1.13]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366) ~[spring-orm-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205) ~[spring-beans-6.1.13.jar:6.1.13]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:954) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.13.jar:6.1.13]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.4.jar:3.3.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.4.jar:3.3.4]
+	at com.proyecto.ecommerce_minerva.EcommerceMinervaApplication.main(EcommerceMinervaApplication.java:28) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50) ~[spring-boot-devtools-3.3.4.jar:3.3.4]
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: ALTER TABLE only allows columns to be added that can contain nulls, or have a DEFAULT definition specified, or the column being added is an identity or timestamp column, or alternatively if none of the previous conditions are satisfied the table must be empty to allow addition of this column. Column 'is_upsell' cannot be added to non-empty table 'cart_item' because it does not satisfy these conditions.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:261) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1709) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:929) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:823) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7718) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4393) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:276) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:246) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.execute(SQLServerStatement.java:796) ~[mssql-jdbc-12.6.4.jre11.jar:na]
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-5.1.0.jar:na]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	... 40 common frames omitted
+
+2026-06-11T14:03:45.236-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-11T14:03:45.665-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-11T14:03:47.383-05:00  WARN 17028 --- [ecommerce-minerva] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-11T14:03:48.196-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2026-06-11T14:03:48.274-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-06-11T14:03:48.291-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] c.p.e.EcommerceMinervaApplication        : Started EcommerceMinervaApplication in 20.34 seconds (process running for 21.124)
+2026-06-11T14:03:48.309-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Checking database for old mockup absolute HTTP URLs...
+2026-06-11T14:03:48.388-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : No old HTTP/HTTPS mockup URLs found.
+2026-06-11T14:03:48.388-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Initializing hierarchical categories...
+2026-06-11T14:03:48.610-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Jeans' -> updated to level 3 under parent 'Ropa Mujer'
+2026-06-11T14:03:48.753-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Shorts' -> updated to level 3 under parent 'Ropa Mujer'
+2026-06-11T14:03:48.919-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Ropa de baño' -> updated to level 2 under parent 'Mujer'
+2026-06-11T14:03:49.012-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatillas urbanas' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-11T14:03:49.048-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatillas deportivas' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-11T14:03:49.070-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatos de vestir' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-11T14:03:49.095-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatos casuales' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-11T14:03:49.130-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Sandalias' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-11T14:03:49.139-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Pantuflas' -> updated to level 3 under parent 'Zapatos mujer'
+2026-06-11T14:03:49.162-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatillas urbanas' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-11T14:03:49.175-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatillas deportivas' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-11T14:03:49.183-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatos casuales' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-11T14:03:49.195-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Zapatos de vestir' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-11T14:03:49.204-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Sandalias' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-11T14:03:49.214-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Pantuflas' -> updated to level 3 under parent 'Zapatos hombre'
+2026-06-11T14:03:49.285-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Jeans' -> updated to level 3 under parent 'Ropa Hombre'
+2026-06-11T14:03:49.308-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Shorts' -> updated to level 3 under parent 'Ropa Hombre'
+2026-06-11T14:03:49.326-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Category self-healed in DB: 'Ropa de baño' -> updated to level 3 under parent 'Ropa Hombre'
+2026-06-11T14:03:49.384-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Hierarchical categories initialized successfully!
+2026-06-11T14:03:49.385-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.proyecto.config.DataInitializer      : Initializing database with default data...
+2026-06-11T14:04:16.754-05:00  INFO 17028 --- [ecommerce-minerva] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 11 class path changes (0 additions, 0 deletions, 11 modifications)
+2026-06-11T14:04:16.767-05:00  INFO 17028 --- [ecommerce-minerva] [Thread-6] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-11T14:04:16.772-05:00  INFO 17028 --- [ecommerce-minerva] [Thread-6] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-11T14:04:16.774-05:00  INFO 17028 --- [ecommerce-minerva] [Thread-6] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-06-11T14:04:16.903-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] c.p.e.EcommerceMinervaApplication        : Starting EcommerceMinervaApplication using Java 21.0.9 with PID 17028 (C:\Users\gato_\Desktop\ecommerce-ripleysito\proyectito_backend\ecommerce-minerva\target\classes started by gato_ in C:\Users\gato_\Desktop\ecommerce-ripleysito\proyectito_backend\ecommerce-minerva)
+2026-06-11T14:04:16.904-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] c.p.e.EcommerceMinervaApplication        : No active profile set, falling back to 1 default profile: "default"
+2026-06-11T14:04:17.399-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-11T14:04:17.448-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 47 ms. Found 15 JPA repository interfaces.
+2026-06-11T14:04:17.771-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-06-11T14:04:17.773-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-11T14:04:17.773-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2026-06-11T14:04:17.880-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-11T14:04:17.880-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 972 ms
+2026-06-11T14:04:17.995-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-06-11T14:04:18.003-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-06-11T14:04:18.031-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-11T14:04:18.034-05:00  INFO 17028 --- [ecommerce-minerva] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...

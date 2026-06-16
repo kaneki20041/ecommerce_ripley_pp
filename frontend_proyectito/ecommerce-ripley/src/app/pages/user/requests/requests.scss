@@ -1,0 +1,237 @@
+@use '../../../styles/_variables' as *;
+
+$sidebar-width: 280px;
+
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+    background: #f5f5f5;
+}
+
+.dashboard-content {
+    flex: 1;
+    margin-left: $sidebar-width;
+    padding: 2rem 2.5rem;
+    transition: margin-left 0.3s ease;
+
+    @media (max-width: 1024px) { margin-left: 80px; }
+    @media (max-width: 768px)  { margin-left: 0; padding: 1rem; }
+}
+
+// ── Header
+.page-header {
+    margin-bottom: 2rem;
+
+    .page-title {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #1a1a1a;
+        margin: 0 0 0.25rem;
+    }
+
+    .page-subtitle {
+        font-size: 0.9rem;
+        color: #777;
+        margin: 0;
+    }
+}
+
+// ── Loading
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 40vh;
+    gap: 1rem;
+    color: #aaa;
+
+    .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #e0e0e0;
+        border-top-color: #1a1a1a;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+// ── Empty State
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+
+    .empty-icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: #f5f5f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        svg { width: 36px; height: 36px; stroke: #aaa; }
+    }
+
+    h3 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin: 0 0 0.5rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+        color: #888;
+        margin: 0;
+        line-height: 1.6;
+    }
+}
+
+// ── Grid
+.requests-grid {
+    display: grid;
+    gap: 1.25rem;
+}
+
+// ── Card
+.req-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+    border: 1px solid #f0f0f0;
+
+    &:hover {
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+}
+
+.req-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.125rem 1.5rem;
+    border-bottom: 1px solid #f5f5f5;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.req-card__id {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.req-card__num {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.req-card__order-tag {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #555;
+    background: #f5f5f5;
+    padding: 0.25rem 0.65rem;
+    border-radius: 20px;
+}
+
+// ── Status badge
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.875rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+
+    &::before {
+        content: '';
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+    }
+
+    &.pendiente  { background: #fff8ed; color: #b45309; &::before { background: #f59e0b; } }
+    &.aprobada   { background: #f0fdf4; color: #166534; &::before { background: #22c55e; } }
+    &.rechazada  { background: #fef2f2; color: #991b1b; &::before { background: #ef4444; } }
+}
+
+// ── Body
+.req-card__body {
+    padding: 1.25rem 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+}
+
+.req-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.req-meta__label {
+    font-size: 0.73rem;
+    font-weight: 600;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.req-meta__value {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.type-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    background: #1a1a1a;
+    color: #fff;
+
+    &.cancelacion { background: #dc2626; }
+    &.devolucion  { background: #7c3aed; }
+}
+
+// ── Reason box
+.req-card__reason {
+    padding: 0 1.5rem 1.25rem;
+}
+
+.reason-label {
+    font-size: 0.73rem;
+    font-weight: 600;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.reason-text {
+    font-size: 0.875rem;
+    color: #444;
+    line-height: 1.65;
+    background: #f9f9f9;
+    padding: 0.875rem 1rem;
+    border-radius: 8px;
+    border-left: 3px solid #e0e0e0;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}

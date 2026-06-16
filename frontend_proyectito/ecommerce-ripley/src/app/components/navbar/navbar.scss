@@ -1,0 +1,458 @@
+@use "sass:color";
+
+// ─── Paleta Ripley ─────────────────────────────────────────────────────────────
+$ripley-magenta:     #61005A;
+$ripley-magenta-mid: #8E155A;
+$nav-height:         64px;
+$white:              #FFFFFF;
+$dark:               #1A1A1A;
+$gray-bg:            #F8F9FA;
+$gray-border:        #EBEBEB;
+$gray-text:          #555555;
+$ease-fluid:         cubic-bezier(0.23, 1, 0.32, 1);
+
+// ─── Navbar base ──────────────────────────────────────────────────────────────
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: $nav-height;
+  background: $white;
+  border-bottom: 1px solid $gray-border;
+  z-index: 1000;
+  transition: box-shadow 0.3s $ease-fluid, border-color 0.3s ease;
+
+  &.scrolled {
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    border-color: transparent;
+  }
+}
+
+.navbar-container {
+  max-width: 1440px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.5rem;
+  gap: 2rem;
+}
+
+// ─── Logo ─────────────────────────────────────────────────────────────────────
+.navbar-logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+
+  a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-img {
+    height: 24px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+}
+
+// ─── Menú central ─────────────────────────────────────────────────────────────
+.navbar-menu {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  flex: 1;
+  justify-content: center;
+  gap: 0;
+}
+
+.menu-item {
+  position: static; // el mega-menu es full-width desde el nav
+  display: flex;
+  align-items: center;
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: $dark;
+  padding: 0 1.1rem;
+  height: $nav-height;
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+  position: relative;
+
+  &:hover,
+  &.active {
+    color: $ripley-magenta;
+    border-bottom-color: $ripley-magenta;
+  }
+
+  .menu-arrow {
+    opacity: 0.55;
+    transition: transform 0.25s $ease-fluid, opacity 0.2s;
+  }
+
+  &.active .menu-arrow {
+    transform: rotate(180deg);
+    opacity: 1;
+  }
+}
+
+// ─── Mega Menu — Full Width ────────────────────────────────────────────────────
+.mega-menu {
+  // Fijado al ancho total del navbar, no relativo al menu-item
+  position: fixed;
+  top: $nav-height;
+  left: 0;
+  right: 0;
+  background: $white;
+  border-top: 2px solid $ripley-magenta;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.25s $ease-fluid,
+              visibility 0.25s $ease-fluid,
+              transform 0.25s $ease-fluid;
+  pointer-events: none;
+  z-index: 999;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+}
+
+.mega-menu-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 2rem 2.5rem 2.5rem;
+}
+
+// Grid auto-ajustable: usa auto-fill para acomodar las columnas que existan
+.mega-menu-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0;
+}
+
+// ─── Columna de categoría ─────────────────────────────────────────────────────
+.mega-menu-column {
+  padding: 0 1.5rem 0 0;
+  border-right: 1px solid $gray-border;
+
+  &:last-child {
+    border-right: none;
+    padding-right: 0;
+  }
+
+  &:not(:first-child) {
+    padding-left: 1.5rem;
+  }
+}
+
+.category-header {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: $ripley-magenta;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 0 0 0.9rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid rgba($ripley-magenta, 0.15);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category-list {
+  list-style: none;
+  padding: 0; margin: 0;
+
+  li { margin-bottom: 0; }
+}
+
+.category-link {
+  display: block;
+  color: $gray-text;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 400;
+  padding: 0.3rem 0;
+  border-radius: 4px;
+  transition: color 0.15s ease, padding-left 0.15s ease;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background: $ripley-magenta;
+    border-radius: 2px;
+    transition: height 0.15s ease;
+  }
+
+  &:hover {
+    color: $ripley-magenta;
+    padding-left: 8px;
+    &::before { height: 14px; }
+  }
+}
+
+// ─── Fila debajo: "Ver todo" del mega menu ────────────────────────────────────
+.mega-menu-footer {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid $gray-border;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .view-all-mega {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: $ripley-magenta;
+    text-decoration: none;
+    padding: 0.4rem 1rem;
+    border: 1.5px solid $ripley-magenta;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+
+    svg { stroke: $ripley-magenta; transition: transform 0.2s ease; }
+
+    &:hover {
+      background: $ripley-magenta;
+      color: $white;
+      svg { stroke: $white; transform: translateX(3px); }
+    }
+  }
+}
+
+// ─── Iconos de la derecha ─────────────────────────────────────────────────────
+.navbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.icon-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $dark;
+  transition: background 0.18s ease, color 0.18s ease;
+
+  &:hover {
+    background: $gray-bg;
+    color: $ripley-magenta;
+  }
+
+  svg { stroke-width: 1.8; }
+
+  &.user-logged {
+    padding: 5px 10px;
+    background: $gray-bg;
+    border-radius: 24px;
+    gap: 7px;
+    border: 1px solid $gray-border;
+
+    &:hover {
+      background: rgba($ripley-magenta, 0.08);
+      border-color: rgba($ripley-magenta, 0.25);
+    }
+  }
+}
+
+.user-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: $dark;
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-avatar {
+  width: 28px; height: 28px;
+  background: linear-gradient(135deg, $ripley-magenta, $ripley-magenta-mid);
+  border-radius: 50%;
+  color: $white;
+  font-weight: 700;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+// ─── Dropdown de usuario ──────────────────────────────────────────────────────
+.user-menu-container { position: relative; }
+
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  background: $white;
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  min-width: 270px;
+  z-index: 1001;
+  overflow: hidden;
+  border: 1px solid $gray-border;
+
+  .user-dropdown-header {
+    padding: 1.25rem 1.25rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    background: $gray-bg;
+  }
+
+  .user-avatar-large {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $ripley-magenta, $ripley-magenta-mid);
+    color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .user-fullname { font-weight: 700; color: $dark; margin: 0; font-size: 0.95rem; }
+  .user-email    { font-size: 0.8rem; color: $gray-text; margin: 0; }
+}
+
+.user-dropdown-divider { height: 1px; background: $gray-border; }
+
+.user-dropdown-menu {
+  list-style: none;
+  padding: 0.4rem 0;
+  margin: 0;
+
+  li a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    color: $dark;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    svg { stroke: $gray-text; flex-shrink: 0; }
+
+    &:hover {
+      background: rgba($ripley-magenta, 0.06);
+      color: $ripley-magenta;
+      svg { stroke: $ripley-magenta; }
+    }
+  }
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  background: none;
+  border: none;
+  color: #D32F2F;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: background 0.15s ease;
+
+  svg { stroke: #D32F2F; }
+  &:hover { background: rgba(211, 47, 47, 0.06); }
+}
+
+// ─── Carrito ──────────────────────────────────────────────────────────────────
+.cart-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cart-count {
+  position: absolute;
+  top: -7px; right: -7px;
+  background: $gray-text;
+  color: $white;
+  font-size: 9px;
+  font-weight: 800;
+  min-width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid $white;
+  transition: all 0.25s $ease-fluid;
+
+  &.has-items {
+    background: $ripley-magenta;
+    box-shadow: 0 2px 8px rgba($ripley-magenta, 0.45);
+    animation: cartBounce 0.4s $ease-fluid;
+  }
+}
+
+@keyframes cartBounce {
+  0%   { transform: scale(0.5); }
+  60%  { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+// ─── Overlay ──────────────────────────────────────────────────────────────────
+.mega-menu-overlay {
+  position: fixed;
+  top: $nav-height; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.25);
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  z-index: 998;
+  &.show { opacity: 1; visibility: visible; }
+}
+
+// ─── Responsive ───────────────────────────────────────────────────────────────
+@media (max-width: 1100px) {
+  .navbar-container { padding: 0 1.5rem; }
+  .menu-link { padding: 0 0.75rem; font-size: 0.88rem; }
+}
+
+@media (max-width: 768px) {
+  .navbar-menu { display: none; }
+  .navbar-container { padding: 0 1rem; }
+}

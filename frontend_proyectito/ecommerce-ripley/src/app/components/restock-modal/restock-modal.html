@@ -1,0 +1,87 @@
+<div class="modal-backdrop" *ngIf="visible" (click)="onBackdropClick($event)">
+    <div class="modal-panel" role="dialog" aria-modal="true">
+
+        <!-- Header -->
+        <div class="modal-header">
+            <div class="modal-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                </svg>
+            </div>
+            <div class="modal-title-group">
+                <h2 class="modal-title">Reponer Stock</h2>
+                <p class="modal-subtitle">{{ item?.category }}</p>
+            </div>
+            <button class="modal-close" (click)="close()" aria-label="Cerrar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info-card">
+            <p class="product-name">{{ item?.name }}</p>
+            <div class="product-meta">
+                <span class="meta-tag sku">SKU: {{ item?.sku }}</span>
+                <span class="meta-tag price">S/ {{ item?.price }}</span>
+                <span class="meta-tag stock"
+                    [class.critical]="(item?.stock ?? 1) === 0"
+                    [class.warning]="(item?.stock ?? 1) > 0 && (item?.stock ?? 1) <= 2">
+                    Stock actual: {{ item?.stock }}
+                </span>
+            </div>
+        </div>
+
+        <!-- Input -->
+        <div class="input-section">
+            <label class="input-label" for="restock-qty">¿Cuántas unidades deseas reponer?</label>
+            <div class="qty-controls">
+                <button class="qty-btn" (click)="cantidad = cantidad > 1 ? cantidad - 1 : 1" type="button">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                </button>
+                <input id="restock-qty" type="number" class="qty-input" [(ngModel)]="cantidad" min="1" max="9999"
+                    (input)="errorMsg = ''" />
+                <button class="qty-btn" (click)="cantidad = cantidad + 1" type="button">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                </button>
+            </div>
+            <p class="error-msg" *ngIf="errorMsg">{{ errorMsg }}</p>
+        </div>
+
+        <!-- Preview -->
+        <div class="preview-card">
+            <div class="preview-row">
+                <span class="preview-label">Stock actual</span>
+                <span class="preview-value old">{{ item?.stock }} uds.</span>
+            </div>
+            <div class="preview-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9" />
+                </svg>
+            </div>
+            <div class="preview-row highlight">
+                <span class="preview-label">Nuevo stock</span>
+                <span class="preview-value new">{{ stockAfterRestock }} uds.</span>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="modal-actions">
+            <button class="btn-cancel" (click)="close()">Cancelar</button>
+            <button class="btn-confirm" (click)="confirm()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Confirmar Restock
+            </button>
+        </div>
+    </div>
+</div>

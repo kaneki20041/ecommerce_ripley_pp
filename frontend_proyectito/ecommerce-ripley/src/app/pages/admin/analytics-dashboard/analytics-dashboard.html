@@ -1,0 +1,237 @@
+<div class="analytics-layout">
+    <app-dashboard-sidebar></app-dashboard-sidebar>
+
+    <main class="analytics-main">
+
+        <!-- ── Header ────────────────────────────────────────────────────── -->
+        <header class="analytics-header">
+            <div class="header-left">
+                <div class="header-badge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    Analytics
+                </div>
+                <h1 class="page-title">Dashboard Analítico</h1>
+                <p class="page-subtitle">Métricas de negocio en tiempo real · Marketing & Ventas</p>
+            </div>
+            <div class="header-right">
+                <select class="period-select" [(ngModel)]="selectedPeriod" (change)="onPeriodChange()">
+                    <option *ngFor="let p of periods" [value]="p.value">{{ p.label }}</option>
+                </select>
+                <button class="refresh-btn" (click)="loadData()" [disabled]="loading()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        [class.spinning]="loading()">
+                        <polyline points="23 4 23 10 17 10" />
+                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+                    </svg>
+                    Actualizar
+                </button>
+            </div>
+        </header>
+
+        <!-- ── Loading ───────────────────────────────────────────────────── -->
+        <div class="loading-overlay" *ngIf="loading()">
+            <div class="loading-spinner"></div>
+            <p>Cargando métricas...</p>
+        </div>
+
+        <ng-container *ngIf="!loading() && data">
+
+            <!-- ── KPI Cards ──────────────────────────────────────────────── -->
+            <div class="kpi-grid">
+                <!-- Ingresos -->
+                <div class="kpi-card kpi-revenue">
+                    <div class="kpi-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23" />
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                        </svg>
+                    </div>
+                    <div class="kpi-body">
+                        <span class="kpi-label">Ingresos Totales</span>
+                        <span class="kpi-value">{{ formatCurrency(data.totalRevenue) }}</span>
+                        <span class="kpi-trend" [class.up]="data.revenueGrowth >= 0"
+                            [class.down]="data.revenueGrowth < 0">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <polyline [attr.points]="data.revenueGrowth >= 0 ? '18 15 12 9 6 15' : '6 9 12 15 18 9'" />
+                            </svg>
+                            {{ formatPercent(data.revenueGrowth) }} vs período anterior
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Conversión / CTR -->
+                <div class="kpi-card kpi-conversion">
+                    <div class="kpi-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="kpi-body">
+                        <span class="kpi-label">Tasa de Conversión (CTR)</span>
+                        <span class="kpi-value">{{ data.conversionRate.toFixed(2) }}%</span>
+                        <span class="kpi-hint">{{ data.totalOrders }} pedidos / {{ data.totalUsers }} usuarios</span>
+                    </div>
+                </div>
+
+                <!-- CTR de Recomendaciones -->
+                <div class="kpi-card kpi-rec-ctr">
+                    <div class="kpi-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        </svg>
+                    </div>
+                    <div class="kpi-body">
+                        <span class="kpi-label">CTR Recomendaciones</span>
+                        <span class="kpi-value">{{ (data.recommendationCtr || 0).toFixed(2) }}%</span>
+                        <span class="kpi-hint">Eficacia de sugerencias en carrito</span>
+                    </div>
+                </div>
+
+                <!-- Ticket Promedio -->
+                <div class="kpi-card kpi-avg">
+                    <div class="kpi-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <path d="M16 10a4 4 0 0 1-8 0" />
+                        </svg>
+                    </div>
+                    <div class="kpi-body">
+                        <span class="kpi-label">Ticket Promedio</span>
+                        <span class="kpi-value">{{ formatCurrency(data.avgOrderValue) }}</span>
+                        <span class="kpi-trend" [class.up]="data.ordersGrowth >= 0"
+                            [class.down]="data.ordersGrowth < 0">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <polyline [attr.points]="data.ordersGrowth >= 0 ? '18 15 12 9 6 15' : '6 9 12 15 18 9'" />
+                            </svg>
+                            {{ formatPercent(data.ordersGrowth) }} en pedidos
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Pedidos -->
+                <div class="kpi-card kpi-orders">
+                    <div class="kpi-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                            <line x1="12" y1="22.08" x2="12" y2="12" />
+                        </svg>
+                    </div>
+                    <div class="kpi-body">
+                        <span class="kpi-label">Total Pedidos</span>
+                        <span class="kpi-value">{{ data.totalOrders }}</span>
+                        <span class="kpi-hint">{{ data.totalProducts }} productos activos</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Gráficas (fila central) ────────────────────────────────── -->
+            <div class="charts-grid">
+                <!-- Ventas por día -->
+                <div class="chart-card chart-wide">
+                    <div class="chart-header">
+                        <h3>Ingresos por Período</h3>
+                        <span class="chart-subtitle">Pedidos completados / entregados</span>
+                    </div>
+                    <div class="chart-body">
+                        <canvas #salesChart></canvas>
+                    </div>
+                </div>
+
+                <!-- Dona: por estado -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Pedidos por Estado</h3>
+                        <span class="chart-subtitle">Período seleccionado</span>
+                    </div>
+                    <div class="chart-body chart-donut-body">
+                        <canvas #statusChart></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Fila inferior ──────────────────────────────────────────── -->
+            <div class="bottom-grid">
+
+                <!-- Top Categorías -->
+                <div class="bottom-card">
+                    <h3 class="card-title">Top Categorías por Ingresos</h3>
+                    <div class="category-list">
+                        <div class="category-item" *ngFor="let cat of data.topCategories; let i = index">
+                            <div class="cat-rank">{{ i + 1 }}</div>
+                            <div class="cat-info">
+                                <div class="cat-name-row">
+                                    <span class="cat-name">{{ cat.category }}</span>
+                                    <span class="cat-revenue">{{ formatCurrency(cat.revenue) }}</span>
+                                </div>
+                                <div class="cat-bar-track">
+                                    <div class="cat-bar-fill" [style.width.%]="cat.percentage"></div>
+                                </div>
+                                <span class="cat-meta">{{ cat.orders }} pedidos · {{ cat.percentage.toFixed(1) }}% del total</span>
+                            </div>
+                        </div>
+                        <div *ngIf="!data.topCategories.length" class="empty-state-small">
+                            Sin datos de categorías para el período
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Últimos Pedidos -->
+                <div class="bottom-card">
+                    <div class="card-title-row">
+                        <h3 class="card-title">Últimos Pedidos</h3>
+                        <a routerLink="/admin/pedidos" class="view-all-link">Ver todos →</a>
+                    </div>
+                    <div class="orders-table-wrapper">
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Cliente</th>
+                                    <th>Total</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let order of data.recentOrders">
+                                    <td class="order-id">{{ order.orderId }}</td>
+                                    <td class="order-customer">{{ order.customer }}</td>
+                                    <td class="order-total">{{ formatCurrency(order.total) }}</td>
+                                    <td>
+                                        <span class="status-badge" [ngClass]="getStatusClass(order.status)">
+                                            {{ order.status }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </ng-container>
+
+        <!-- ── Empty State ────────────────────────────────────────────────── -->
+        <div class="empty-dashboard" *ngIf="!loading() && !data">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg>
+            <h3>No hay datos disponibles</h3>
+            <p>Intenta cambiar el período o actualizar la página.</p>
+            <button class="refresh-btn" (click)="loadData()">Cargar datos</button>
+        </div>
+
+    </main>
+</div>

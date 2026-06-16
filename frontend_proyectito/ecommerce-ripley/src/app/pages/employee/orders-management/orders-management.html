@@ -1,0 +1,386 @@
+<div class="dashboard-layout">
+    <app-dashboard-sidebar></app-dashboard-sidebar>
+
+    <main class="dashboard-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Gestión de Pedidos</h1>
+                <p class="page-subtitle">Administra los pedidos de los clientes</p>
+            </div>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="filters-section">
+            <div class="filter-group">
+                <label>Estado del Pedido:</label>
+                <select [(ngModel)]="statusFilter" class="filter-select">
+                    <option value="all">Todos</option>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="proceso">En Proceso</option>
+                    <option value="enviado">Enviado</option>
+                    <option value="completado">Completado</option>
+                    <option value="cancelado">Cancelado</option>
+                </select>
+            </div>
+
+            <div class="filter-stats">
+                <span class="stat-badge">Total: {{ ordersData().length }}</span>
+                <span class="stat-badge pendiente">Pendientes: {{ ordersData().filter(o => o.status === 'pendiente').length }}</span>
+                <span class="stat-badge proceso">En Proceso: {{ ordersData().filter(o => o.status === 'proceso').length }}</span>
+                <span class="stat-badge enviado">Enviados: {{ ordersData().filter(o => o.status === 'enviado').length }}</span>
+                <span class="stat-badge completado">Completados: {{ ordersData().filter(o => o.status === 'completado').length }}</span>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="table-container">
+            <app-data-table [columns]="columns" [data]="getFilteredOrders()" [actions]="actions" [loading]="loading()"
+                [pagination]="true" [itemsPerPage]="12" emptyMessage="No se encontraron pedidos">
+            </app-data-table>
+        </div>
+    </main>
+</div>
+
+<!-- Order Detail Modal -->
+@if (showDetailModal() && selectedOrder()) {
+<app-modal title="Detalles del Pedido" size="lg" (onClose)="closeDetailModal()">
+
+    <div class="order-detail-container">
+        <!-- Información Básica -->
+        <div class="form-section">
+            <h3 class="section-title">Información del Cliente y Pedido</h3>
+            
+            <div class="detail-grid">
+                <div class="detail-group">
+                    <label>ID Pedido</label>
+                    <p class="data-text font-bold">#{{ selectedOrder()?.id }}</p>
+                </div>
+                <div class="detail-group">
+                    <label>Cliente</label>
+                    <p class="data-text">{{ selectedOrder()?.customerName }}</p>
+                </div>
+                <div class="detail-group">
+                    <label>Teléfono</label>
+                    <p class="data-text">{{ selectedOrder()?.phone }}</p>
+                </div>
+                <div class="detail-group">
+                    <label>Email</label>
+                    <p class="data-text">{{ selectedOrder()?.email }}</p>
+                </div>
+                <div class="detail-group full-width">
+                    <label>Dirección de Envío</label>
+                    <p class="data-text address-box">{{ selectedOrder()?.shippingAddress }}</p>
+                </div>
+                <div class="detail-group">
+                    <label>Método de Pago</label>
+                    <p class="data-text">{{ selectedOrder()?.paymentMethod }}</p>
+                </div>
+                <div class="detail-group">
+                    <label>Fecha del Pedido</label>
+                    <p class="data-text">{{ selectedOrder()?.orderDate }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- REAL-TIME COURIER TRACKING (SHIPPO) -->
+        <div class="form-section" *ngIf="selectedOrder()?.trackingNumber">
+            <h3 class="section-title" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <span>Seguimiento de Despacho (Shippo Courier)</span>
+                <span class="tracking-badge" style="background: rgba(46, 125, 50, 0.1); color: #2e7d32; font-weight: bold; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.8rem; border: 1px solid rgba(46, 125, 50, 0.2);">
+                    Código: {{ selectedOrder()?.trackingNumber }}
+                </span>
+            </h3>
+
+            <!-- Stepper Visual -->
+            <div class="tracking-stepper" style="display: flex; justify-content: space-between; align-items: center; margin: 2rem 0; position: relative;">
+                <!-- Línea de Conexión de Fondo -->
+                <div class="stepper-line" style="position: absolute; top: 22px; left: 10%; right: 10%; height: 4px; background: #e0e0e0; z-index: 1;"></div>
+                <!-- Línea de Conexión Activa -->
+                <div class="stepper-line-active" 
+                     [ngStyle]="{
+                        'width': trackingData()?.tracking_status?.status === 'DELIVERED' ? '80%' : 
+                                 (trackingData()?.tracking_status?.status === 'TRANSIT' ? '40%' : '0%')
+                     }"
+                     style="position: absolute; top: 22px; left: 10%; height: 4px; background: #4CAF50; z-index: 2; transition: width 0.5s ease;"></div>
+
+                <!-- Step 1: Creado -->
+                <div class="step-item" style="text-align: center; z-index: 3; flex: 1;">
+                    <div class="step-circle active" 
+                         style="width: 44px; height: 44px; border-radius: 50%; background: #4CAF50; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px auto; font-weight: bold; box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <span style="font-weight: bold; font-size: 0.8rem;">Procesado</span>
+                </div>
+
+                <!-- Step 2: En Tránsito -->
+                <div class="step-item" style="text-align: center; z-index: 3; flex: 1;">
+                    <div class="step-circle" 
+                         [ngStyle]="{
+                            'background': (trackingData()?.tracking_status?.status === 'TRANSIT' || trackingData()?.tracking_status?.status === 'DELIVERED') ? '#4CAF50' : '#e0e0e0',
+                            'color': (trackingData()?.tracking_status?.status === 'TRANSIT' || trackingData()?.tracking_status?.status === 'DELIVERED') ? 'white' : '#777',
+                            'box-shadow': (trackingData()?.tracking_status?.status === 'TRANSIT' || trackingData()?.tracking_status?.status === 'DELIVERED') ? '0 4px 10px rgba(76, 175, 80, 0.3)' : 'none'
+                         }"
+                         style="width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px auto; font-weight: bold; transition: all 0.3s ease;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 3h15v13H1zM16 8h6l3 3v5h-9z"></path><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                    </div>
+                    <span style="font-size: 0.8rem;" [ngStyle]="{'font-weight': (trackingData()?.tracking_status?.status === 'TRANSIT' || trackingData()?.tracking_status?.status === 'DELIVERED') ? 'bold' : 'normal'}">En Tránsito</span>
+                </div>
+
+                <!-- Step 3: Entregado -->
+                <div class="step-item" style="text-align: center; z-index: 3; flex: 1;">
+                    <div class="step-circle" 
+                         [ngStyle]="{
+                            'background': trackingData()?.tracking_status?.status === 'DELIVERED' ? '#4CAF50' : '#e0e0e0',
+                            'color': trackingData()?.tracking_status?.status === 'DELIVERED' ? 'white' : '#777',
+                            'box-shadow': trackingData()?.tracking_status?.status === 'DELIVERED' ? '0 4px 10px rgba(76, 175, 80, 0.3)' : 'none'
+                         }"
+                         style="width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px auto; font-weight: bold; transition: all 0.3s ease;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                    <span style="font-size: 0.8rem;" [ngStyle]="{'font-weight': trackingData()?.tracking_status?.status === 'DELIVERED' ? 'bold' : 'normal'}">Entregado</span>
+                </div>
+            </div>
+
+            <!-- Detalles de los checkpoints -->
+            <div class="tracking-history" style="margin-top: 1.5rem;" *ngIf="trackingData()?.tracking_history?.length > 0">
+                <h4 style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #777; margin-bottom: 0.8rem; font-weight: bold;">Historial de Puntos de Control</h4>
+                
+                <div class="checkpoints-list" style="display: flex; flex-direction: column; gap: 0.8rem; border-left: 2px solid #e0e0e0; padding-left: 1.2rem; margin-left: 0.8rem;">
+                    <div class="checkpoint-item" *ngFor="let cp of trackingData()?.tracking_history" style="position: relative;">
+                        <!-- Marcador circular de la línea de tiempo -->
+                        <div class="timeline-dot" style="position: absolute; left: -24px; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: #4CAF50; border: 2px solid white; box-shadow: 0 0 0 2px #4CAF50;"></div>
+                        
+                        <div class="checkpoint-content" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.8rem; background: #f9f9f9; padding: 0.6rem 1rem; border-radius: 6px; border: 1px solid #eee; flex-wrap: wrap;">
+                            <div style="flex: 1;">
+                                <p style="margin: 0; font-weight: bold; font-size: 0.9rem; color: #111;">{{ cp.status_details }}</p>
+                                <p style="margin: 3px 0 0 0; font-size: 0.8rem; color: #666;" *ngIf="cp.location">
+                                    Ubicación: {{ cp.location?.city }}, {{ cp.location?.state }}, {{ cp.location?.country }}
+                                </p>
+                            </div>
+                            <div style="text-align: right; min-width: 110px; font-size: 0.8rem; color: #888; font-weight: 500;">
+                                {{ cp.status_date | date:'mediumDate' }} • {{ cp.status_date | date:'shortTime' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Productos -->
+        <div class="form-section border-none">
+            <h3 class="section-title">Productos</h3>
+            <div class="products-list">
+                @for (product of selectedOrder()?.products; track product.name) {
+                <div class="product-item">
+                    <div class="product-info">
+                        <span class="product-name">{{ product.name }}</span>
+                        <span class="product-quantity badge">x{{ product.quantity }}</span>
+                    </div>
+                    <span class="product-price">S/ {{ product.price * product.quantity | number:'1.2-2' }}</span>
+                </div>
+                }
+            </div>
+            
+            <div class="order-total-section">
+                <span class="total-label">Total del Pedido:</span>
+                <span class="total-amount">S/ {{ getOrderTotal(selectedOrder()!) | number:'1.2-2' }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div modal-footer style="display: flex; gap: 1rem; width: 100%; justify-content: flex-end; align-items: center;">
+        <button type="button" class="btn btn-secondary" (click)="closeDetailModal()">
+            Cerrar
+        </button>
+
+        @if (selectedOrder()?.shippingLabelUrl) {
+        <a [href]="selectedOrder()?.shippingLabelUrl" target="_blank" class="btn btn-secondary btn-icon" style="color: #2e7d32; border-color: #2e7d32; text-decoration: none; display: inline-flex; align-items: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Etiqueta Shippo
+        </a>
+        }
+
+        @if (canViewReceipt(selectedOrder())) {
+          <button type="button" class="btn btn-receipt" (click)="viewReceipt()" title="Ver boleta de compra"
+                  style="display: inline-flex; align-items: center; gap: 0.5rem; background: #f0f4ff; color: #3b5bdb; border: 1.5px solid #c5d0fa; border-radius: 8px; padding: 0.5rem 1rem; font-weight: 600; cursor: pointer; font-size: 0.85rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+            </svg>
+            Ver Boleta de Compra
+          </button>
+        } @else {
+          <button type="button" class="btn btn-primary btn-icon" (click)="printInvoice(selectedOrder()!)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                  <rect x="6" y="14" width="12" height="8"></rect>
+              </svg>
+              Imprimir Orden de Pedido
+          </button>
+        }
+    </div>
+</app-modal>
+}
+
+<!-- Ripley Purchase Order Sheet for Printing (Hidden on screen, visible only during print) -->
+<div class="ripley-print-sheet" *ngIf="selectedOrder() && printType() === 'invoice'">
+    <div class="print-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #000; padding-bottom: 10px; margin-bottom: 20px;">
+        <img class="ripley-print-logo" src="assets/images/ripley-banner.png" alt="Ripley" style="height: 50px; object-fit: contain;">
+        <div class="sheet-title" style="font-size: 14pt; font-weight: bold; text-align: right; text-transform: uppercase;">ORDEN DE PEDIDO / PACKING LIST</div>
+    </div>
+    
+    <div class="print-info-grid">
+        <div class="print-info-section">
+            <h4>INFORMACIÓN DEL PEDIDO</h4>
+            <p><strong>ID de Pedido:</strong> {{ selectedOrder()?.orderId || ('#' + selectedOrder()?.id) }}</p>
+            <p><strong>Fecha de Compra:</strong> {{ selectedOrder()?.orderDate }}</p>
+            <p><strong>Método de Pago:</strong> {{ selectedOrder()?.paymentMethod }}</p>
+            <p><strong>Courier / Tracking:</strong> {{ selectedOrder()?.trackingNumber || 'Pendiente' }}</p>
+        </div>
+        <div class="print-info-section">
+            <h4>DATOS DE DESPACHO / ENVIAR A</h4>
+            <p><strong>Cliente:</strong> {{ selectedOrder()?.customerName }}</p>
+            <p><strong>Teléfono:</strong> {{ selectedOrder()?.phone }}</p>
+            <p><strong>Email:</strong> {{ selectedOrder()?.email }}</p>
+            <p class="print-address"><strong>Dirección:</strong> {{ selectedOrder()?.shippingAddress }}</p>
+        </div>
+    </div>
+    
+    <div class="print-products-section">
+        <h4>LISTA DE PRODUCTOS (PACKING CHECKLIST)</h4>
+        <table class="print-products-table">
+            <thead>
+                <tr>
+                    <th style="width: 50px; text-align: center;">V°B°</th>
+                    <th>Producto</th>
+                    <th style="width: 80px; text-align: center;">Cantidad</th>
+                    <th style="width: 120px; text-align: right;">Unitario</th>
+                    <th style="width: 120px; text-align: right;">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of selectedOrder()?.products">
+                    <td class="checklist-cell" style="text-align: center; vertical-align: middle; padding: 6px 4px;">
+                        <div class="checkbox-box" style="font-family: monospace; font-size: 10pt; margin-bottom: 2px;">[ &nbsp; ]</div>
+                        <span style="font-size: 8pt; color: #555; display: block; font-family: monospace; font-weight: bold; white-space: nowrap;">{{ generateSKU(product.name, selectedOrder()?.id) }}</span>
+                    </td>
+                    <td>
+                        <span class="print-prod-name">{{ product.name }}</span>
+                    </td>
+                    <td style="text-align: center; font-weight: bold;">x{{ product.quantity }}</td>
+                    <td style="text-align: right;">S/ {{ product.price | number:'1.2-2' }}</td>
+                    <td style="text-align: right; font-weight: bold;">S/ {{ (product.price * product.quantity) | number:'1.2-2' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="print-totals-section">
+        <div class="print-disclaimer">
+            <p><strong>Nota importante para el despachador:</strong> Antes del sellado de la caja, verifique que la talla y el color de los productos coincidan con la orden de pedido. La boleta/factura electrónica correspondiente será emitida y enviada al correo del cliente en la fase de entrega.</p>
+        </div>
+        <table class="print-totals-table">
+            <tr>
+                <td><strong>Total Artículos:</strong></td>
+                <td style="text-align: right;">{{ selectedOrder()?.products?.length }}</td>
+            </tr>
+            <tr class="grand-total-row">
+                <td><strong>TOTAL A DESPACHAR:</strong></td>
+                <td style="text-align: right;">S/ {{ getOrderTotal(selectedOrder()) | number:'1.2-2' }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="print-signatures">
+        <div class="signature-box">
+            <div class="signature-line"></div>
+            <p>Firma de Responsable de Almacén</p>
+        </div>
+        <div class="signature-box">
+            <div class="signature-line"></div>
+            <p>Firma de Transportista (Recibido)</p>
+        </div>
+    </div>
+</div>
+
+<!-- Receipt / Boleta Sheet for Printing -->
+<div class="boleta-print-sheet" *ngIf="selectedOrder() && printType() === 'receipt'">
+      <!-- Boleta format ticketera -->
+      <div class="boleta-container" style="background: #fff; padding: 20px 15px; color: #000; font-family: 'Courier New', Courier, monospace; width: 320px; max-width: 100%; margin: 0 auto; font-size: 12px; line-height: 1.4;">
+        <div style="text-align: center; margin-bottom: 15px;">
+          <h2 style="margin: 0; font-size: 18px; font-weight: bold; font-family: 'Arial', sans-serif;">RIPLEY S.A.</h2>
+          <p style="margin: 2px 0;">RUC: 20337564373</p>
+          <p style="margin: 2px 0;">Av. Paseo de la República 3118</p>
+          <p style="margin: 2px 0;">San Isidro, Lima - Perú</p>
+          
+          <div style="border-top: 1px dashed #000; border-bottom: 1px dashed #000; margin: 10px 0; padding: 8px 0;">
+            <h3 style="margin: 0; font-size: 14px;">BOLETA DE VENTA ELECTRÓNICA</h3>
+            <p style="margin: 4px 0 0; font-weight: bold; font-size: 15px;">B001-000{{ selectedOrder()?.id }}</p>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
+            <span>FECHA:</span>
+            <span>{{ selectedOrder()?.orderDate | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
+            <span>CLIENTE:</span>
+            <span style="text-align: right; max-width: 65%; word-wrap: break-word;">{{ selectedOrder()?.customerName }}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
+            <span>PAGO:</span>
+            <span>{{ selectedOrder()?.paymentMethod }}</span>
+          </div>
+        </div>
+
+        <div style="border-top: 1px dashed #000; margin-bottom: 8px;"></div>
+        
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
+          <thead>
+            <tr>
+              <th style="text-align: left; padding-bottom: 4px; border-bottom: 1px dashed #000; width: 15%;">CANT</th>
+              <th style="text-align: left; padding-bottom: 4px; border-bottom: 1px dashed #000; width: 55%;">DESCRIPCIÓN</th>
+              <th style="text-align: right; padding-bottom: 4px; border-bottom: 1px dashed #000; width: 30%;">TOTAL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of selectedOrder()?.products">
+              <td style="padding: 6px 0; vertical-align: top;">{{ p.quantity }}</td>
+              <td style="padding: 6px 5px 6px 0; vertical-align: top;">
+                {{ p.name }}<br>
+                <small style="color: #555;">S/ {{ p.price | number:'1.2-2' }} c/u</small>
+              </td>
+              <td style="padding: 6px 0; vertical-align: top; text-align: right;">{{ (p.price * p.quantity) | number:'1.2-2' }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="border-top: 1px dashed #000; padding-top: 8px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
+            <span>OP. GRAVADA:</span>
+            <span>S/ {{ (getReceiptTotal(selectedOrder()) / 1.18) | number:'1.2-2' }}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 3px;">
+            <span>IGV (18%):</span>
+            <span>S/ {{ (getReceiptTotal(selectedOrder()) - (getReceiptTotal(selectedOrder()) / 1.18)) | number:'1.2-2' }}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-top: 6px; font-size: 15px; font-weight: bold;">
+            <span>TOTAL:</span>
+            <span>S/ {{ getReceiptTotal(selectedOrder()) | number:'1.2-2' }}</span>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+          <p style="margin: 0; font-size: 10px;">Representación impresa de la</p>
+          <p style="margin: 0; font-size: 10px;">Boleta de Venta Electrónica</p>
+          <p style="margin: 10px 0 0; font-weight: bold;">¡Gracias por su compra en Ripley!</p>
+          <p style="margin: 15px 0 0; font-size: 10px;">* conserve su boleta *</p>
+        </div>
+      </div>
+</div>

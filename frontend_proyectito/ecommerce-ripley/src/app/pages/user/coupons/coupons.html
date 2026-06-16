@@ -1,0 +1,74 @@
+<div class="dashboard-layout">
+  <app-dashboard-sidebar></app-dashboard-sidebar>
+  
+  <main class="dashboard-content">
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Mis Cupones</h1>
+        <p class="page-subtitle">Tus descuentos exclusivos para compras en la tienda</p>
+      </div>
+    </div>
+
+    <div *ngIf="loading()" class="loading-state">
+      <div class="spinner"></div>
+      <p>Cargando tus cupones...</p>
+    </div>
+
+    <div *ngIf="!loading() && coupons().length === 0" class="empty-state">
+      <div class="empty-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" stroke-width="2"/>
+          <line x1="7" y1="7" x2="7.01" y2="7" stroke-width="2"/>
+        </svg>
+      </div>
+      <h3>Aún no tienes cupones</h3>
+      <p>Realiza compras o espera a promociones especiales para recibir cupones de descuento.</p>
+    </div>
+
+    <div *ngIf="!loading() && coupons().length > 0" class="coupons-grid">
+      <div class="coupon-card" *ngFor="let coupon of coupons()" [ngClass]="{'expired': coupon.status === 'expirado'}">
+        
+        <div class="coupon-header">
+          <div class="discount-badge">
+            {{ getDiscountDisplay(coupon) }} DCTO
+          </div>
+          <span class="status-badge" [ngClass]="coupon.status">
+            {{ coupon.status | titlecase }}
+          </span>
+        </div>
+
+        <div class="coupon-body">
+          <h3 class="coupon-name">{{ coupon.name || 'Cupón de Descuento' }}</h3>
+          
+          <div class="coupon-code-container">
+            <span class="coupon-code">{{ coupon.code }}</span>
+            <button class="btn-copy" (click)="copyCode(coupon.code)" title="Copiar código" *ngIf="coupon.status === 'activo'">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke-width="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke-width="2"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="coupon-details">
+            <div class="detail-item" *ngIf="coupon.minPurchase > 0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                <path d="M12 16v-4 M12 8h.01" stroke-width="2"/>
+              </svg>
+              <span>Compra mínima: S/ {{ coupon.minPurchase }}</span>
+            </div>
+            
+            <div class="detail-item expiry" [ngClass]="{'warning': isExpiringSoon(coupon.endDate) && coupon.status === 'activo'}">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                <polyline points="12 6 12 12 16 14" stroke-width="2"/>
+              </svg>
+              <span>Vence el {{ coupon.endDate | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

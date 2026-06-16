@@ -1,0 +1,167 @@
+<nav class="navbar" [class.scrolled]="isScrolled">
+  <div class="navbar-container">
+
+    <!-- ── Logo ──────────────────────────────────────────────────────── -->
+    <div class="navbar-logo">
+      <a routerLink="/">
+        <img src="assets/images/ripley-logo.png" alt="Ripley" class="logo-img" />
+      </a>
+    </div>
+
+    <!-- ── Menu Items ────────────────────────────────────────────────── -->
+    <div class="navbar-menu">
+      @for (item of menuItems; track item.label) {
+        <div class="menu-item"
+             (mouseenter)="showMenu(item.label)"
+             (mouseleave)="hideMenu()">
+
+          <a class="menu-link" [class.active]="isMenuActive(item.label)">
+            {{ item.label }}
+            <svg class="menu-arrow" width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+
+          <!-- Mega Menu Dropdown — Full Width -->
+          <div class="mega-menu" [class.show]="isMenuActive(item.label)">
+            <div class="mega-menu-inner">
+
+              <!-- Grid de columnas — auto-fill se adapta a N categorías -->
+              <div class="mega-menu-container">
+                @for (category of item.categories; track category.header) {
+                  <div class="mega-menu-column">
+                    <h3 class="category-header">{{ category.header }}</h3>
+                    <ul class="category-list">
+                      @for (subItem of category.items; track subItem.label) {
+                        <li>
+                          <a [routerLink]="subItem.route"
+                             [queryParams]="subItem.queryParams"
+                             class="category-link"
+                             (click)="hideMenu()">
+                            {{ subItem.label }}
+                          </a>
+                        </li>
+                      }
+                    </ul>
+                  </div>
+                }
+              </div>
+
+              <!-- Footer del mega-menu -->
+              <div class="mega-menu-footer">
+                <a routerLink="/productos" class="view-all-mega" (click)="hideMenu()">
+                  Ver todo en {{ item.label }}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- ── Iconos ─────────────────────────────────────────────────────── -->
+    <div class="navbar-icons">
+
+      <!-- Buscar -->
+      <button class="icon-button search-btn" aria-label="Buscar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="11" cy="11" r="8" stroke-width="2"/>
+          <path d="M21 21L16.65 16.65" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <!-- Cuenta -->
+      @if (isAuthenticated()) {
+        <div class="user-menu-container">
+          <button class="icon-button account-btn user-logged"
+                  (click)="toggleUserMenu()"
+                  aria-label="Mi cuenta">
+            <div class="user-avatar">{{ userInitials() }}</div>
+            <span class="user-name">{{ currentUser()?.firstName }}</span>
+          </button>
+
+          @if (showUserMenu) {
+            <div class="user-dropdown">
+              <div class="user-dropdown-header">
+                <div class="user-avatar-large">{{ userInitials() }}</div>
+                <div class="user-info">
+                  <p class="user-fullname">{{ currentUser()?.firstName }} {{ currentUser()?.lastName }}</p>
+                  <p class="user-email">{{ currentUser()?.email }}</p>
+                </div>
+              </div>
+              <div class="user-dropdown-divider"></div>
+              <ul class="user-dropdown-menu">
+                <li>
+                  <a routerLink="/cuenta/perfil" (click)="closeUserMenu()">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M20 21V19C20 17.9 19.6 16.9 18.8 16.2C18.1 15.4 17.1 15 16 15H8C6.9 15 5.9 15.4 5.2 16.2C4.4 16.9 4 17.9 4 19V21" stroke-width="2"/>
+                      <circle cx="12" cy="7" r="4" stroke-width="2"/>
+                    </svg>
+                    Mi Perfil
+                  </a>
+                </li>
+                <li>
+                  <a routerLink="/cuenta/pedidos" (click)="closeUserMenu()">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M16 4H18C19.1 4 20 4.9 20 6V20C20 21.1 19.1 22 18 22H6C4.9 22 4 21.1 4 20V6C4 4.9 4.9 4 6 4H8" stroke-width="2"/>
+                      <rect x="8" y="2" width="8" height="4" rx="1" stroke-width="2"/>
+                    </svg>
+                    Mis Pedidos
+                  </a>
+                </li>
+                <li>
+                  <a routerLink="/cuenta/favoritos" (click)="closeUserMenu()">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M20.84 4.61C19.82 3.59 18.46 3 17 3C15.54 3 14.18 3.59 13.16 4.61L12 5.77L10.84 4.61C8.76 2.53 5.38 2.53 3.3 4.61C1.22 6.69 1.22 10.07 3.3 12.15L12 20.85L20.7 12.15C22.78 10.07 22.78 6.69 20.84 4.61Z" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Favoritos
+                  </a>
+                </li>
+              </ul>
+              <div class="user-dropdown-divider"></div>
+              <button class="logout-btn" (click)="logout()">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path d="M9 21H5C4.5 21 4 20.8 3.6 20.4C3.2 20 3 19.5 3 19V5C3 4.5 3.2 4 3.6 3.6C4 3.2 4.5 3 5 3H9" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M16 17L21 12L16 7" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M21 12H9" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Cerrar Sesión
+              </button>
+            </div>
+          }
+        </div>
+      } @else {
+        <button class="icon-button account-btn" (click)="openAuthModal()" aria-label="Iniciar sesión">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M20 21V19C20 17.9 19.6 16.9 18.8 16.2C18.1 15.4 17.1 15 16 15H8C6.9 15 5.9 15.4 5.2 16.2C4.4 16.9 4 17.9 4 19V21" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="12" cy="7" r="4" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      }
+
+      <!-- Carrito -->
+      <button class="icon-button cart-btn" aria-label="Carrito de compras" routerLink="/carrito">
+        <div class="cart-wrapper">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M6 2L3 6V20C3 20.5 3.2 21 3.6 21.4C4 21.8 4.5 22 5 22H19C19.5 22 20 21.8 20.4 21.4C20.8 21 21 20.5 21 20V6L18 2H6Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3 6H21" stroke-width="2" stroke-linecap="round"/>
+            <path d="M16 10C16 11.1 15.6 12.1 14.8 12.8C14.1 13.6 13.1 14 12 14C10.9 14 9.9 13.6 9.2 12.8C8.4 12.1 8 11.1 8 10" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span class="cart-count" [class.has-items]="cartItemCount() > 0">
+            {{ cartItemCount() }}
+          </span>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Overlay para cerrar el mega menu -->
+  <div class="mega-menu-overlay"
+       [class.show]="activeMenu !== null"
+       (mouseenter)="hideMenu()">
+  </div>
+</nav>

@@ -1,0 +1,293 @@
+<div class="dashboard-layout">
+  <app-dashboard-sidebar></app-dashboard-sidebar>
+  <main class="dashboard-content">
+    <div class="categories-container">
+  <!-- Header -->
+  <header class="page-header">
+    <div class="header-text">
+      <h1 class="page-title">Gestión de Categorías</h1>
+      <p class="page-subtitle">Organiza y administra la estructura comercial de la tienda en 3 niveles jerárquicos.</p>
+    </div>
+    <button class="btn btn-primary" (click)="openAddModal()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+      Nueva Categoría Principal
+    </button>
+  </header>
+
+  <!-- Notification Alerts -->
+  <div class="alert alert-danger" *ngIf="errorMessage()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+    <span>{{ errorMessage() }}</span>
+  </div>
+
+  <div class="alert alert-success" *ngIf="successMessage()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+    </svg>
+    <span>{{ successMessage() }}</span>
+  </div>
+
+  <!-- Main Split Layout -->
+  <div class="split-layout">
+    
+    <!-- Left Panel: Interactive Tree View -->
+    <div class="tree-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">Jerarquía Comercial</h2>
+        <div class="tree-actions">
+          <button class="btn-text" (click)="expandAll()" [disabled]="loading()">Expandir todo</button>
+          <span class="action-divider">|</span>
+          <button class="btn-text" (click)="collapseAll()" [disabled]="loading()">Colapsar todo</button>
+        </div>
+      </div>
+
+      <div class="loading-overlay" *ngIf="loading()">
+        <div class="spinner"></div>
+        <p>Cargando categorías...</p>
+      </div>
+
+      <div class="tree-root" *ngIf="!loading()">
+        <div class="empty-state" *ngIf="categoriesSignal().length === 0">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <p>No se encontraron categorías en la base de datos.</p>
+          <button class="btn btn-secondary" (click)="loadCategories()">Reintentar Carga</button>
+        </div>
+
+        <!-- RECURSIVE TREE VIEW USING NG-TEMPLATE -->
+        <div class="tree-list" *ngIf="categoriesSignal().length > 0">
+          <ng-container *ngTemplateOutlet="nodeTemplate; context: { $implicit: categoriesSignal() }"></ng-container>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel: Info & Best Practices Card -->
+    <div class="info-panel">
+      <div class="info-card">
+        <h3 class="info-title">Estructura Ripley Premium</h3>
+        <p class="info-desc">La barra de navegación (Mega-Menú) y los filtros se estructuran estrictamente en un árbol de 3 niveles para maximizar la experiencia estética:</p>
+        
+        <div class="hierarchy-demo">
+          <div class="demo-step level-1-badge">
+            <span class="step-num">1</span>
+            <div>
+              <span class="step-title">Principal (Nivel 1)</span>
+              <p class="step-desc">Departamentos raíz (Mujer, Hombre, Calzado). Aparecen en los botones directos del Navbar.</p>
+            </div>
+          </div>
+          <div class="demo-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="demo-step level-2-badge">
+            <span class="step-num">2</span>
+            <div>
+              <span class="step-title">Sección (Nivel 2)</span>
+              <p class="step-desc">Subgrupos agrupadores (Ropa Mujer, Calzado Zapatos). Encabezan las columnas del Mega-Menú.</p>
+            </div>
+          </div>
+          <div class="demo-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="demo-step level-3-badge">
+            <span class="step-num">3</span>
+            <div>
+              <span class="step-title">Categoría Final (Nivel 3)</span>
+              <p class="step-desc">Subcategorías de producto final (Polos, Vestidos, Zapatillas). Contienen los productos reales.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-footer">
+          <strong>💡 Regla de Negocio:</strong> Las categorías de Nivel 3 son la hoja final y no pueden contener más subcategorías. Todos los productos comerciales deben asignarse exactamente a una categoría de Nivel 3.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NODE TEMPLATE (RECURSIVE TREE DESIGN) -->
+  <ng-template #nodeTemplate let-nodes>
+    <ul class="tree-nodes">
+      <li *ngFor="let node of nodes" class="tree-node-item" [class.inactive]="!node.activo">
+        
+        <div class="tree-node-row" [style.padding-left.px]="(node.level - 1) * 20">
+          
+          <!-- Expand/Collapse Chevron -->
+          <button class="node-toggle" 
+                  *ngIf="node.subcategories && node.subcategories.length > 0" 
+                  (click)="toggleNode(node.id, $event)">
+            <svg class="chevron" [class.rotated]="isExpanded(node.id)" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <span class="node-toggle-placeholder" *ngIf="!node.subcategories || node.subcategories.length === 0"></span>
+
+          <!-- Icon reflecting Level -->
+          <span class="node-icon">
+            <!-- Folder for levels 1 & 2 -->
+            <svg *ngIf="node.level < 3" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <!-- Tag/Bullet for Level 3 -->
+            <svg *ngIf="node.level === 3" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+              <line x1="7" y1="7" x2="7.01" y2="7"></line>
+            </svg>
+          </span>
+
+          <!-- Name -->
+          <div class="node-info">
+            <span class="node-name">{{ node.name }}</span>
+            <span class="badge-level" [class]="'level-' + node.level">N{{ node.level }}</span>
+            <span class="badge-status" *ngIf="!node.activo">Desactivado (Soft-Delete)</span>
+          </div>
+
+          <!-- Quick Actions on Row hover -->
+          <div class="node-actions">
+            <!-- Add child (only allowed if parent level is less than 3) -->
+            <button class="action-btn" 
+                    *ngIf="node.level < 3" 
+                    (click)="openAddModal(node)" 
+                    title="Añadir subcategoría"
+                    [disabled]="!node.activo">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </button>
+
+            <!-- Edit -->
+            <button class="action-btn" (click)="openEditModal(node)" title="Editar categoría">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4z"></path>
+              </svg>
+            </button>
+
+            <!-- Soft delete / Toggle active state -->
+            <button class="action-btn status-toggle" 
+                    (click)="toggleStatus(node, $event)" 
+                    [class.inactive]="!node.activo"
+                    [title]="node.activo ? 'Desactivar (Soft-Delete)' : 'Reactivar'">
+              <!-- Eye open (active) / Eye closed (inactive) -->
+              <svg *ngIf="node.activo" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              <svg *ngIf="!node.activo" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                <line x1="1" y1="1" x2="23" y2="23"></line>
+              </svg>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Render children recursively if expanded -->
+        <div class="node-children-wrapper" *ngIf="node.subcategories && node.subcategories.length > 0 && isExpanded(node.id)">
+          <ng-container *ngTemplateOutlet="nodeTemplate; context: { $implicit: node.subcategories }"></ng-container>
+        </div>
+
+      </li>
+    </ul>
+  </ng-template>
+
+  <!-- ADD / EDIT MODAL DIALOG -->
+  <div class="modal-backdrop" *ngIf="showAddEditModal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">{{ isEditMode ? 'Editar Categoría' : 'Nueva Categoría' }}</h3>
+        <button class="close-btn" (click)="closeModal()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <form (ngSubmit)="submitForm()" #categoryForm="ngForm">
+        <div class="modal-body">
+          
+          <!-- Name Input -->
+          <div class="form-group">
+            <label for="catName">Nombre de la Categoría</label>
+            <input type="text" 
+                   id="catName" 
+                   name="catName" 
+                   class="form-control" 
+                   placeholder="Ej. Vestidos, Zapatillas, Polos" 
+                   [(ngModel)]="formName" 
+                   required
+                   #nameInput="ngModel">
+            <span class="form-error" *ngIf="nameInput.invalid && nameInput.touched">El nombre es requerido.</span>
+          </div>
+
+          <!-- Parent Selection Dropdown -->
+          <div class="form-group">
+            <label for="catParent">Categoría Padre</label>
+            <select id="catParent" 
+                    name="catParent" 
+                    class="form-control select-control" 
+                    [(ngModel)]="formPadreId" 
+                    (change)="onParentChange()">
+              <option [ngValue]="null">Ninguna (Categoría Principal - Nivel 1)</option>
+              <option *ngFor="let parent of availableParents" [ngValue]="parent.id">
+                {{ parent.name }} (Nivel {{ parent.level }})
+              </option>
+            </select>
+            <p class="form-help">Selecciona un elemento de Nivel 1 o Nivel 2. Las hojas finales (Nivel 3) no pueden tener categorías hijas.</p>
+          </div>
+
+          <!-- Auto Level Badge and Info -->
+          <div class="form-group row-inline">
+            <label>Nivel de Jerarquía Asignado</label>
+            <div class="level-indicator">
+              <span class="badge-level" [class]="'level-' + formLevel">Nivel {{ formLevel }}</span>
+              <span class="level-desc-text">
+                {{ formLevel === 1 ? 'Aparecerá en el Navbar como departamento' : 
+                   formLevel === 2 ? 'Será una columna agrupadora del menú' : 
+                   'Será una categoría final donde colgar prendas y productos' }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Active Status Switch -->
+          <div class="form-group form-switch-group">
+            <label for="catStatus">Estado Activo</label>
+            <div class="switch-wrapper">
+              <span class="switch-status-label">{{ formActivo ? 'Habilitado (Público)' : 'Deshabilitado (Soft-Delete)' }}</span>
+              <label class="switch">
+                <input type="checkbox" id="catStatus" name="catStatus" [(ngModel)]="formActivo">
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <p class="form-help">Si se desactiva, se ocultará inmediatamente de la navegación principal pero mantendrá los registros en la base de datos.</p>
+          </div>
+
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="categoryForm.invalid || loading()">
+            {{ loading() ? 'Guardando...' : 'Guardar Categoría' }}
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+  </main>
+</div>

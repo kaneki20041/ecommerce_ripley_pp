@@ -1,0 +1,204 @@
+<div class="analytics-layout">
+    <app-dashboard-sidebar></app-dashboard-sidebar>
+
+    <main class="analytics-main">
+
+        <!-- ── Header ────────────────────────────────────────────────────── -->
+        <header class="analytics-header">
+            <div class="header-left">
+                <div class="header-badge employee-badge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    Panel Operacional
+                </div>
+                <h1 class="page-title">Mi Dashboard</h1>
+                <p class="page-subtitle">Métricas operacionales del período</p>
+            </div>
+            <div class="header-right">
+                <select class="period-select" [(ngModel)]="selectedPeriod" (change)="onPeriodChange()">
+                    <option *ngFor="let p of periods" [value]="p.value">{{ p.label }}</option>
+                </select>
+                <button class="refresh-btn" (click)="loadData()" [disabled]="loading()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        [class.spinning]="loading()">
+                        <polyline points="23 4 23 10 17 10" />
+                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+                    </svg>
+                    Actualizar
+                </button>
+            </div>
+        </header>
+
+        <!-- ── Loading ───────────────────────────────────────────────────── -->
+        <div class="loading-overlay" *ngIf="loading()">
+            <div class="loading-spinner"></div>
+            <p>Cargando métricas...</p>
+        </div>
+
+        <ng-container *ngIf="!loading() && data">
+
+            <!-- ── KPI Cards ──────────────────────────────────────────────── -->
+            <div class="kpi-grid">
+                <!-- Pedidos pendientes -->
+                <div class="kpi-card kpi-pending">
+                    <div class="kpi-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                    </div>
+                    <div class="kpi-body">
+                        <span class="kpi-label">Pendientes de Acción</span>
+                        <span class="kpi-value">{{ data.pendingOrders }}</span>
+                        <span class="kpi-hint urgent" *ngIf="data.pendingOrders > 10">⚠ Alta carga</span>
+                        <span class="kpi-hint ok" *ngIf="data.pendingOrders <= 10">✓ Carga normal</span>
+                    </div>
+                </div>
+
+                <!-- Procesados -->
+                <div class="kpi-card kpi-processed">
+                    <div class="kpi-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                    </div>
+                    <div class="kpi-body">
+                        <span class="kpi-label">Completados en Período</span>
+                        <span class="kpi-value">{{ data.processedToday }}</span>
+                        <span class="kpi-hint">de {{ data.totalOrdersInPeriod }} totales</span>
+                    </div>
+                </div>
+
+                <!-- Tasa procesamiento -->
+                <div class="kpi-card kpi-rate">
+                    <div class="kpi-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="12" y1="20" x2="12" y2="10" />
+                            <line x1="18" y1="20" x2="18" y2="4" />
+                            <line x1="6" y1="20" x2="6" y2="16" />
+                        </svg>
+                    </div>
+                    <div class="kpi-body">
+                        <span class="kpi-label">Tasa de Procesamiento</span>
+                        <span class="kpi-value">{{ data.processingRate.toFixed(1) }}%</span>
+                        <div class="mini-bar">
+                            <div class="mini-bar-fill" [style.width.%]="data.processingRate"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stock bajo -->
+                <div class="kpi-card kpi-stock">
+                    <div class="kpi-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                            <line x1="12" y1="9" x2="12" y2="13" />
+                            <line x1="12" y1="17" x2="12.01" y2="17" />
+                        </svg>
+                    </div>
+                    <div class="kpi-body">
+                        <span class="kpi-label">Alertas de Stock</span>
+                        <span class="kpi-value" [class.alert-value]="data.lowStockAlerts > 0">
+                            {{ data.lowStockAlerts }}
+                        </span>
+                        <a routerLink="/employee/inventario" class="kpi-link">Ver inventario →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Gráficas ───────────────────────────────────────────────── -->
+            <div class="charts-grid">
+                <div class="chart-card chart-wide">
+                    <div class="chart-header">
+                        <h3>Pedidos por Día</h3>
+                        <span class="chart-subtitle">Pendientes vs Completados</span>
+                    </div>
+                    <div class="chart-body">
+                        <canvas #ordersChart></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>Distribución por Estado</h3>
+                        <span class="chart-subtitle">{{ selectedPeriod === '7d' ? 'Últimos 7 días' : selectedPeriod === '30d' ? 'Últimos 30 días' : 'Últimos 90 días' }}</span>
+                    </div>
+                    <div class="chart-body chart-donut-body">
+                        <canvas #statusChart></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Fila inferior ──────────────────────────────────────────── -->
+            <div class="bottom-grid">
+
+                <!-- Pendientes para atender -->
+                <div class="bottom-card">
+                    <div class="card-title-row">
+                        <h3 class="card-title">Pedidos Pendientes</h3>
+                        <a routerLink="/employee/pedidos" class="view-all-link">Ver todos →</a>
+                    </div>
+                    <div class="orders-table-wrapper">
+                        <table class="orders-table" *ngIf="data.pendingOrdersList.length">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Cliente</th>
+                                    <th>Total</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let order of data.pendingOrdersList">
+                                    <td class="order-id">{{ order.orderId }}</td>
+                                    <td class="order-customer">{{ order.customer }}</td>
+                                    <td class="order-total">{{ formatCurrency(order.total) }}</td>
+                                    <td>
+                                        <span class="status-badge" [ngClass]="getStatusClass(order.status)">
+                                            {{ order.status }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="empty-state-small" *ngIf="!data.pendingOrdersList.length">
+                            ✓ No hay pedidos pendientes
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stock bajo -->
+                <div class="bottom-card">
+                    <div class="card-title-row">
+                        <h3 class="card-title">Productos Stock Bajo</h3>
+                        <a routerLink="/employee/inventario" class="view-all-link">Ver inventario →</a>
+                    </div>
+                    <div class="stock-list" *ngIf="data.lowStockProducts.length">
+                        <div class="stock-item-row" *ngFor="let p of data.lowStockProducts"
+                            [class.critical]="p.stock === 0"
+                            [class.warning]="p.stock > 0 && p.stock <= 2">
+                            <div class="stock-item-info">
+                                <span class="stock-item-name">{{ p.name }}</span>
+                                <span class="stock-item-cat">{{ p.category }}</span>
+                            </div>
+                            <span class="stock-pill" [class]="getStockClass(p.stock)">
+                                {{ p.stock === 0 ? 'Sin stock' : p.stock + ' uds.' }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="empty-state-small" *ngIf="!data.lowStockProducts.length">
+                        ✓ Stock en niveles normales
+                    </div>
+                </div>
+            </div>
+
+        </ng-container>
+
+    </main>
+</div>

@@ -1,0 +1,130 @@
+<div class="success-layout-container">
+    <!-- Celebratory Confetti background -->
+    <div class="confetti-container">
+        <div class="confetti-piece" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]"></div>
+    </div>
+
+    <!-- Main Success Card -->
+    <div class="success-card" *ngIf="!loading(); else loadingState">
+        <!-- Success Check Icon -->
+        <div class="success-icon-wrapper">
+            <svg class="success-svg" viewBox="0 0 76 76" fill="none">
+                <circle cx="38" cy="38" r="36" fill="#6e2585" fill-opacity="0.08" stroke="#6e2585" stroke-width="4"/>
+                <path d="M24 38L33 47L52 28" stroke="#6e2585" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" class="check-path"/>
+            </svg>
+        </div>
+
+        <h1 class="success-title">¡Compra Exitosa!</h1>
+        <p class="success-subtitle">Hemos recibido tu pedido de forma segura. Tu pago ha sido simulado y procesado correctamente.</p>
+
+        <!-- Recibo de Factura Premium -->
+        <div class="invoice-details-box">
+            <div class="invoice-header">
+                <h3>Recibo de Compra</h3>
+                <span class="invoice-brand">Ripley</span>
+            </div>
+            
+            <div class="invoice-grid">
+                <div class="invoice-col">
+                    <span class="label">Nro. Pedido:</span>
+                    <span class="value highlighted">#{{ orderId() }}</span>
+                </div>
+                <div class="invoice-col">
+                    <span class="label">Transacción Mercado Pago:</span>
+                    <span class="value font-mono">{{ mpTransactionId() }}</span>
+                </div>
+                <div class="invoice-col">
+                    <span class="label">Fecha de Compra:</span>
+                    <span class="value">{{ getFormattedDate() }}</span>
+                </div>
+                <div class="invoice-col" *ngIf="orderData()?.shippingAddress">
+                    <span class="label">Estado del Pago:</span>
+                    <span class="value payment-status-badge">Aprobado</span>
+                </div>
+            </div>
+
+            <!-- Datos de Entrega -->
+            <div class="delivery-info-section" *ngIf="orderData()?.shippingAddress">
+                <h4>Dirección de Despacho</h4>
+                <p class="delivery-address">{{ orderData()?.shippingAddress?.streetAddress }}</p>
+                <p class="delivery-region">
+                    {{ orderData()?.shippingAddress?.city }}, {{ orderData()?.shippingAddress?.state }}
+                </p>
+                <p class="delivery-contact">
+                    <strong>Recibe:</strong> {{ orderData()?.shippingAddress?.firstName }} {{ orderData()?.shippingAddress?.lastName }} | <strong>Celular:</strong> {{ orderData()?.shippingAddress?.celular }}
+                </p>
+            </div>
+
+            <!-- Productos Adquiridos (Detalle Transparente) -->
+            <div class="purchased-items-section" *ngIf="orderData()?.orderItems && orderData()!.orderItems.length > 0">
+                <h4>Productos Adquiridos</h4>
+                <div class="purchased-items-list">
+                    <div class="purchased-item-row" *ngFor="let item of orderData()?.orderItems">
+                        <div class="item-pic-info">
+                            <img [src]="getItemImage(item)" class="purchased-item-img" onerror="this.src='https://simple.ripley.com.pe/static/img/ripley-logo.svg'">
+                            <div class="item-meta-desc">
+                                <span class="item-name">{{ item.product?.nombre || item.product?.title || 'Producto' }}</span>
+                                <span class="item-details-label" *ngIf="item.size">Talla: {{ item.size }}</span>
+                            </div>
+                        </div>
+                        <div class="item-price-quantity">
+                            <span class="item-quantity-val">x{{ item.quantity }}</span>
+                            <span class="item-price-val">
+                                <span class="unit-price-label" *ngIf="item.quantity > 1" style="font-size: 0.85rem; color: #666; font-weight: normal; margin-right: 8px;">
+                                    S/ {{ getItemUnitPrice(item) | number:'1.2-2' }} c/u
+                                </span>
+                                <strong>S/ {{ (item.discountedPrice || item.price || 0) | number:'1.2-2' }}</strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="calc-divider"></div>
+
+            <!-- Desglose Financiero -->
+            <div class="invoice-totals">
+                <div class="totals-row">
+                    <span>Monto de la Orden:</span>
+                    <span class="totals-val">S/ {{ (orderData()?.totalPrice || 0) | number:'1.2-2' }}</span>
+                </div>
+                <div class="totals-row discount" *ngIf="orderData()?.totalDiscountedPrice && (orderData()!.totalPrice - orderData()!.totalDiscountedPrice) > 0">
+                    <span>Descuentos Aplicados:</span>
+                    <span class="totals-val">- S/ {{ (orderData()!.totalPrice - orderData()!.totalDiscountedPrice) | number:'1.2-2' }}</span>
+                </div>
+                <div class="totals-row total">
+                    <span>Total Cobrado:</span>
+                    <span class="grand-total-val">S/ {{ (orderData()?.totalDiscountedPrice || orderData()?.totalPrice || 0) | number:'1.2-2' }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="action-buttons-group">
+            <a routerLink="/cuenta/pedidos" class="action-btn secondary-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <line x1="3" y1="6" x2="21" y2="6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 10a4 4 0 0 1-8 0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                VER MIS PEDIDOS
+            </a>
+            <a routerLink="/productos" class="action-btn primary-btn">
+                SEGUIR COMPRANDO
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <line x1="5" y1="12" x2="19" y2="12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <polyline points="12 5 19 12 12 19" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <!-- Cargando Detalles de Pedido -->
+    <ng-template #loadingState>
+        <div class="success-card loading-card">
+            <div class="loader-spinner"></div>
+            <h3>Recuperando información del pedido...</h3>
+            <p>Por favor, espera un momento mientras sincronizamos tu estado con nuestro almacén central.</p>
+        </div>
+    </ng-template>
+</div>

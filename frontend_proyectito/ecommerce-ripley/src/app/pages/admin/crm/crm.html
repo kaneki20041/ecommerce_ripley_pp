@@ -1,0 +1,51 @@
+<div class="dashboard-layout">
+  <app-dashboard-sidebar></app-dashboard-sidebar>
+  
+  <main class="dashboard-content">
+    <div class="page-wrapper">
+      <div class="header-section">
+        <h1 class="page-title">Comunicaciones CRM</h1>
+        <p class="page-subtitle">Configura los envíos automáticos para usuarios en riesgo de abandono (Churn).</p>
+      </div>
+
+      <div class="config-card">
+        <div class="card-header">
+          <div class="header-content">
+            <i class="fas fa-envelope-open-text icon-title"></i>
+            <h2>Notificaciones de Reactivación</h2>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" [(ngModel)]="config.active" name="active">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        
+        <div class="card-body" [class.disabled-state]="!config.active">
+          <div class="form-group">
+            <label>
+              <i class="fas fa-calendar-alt"></i> Días de Inactividad
+            </label>
+            <input type="number" [(ngModel)]="config.daysWithoutPurchase" name="daysWithoutPurchase" min="1" max="365">
+            <small class="help-text">Días sin comprar para enviar alerta de reactivación.</small>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <i class="fas fa-percent"></i> Porcentaje de Descuento
+            </label>
+            <input type="number" [(ngModel)]="config.discountPercentage" name="discountPercentage" min="0" max="100">
+            <small class="help-text">Descuento del cupón autogenerado enviado en el correo (0 para no dar descuento).</small>
+          </div>
+
+          <button class="btn-save" (click)="saveConfig()">
+            <i class="fas fa-save"></i> Guardar Cambios
+          </button>
+          
+          <button class="btn-test" style="margin-left: 10px; background-color: #ff9800; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;" (click)="testCrm()">
+            <i class="fas fa-paper-plane"></i> Probar Envío (Ejecutar Ahora)
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
