@@ -1,0 +1,5 @@
+﻿target/
+.mvn/
+.git/
+.gitignore
+Dockerfile
