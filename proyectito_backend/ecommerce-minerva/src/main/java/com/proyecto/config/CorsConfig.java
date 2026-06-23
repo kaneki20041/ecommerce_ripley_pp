@@ -26,7 +26,7 @@ public class CorsConfig {
         // Lista de dominios que pueden hacer peticiones a tu API
         // En desarrollo: http://localhost:4200
         // En producción: https://tu-dominio.com
-        configuration.setAllowedOrigins(Arrays.asList(allowedOrigins));
+        configuration.setAllowedOriginPatterns(Arrays.asList(allowedOrigins));
 
         // ============================================
         // MÉTODOS HTTP PERMITIDOS
