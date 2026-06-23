@@ -34,7 +34,7 @@ export class CrmComponent implements OnInit {
   }
 
   loadConfig() {
-    this.http.get<any>('http://localhost:8080/api/admin/crm/config', { headers: this.getHeaders() })
+    this.http.get<any>('https://ecommerce-ripley-pp-1.onrender.com/api/admin/crm/config', { headers: this.getHeaders() })
       .subscribe({
         next: (data) => {
           this.config = data;
@@ -44,7 +44,7 @@ export class CrmComponent implements OnInit {
   }
 
   saveConfig() {
-    this.http.post<any>('http://localhost:8080/api/admin/crm/config', this.config, { headers: this.getHeaders() })
+    this.http.post<any>('https://ecommerce-ripley-pp-1.onrender.com/api/admin/crm/config', this.config, { headers: this.getHeaders() })
       .subscribe({
         next: (data) => {
           this.toastService.success('CRM', 'Configuración guardada exitosamente.');
@@ -59,7 +59,7 @@ export class CrmComponent implements OnInit {
 
   testCrm() {
     if(confirm('Esto forzará la ejecución del programador diario de envíos (CRM). ¿Deseas continuar?')) {
-      this.http.post('http://localhost:8080/api/admin/crm/test-trigger', {}, { headers: this.getHeaders(), responseType: 'text' })
+      this.http.post('https://ecommerce-ripley-pp-1.onrender.com/api/admin/crm/test-trigger', {}, { headers: this.getHeaders(), responseType: 'text' })
         .subscribe({
           next: (res) => this.toastService.success('CRM', res),
           error: (err) => this.toastService.error('Error', 'Error al ejecutar la prueba CRM')

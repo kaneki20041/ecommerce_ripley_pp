@@ -19,7 +19,7 @@ export interface ApiResponse<T> {
   providedIn: 'root'
 })
 export class ReportService {
-  private apiUrl = 'http://localhost:8080/api/admin/reports';
+  private apiUrl = 'https://ecommerce-ripley-pp-1.onrender.com/api/admin/reports';
 
   constructor(private http: HttpClient) {}
 
